@@ -1,24 +1,32 @@
-# README
+# イメージ・ザ・パズルアプリ
+​
+## サイト概要
+気に入った絵や写真等の画像を共有し、またその画像を使い簡単なパズルをプレイできるサイト。
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### サイトテーマ
+画像のパズル化を通して絵や写真等の画像をより深く鑑賞する。また様々な絵や写真に触れる機会を増やす。
 
-Things you may want to cover:
+### テーマを選んだ理由
+私自身画像投稿サイトを良く利用しますが、作者の意図やポイントを発見せずにいることがあります。
+パズルで部分化することで、全体像では注目していなかった細かい点にも気づけるようになり、画像がより印象深くなることを目的としています。
+また、パズルをプレイすることが目的の方も、様々な絵や写真に触れる良い機会になります。
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+### ターゲットユーザ
+- 多種多様な画像でパズルを楽しみたい方。
+- 画像を他の人と共有したい、および画像を鑑賞したい方。
+​
+### 主な利用シーン
+普段の息抜きとして絵や写真等の画像の鑑賞をしたい方、パズルを楽しみたい方などにご利用いただけます。
+​
+## 設計書
+現在準備中
+​
+## 開発環境
+- OS：Linux(CentOS)
+- 言語：HTML,CSS,JavaScript,Ruby,SQL
+- フレームワーク：Ruby on Rails
+- JSライブラリ：jQuery
+- IDE：Cloud9
+​
+## 使用素材
+現在準備中
