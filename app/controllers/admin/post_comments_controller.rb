@@ -7,4 +7,7 @@ class Admin::PostCommentsController < ApplicationController
 
   def edit
   end
+
+  def update
+  end
 end
