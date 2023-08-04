@@ -1,0 +1,19 @@
+<% if model.errors.any? %>
+<div>
+
+<h3><%= model.errors.count %>
+  <% if model.errors.count >= 2 %>
+  errors
+  <% else %>
+  error
+  <% end %>
+  prohibited this obj from being saved:
+</h3>
+<ul>
+  <% model.errors.full_messages.each do |message| %>
+  <li><%= message %></li>
+  <% end %>
+</ul>
+
+</div>
+<% end %>
