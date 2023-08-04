@@ -1,0 +1,39 @@
+@use '~bootstrap/scss/bootstrap';
+
+.padding-y {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.padding-sm-y {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.padding-x {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.margin-x {
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+
+.margin-y {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+// フォームレイアウト用
+.label-width {
+  width: 250px;
+}
+
+.field-width {
+  width: 200px;
+}
+
+.fit-content {
+  width: fit-content;
+}
