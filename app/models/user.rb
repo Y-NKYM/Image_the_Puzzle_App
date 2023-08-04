@@ -4,7 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  validates :name, presence: true
+  validates :name, presence: true #, uniqueness: true
+  # validates :name, default: "よろしくお願いします"
 
   GUEST_USER_EMAIL = "guest@example.com"
 

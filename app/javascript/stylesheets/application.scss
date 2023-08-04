@@ -5,11 +5,6 @@
   padding-bottom: 2rem;
 }
 
-.padding-sm-y {
-  padding-top: 5px;
-  padding-bottom: 5px;
-}
-
 .padding-x {
   padding-left: 2rem;
   padding-right: 2rem;
@@ -23,6 +18,16 @@
 .margin-y {
   margin-top: 2rem;
   margin-bottom: 2rem;
+}
+
+.padding-sm-y {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.margin-sm-y {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 // フォームレイアウト用

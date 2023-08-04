@@ -1,2 +1,30 @@
-<h1>Public::Users#edit</h1>
-<p>Find me in app/views/public/users/edit.html.erb</p>
+<div class="container fit-content">
+
+  <div class="my-5">
+    <h2>編集</h2>
+    <%= form_with model: @user, url: users_introduction_path ,method: :patch do |f| %>
+      <%= render "layouts/form_errors", model: @user %>
+    <div class="margin-y mx-auto">
+    <div class="field">
+      <div class="d-flex padding-sm-y mx-auto fit-content">
+          <%= f.label :name, "ユーザー名", class: "label-width"   %>
+          <%= f.text_field :name, placeholder: "", class: "field-width"  %>
+      </div>
+
+      <div class="d-flex padding-sm-y mx-auto fit-content">
+        <%= f.label :email, "メールアドレス", class: "label-width" %>
+        <%= f.email_field :email, autocomplete: "email", placeholder: "example@example.com", class: "field-width" %>
+      </div>
+
+      <div class="d-flex padding-sm-y mx-auto fit-content">
+        <%= f.label :introduction, "紹介文", class: "label-width"   %>
+        <%= f.text_field :introduction, class: "field-width"  %>
+      </div>
+    </div>
+    </div>
+    <div class="actions text-center padding-sm-y">
+      <%= f.submit "編集", class: "btn btn-success padding-x" %>
+    </div>
+    <% end %>
+  </div>
+</div>

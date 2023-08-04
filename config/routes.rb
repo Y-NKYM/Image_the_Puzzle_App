@@ -1,25 +1,24 @@
 Rails.application.routes.draw do
-  # root to: 'public/homes#top'
-  # scope module: :public do
-  #   get 'homes/about' => 'homes#about'
-  #   devise_scope :user do
-  #     post "users/guest_sign_in", to: "users/sessions#guest_sign_in"
-  #   end
-  #   resources :users, only:  [:show, :edit, :update]
-  #   resources :posts, only:  [:new, :index, :create, :show, :edit, :update, :destroy]
-  #   resources :post_comments, only:  [:new, :create, :destroy]
-  #   resources :tags, only:  [:index]
-  #   resources :bookmarks, only:  [:index, :update, :destroy]
-  #   resources :searches, only:  [:index]
-  # end
+  root to: 'public/homes#top'
+  scope module: :public do
+    get 'about' => 'homes#about'
+    get 'users/mypage' => 'users#show'
+    get 'users/mypost' => 'users#index'
+    get 'users/introduction/edit' => 'users#edit'
+    patch 'users/introduction' => 'users#update'
+    patch 'users/withdraw' => 'users#withdraw'
 
-  # namespace :admin do
-  #   get '/' => 'homes#top'
-  #   resources :users, only:  [:index, :show, :edit, :update]
-  #   resources :posts, only:  [:index, :show, :edit, :update]
-  #   resources :post_comments, only:  [:index, :show, :edit, :update]
-  #   resources :tags, only:  [:index, :destroy]
-  # end
+    resources :posts, only:  [:new, :index, :create, :show, :edit, :update, :destroy]
+    resources :post_comments, only:  [:new, :create, :destroy]
+    resources :bookmarks, only:  [:index, :update, :destroy]
+    resources :searches, only:  [:index]
+    resources :tags, only:  [:index]
+
+    # ゲスト用
+    devise_scope :user do
+      post "users/guest_sign_in", to: "users#guest_sign_in"
+    end
+  end
 
   namespace :admin do
     get 'post_comments/index'
@@ -32,33 +31,6 @@ Rails.application.routes.draw do
     get 'posts/show'
     get 'posts/edit'
     get 'tags/index'
-  end
-
-  namespace :public do
-    get 'bookmarks/index'
-  end
-  namespace :public do
-    get 'searches/index'
-  end
-  namespace :public do
-    get 'tags/index'
-  end
-  namespace :public do
-    get 'post_comments/index'
-  end
-  namespace :public do
-    get 'users/show'
-    get 'users/edit'
-  end
-  namespace :public do
-    get 'posts/new'
-    get 'posts/index'
-    get 'posts/show'
-    get 'posts/edit'
-  end
-  namespace :public do
-    get 'homes/top'
-    get 'homes/about'
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
