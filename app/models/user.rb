@@ -5,7 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   validates :name, presence: true #, uniqueness: true
-  # validates :name, default: "よろしくお願いします"
+
+  has_many :posts, dependent: :destroy
 
   GUEST_USER_EMAIL = "guest@example.com"
 
