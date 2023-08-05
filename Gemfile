@@ -63,3 +63,6 @@ gem 'devise'
 
 #Image Processing
 gem 'image_processing', '~>1.2'
+
+# jquery
+gem 'jquery-rails'

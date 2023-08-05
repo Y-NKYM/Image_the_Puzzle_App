@@ -8,9 +8,10 @@ Rails.application.routes.draw do
     patch 'users/introduction' => 'users#update'
     patch 'users/withdraw' => 'users#withdraw'
 
-    resources :posts, only:  [:new, :index, :create, :show, :edit, :update, :destroy]
+    resources :posts, only:  [:new, :index, :create, :show, :edit, :update, :destroy] do
+      resource :bookmarks, only:  [:index, :create, :destroy]
+    end
     resources :post_comments, only:  [:new, :create, :destroy]
-    resources :bookmarks, only:  [:index, :update, :destroy]
     resources :searches, only:  [:index]
     resources :tags, only:  [:index]
 

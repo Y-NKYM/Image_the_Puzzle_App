@@ -3,6 +3,7 @@ class Post < ApplicationRecord
   belongs_to :user
   has_many :post_tags, dependent: :destroy
   has_many :tags, through: :post_tags
+  has_many :bookmarks, dependent: :destroy
 
   validates :title, presence: true
   validates :post_image, presence: true
@@ -30,5 +31,10 @@ class Post < ApplicationRecord
       post_image.attach(io: File.open(file_path), filename: 'no_image.jpg', content_type: 'image/jpeg')
     end
     post_image.variant(resize_to_limit: [width, height]).processed
+  end
+  
+  # 特定のpostのbookmarkをしているかどうか
+  def bookmarked_by?(user)
+    bookmarks.exists?(user_id: user.id)
   end
 end

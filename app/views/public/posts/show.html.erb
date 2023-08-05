@@ -5,13 +5,16 @@
       <%= image_tag @post.post_image, class: "fit-image aspect-square w-100" %>
     </div>
       <div class='col-md-9'>
-        <div class="d-flex align-items-center">
-          <h4><%= @post.title %></h4>
-          <% if @post.user == current_user %>
-            <% if @post.is_public == false %>
-              <p class="text-muted m-0 mx-3">この投稿は現在非公開です</p>
+        <div class="d-flex align-items-center justify-content-between">
+          <div>
+            <h4><%= @post.title %></h4>
+            <% if @post.user == current_user %>
+              <% if @post.is_public == false %>
+                <p class="text-muted m-0 mx-3">この投稿は現在非公開です</p>
+              <% end %>
             <% end %>
-          <% end %>
+          </div>
+          <%= render "public/bookmarks/bookmark_star", post: @post %>
         </div>
         <p><%= @post.content %></p>
         <p>
