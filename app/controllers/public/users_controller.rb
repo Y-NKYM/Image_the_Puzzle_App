@@ -5,8 +5,16 @@ class Public::UsersController < ApplicationController
     @user = User.find(current_user.id)
   end
 
-  def show
+  def mypage
     @user = User.find(current_user.id)
+    @posts_all = @user.posts.all
+    @posts_public = @user.posts.where(is_public: true)
+  end
+
+  def show
+    @user = User.find(params[:id])
+    @posts_all = @user.posts.all
+    @posts_public = @user.posts.where(is_public: true)
   end
 
   def edit

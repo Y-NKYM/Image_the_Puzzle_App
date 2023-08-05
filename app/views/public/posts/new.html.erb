@@ -1,44 +1,9 @@
 <div class="container fit-content">
-
   <div class="my-5">
     <h2>新規投稿</h2>
     <%= form_with model: @post, url: posts_path do |f| %>
-      <%= render "layouts/form_errors", model: @post %>
-    <div class="margin-y mx-auto">
-      <div class="field">
-        <div class="d-flex padding-sm-y">
-            <%= f.label :post_image, "画像", class: "label-width" %>
-            <%= f.file_field :post_image, accept: "image/*" %>
-        </div>
-
-        <div class="d-flex padding-sm-y">
-            <%= f.label :title, "タイトル", class: "label-width"  %>
-            <%= f.text_field :title, placeholder: "", class: "field-width"  %>
-        </div>
-
-        <div class="d-flex padding-sm-y">
-            <%= f.label :content, "キャプション", class: "label-width"  %>
-            <%= f.text_area :content, placeholder: "", class: "field-width"  %>
-        </div>
-
-        <div class="d-flex padding-sm-y">
-            <%= f.label :tag_name, "タグ", class: "label-width"  %>
-            <%= f.text_field :tag_name, placeholder: "例：写真　花", class: "field-width"  %>
-        </div>
-
-        <div class="d-flex padding-sm-y">
-          <p class="label-width">公開範囲</p>
-          <span>
-            <%= f.radio_button :is_public, true %>
-            <%= f.label :is_public_true, "公開" %>
-          </span>
-          <span class="margin-x">
-            <%= f.radio_button :is_public, false %>
-            <%= f.label :is_public_false, "非公開" %>
-          </span>
-        </div>
-      </div>
-    </div>
+    <%= render "layouts/form_errors", model: @post %>
+    <%= render "public/posts/post_form", f: f %>
     <div class="actions text-center padding-sm-y">
       <%= f.submit "投稿", class: "btn btn-success padding-x" %>
     </div>

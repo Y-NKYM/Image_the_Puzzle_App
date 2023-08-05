@@ -1,2 +1,12 @@
-<h1>Public::Posts#edit</h1>
-<p>Find me in app/views/public/posts/edit.html.erb</p>
+<div class="container fit-content">
+  <div class="my-5">
+    <h2>編集</h2>
+    <%= form_with model: @post, url: post_path, method: :patch do |f| %>
+    <%= render "layouts/form_errors", model: @post %>
+    <%= render "public/posts/post_form", f: f %>
+    <div class="actions text-center padding-sm-y">
+      <%= f.submit "編集する", class: "btn btn-success padding-x" %>
+    </div>
+    <% end %>
+  </div>
+</div>

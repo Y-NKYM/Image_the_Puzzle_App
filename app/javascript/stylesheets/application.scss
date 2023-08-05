@@ -42,3 +42,24 @@
 .fit-content {
   width: fit-content;
 }
+
+//三点省略一行文
+.three_dot_omit {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+//投稿レイアウト
+.fit-image {
+  object-fit: cover;
+  object-position: center;
+}
+
+.aspect-square{
+  aspect-ratio: 1/1;
+}
+
+.hover-color:hover {
+  opacity: 0.8;
+}

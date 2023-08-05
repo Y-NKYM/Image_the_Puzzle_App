@@ -5,20 +5,17 @@ class Post < ApplicationRecord
   has_many :tags, through: :post_tags
 
   validates :title, presence: true
+  validates :post_image, presence: true
 
+  # 投稿にあるタグを更新＋新規タグを保存
   def get_tag(sent_tags)
-  # 普段はtagsはnilになることはない。tagに何も入力しない場合は[]になり、[].nilはfalseとなる。
     current_tags = tags.pluck(:name)
-    # 現在取得したタグから送られてきたタグを除いてoldtagとする
     old_tags = current_tags - sent_tags
-    # 送信されてきたタグから現在存在するタグを除いたタグをnewとする
     new_tags = sent_tags - current_tags
-
     # 古いタグを消す
     old_tags.each do |old|
       tags.delete Tag.find_by(name: old)
     end
-
     # 新しいタグを保存
     new_tags.each do |new|
       new_post_tag = Tag.find_or_create_by(name: new)
@@ -26,4 +23,12 @@ class Post < ApplicationRecord
     end
   end
 
+  # post_image画像サイズ変更用
+  def get_image(width, height)
+    unless post_image.attached?
+      file_path = Rails.root.join('app/assets/images/no_image.jpg')
+      post_image.attach(io: File.open(file_path), filename: 'no_image.jpg', content_type: 'image/jpeg')
+    end
+    post_image.variant(resize_to_limit: [width, height]).processed
+  end
 end

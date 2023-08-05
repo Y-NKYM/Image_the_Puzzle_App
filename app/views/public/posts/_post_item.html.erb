@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="row">
+    <% model.each do |post|%>
+    <div class="col-md-<%= colsize %> p-0 hover-color">
+      <div class="m-2">
+        <%= link_to post_path(post.id), class: "text-decoration-none text-dark" do %>
+        <div class="card border-0">
+          <%= image_tag post.post_image, class: "card-img-top rounded-0 fit-image aspect-square"%>
+          <div class="card-body p-2">
+            <h4 class="card-title three_dot_omit mb-0"><%= post.title %></h4>
+            <p class="card-text mb-0">投稿者：<%= post.user.name %></p>
+          </div>
+        </div>
+        <% end %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>

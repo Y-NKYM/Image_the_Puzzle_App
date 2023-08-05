@@ -1,49 +1,17 @@
 <div class="container w-75">
   <div class="my-5">
-    <div class="d-flex justify-content-between margin-sm-y">
-      <h2 class="m-0">マイページ</h2>
-      <div class="text-right">
-        <%= link_to "編集", users_introduction_edit_path, class: "btn btn-primary padding-x" %>
-        <%= link_to "退会", users_withdraw_path, method: :patch, "data-confirm" => "退会しますか？", class: "btn btn-danger padding-x"  %>
-      </div>
-    </div>
-    <table class="table table-bordered">
-      <tbody>
-        <tr>
-          <td class="w-25">名前</td>
-          <td><%= @user.name %></td>
-        </tr>
-        <tr>
-          <td>メールアドレス</td>
-          <td><%= @user.email %></td>
-        </tr>
-        <tr>
-          <td>紹介文</td>
-          <td><%= @user.introduction %></td>
-        </tr>
-      </tbody>
-    </table>
+    <h2 class=""><%= @user.name %></h2>
+    <p><%= @user.introduction %></p>
   </div>
 
   <div class="my-5">
-    <div class="d-flex justify-content-between margin-sm-y">
-      <h2 class="m-0">投稿画像</h2>
-      <div class="text-right">
-        <%= link_to "一覧を見る", users_mypost_path, class: "btn btn-primary padding-x" %>
-      </div>
-    </div>
-  </div>
-
-  <div class="my-5">
-    <div class="d-flex justify-content-between margin-sm-y">
-      <h2 class="m-0">お気に入り</h2>
-      <div class="text-right">
-        <%= link_to "一覧を見る", bookmarks_path, class: "btn btn-primary padding-x" %>
-      </div>
+    <div class="">
+      <h2><%= @user.name %>の投稿画像</h2>
+      <% if @user == current_user %>
+      <%= render "public/posts/post_item", model: @posts_all, colsize: "3" %>
+      <% else %>
+      <%= render "public/posts/post_item", model: @posts_public, colsize: "3" %>
+      <% end %>
     </div>
   </div>
 </div>
-
-<% if user_signed_in? %>
-<%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
-<% end %>

@@ -2,8 +2,8 @@ Rails.application.routes.draw do
   root to: 'public/homes#top'
   scope module: :public do
     get 'about' => 'homes#about'
-    get 'users/mypage' => 'users#show'
-    get 'users/mypost' => 'users#index'
+    get 'users/mypage' => 'users#mypage'
+    resources :users, only:  [:show]
     get 'users/introduction/edit' => 'users#edit'
     patch 'users/introduction' => 'users#update'
     patch 'users/withdraw' => 'users#withdraw'
