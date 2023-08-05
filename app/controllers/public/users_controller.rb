@@ -1,5 +1,5 @@
 class Public::UsersController < ApplicationController
-  before_action :ensure_guest_user, only: [:show, :edit]
+  before_action :ensure_guest_user, only: [:show, :edit, :registrations]
 
   def index
     @user = User.find(current_user.id)

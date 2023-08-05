@@ -24,7 +24,7 @@ class Public::PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
-    @user_posts = @post.user.posts.limit(6)
+    @user_posts = @post.user.posts.where.not(id: @post.id).limit(6)
   end
 
   def edit

@@ -14,7 +14,9 @@
               <% end %>
             <% end %>
           </div>
-          <%= render "public/bookmarks/bookmark_star", post: @post %>
+          <div id="bookmark_star_<%= @post.id %>">
+            <%= render "public/bookmarks/bookmark_star", post: @post %>
+          </div>
         </div>
         <p><%= @post.content %></p>
         <p>

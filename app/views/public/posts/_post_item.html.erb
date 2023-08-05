@@ -9,7 +9,9 @@
           <div class="card-body p-2">
             <h4 class="card-title three_dot_omit mb-0"><%= post.title %></h4>
             <p class="card-text mb-0 three_dot_omit">投稿者：<%= post.user.name %></p>
-            <%= render "public/bookmarks/bookmark_star", post: post %>
+            <div id="bookmark_star_<%= post.id %>">
+              <%= render "public/bookmarks/bookmark_star", post: post %>
+            </div>
           </div>
         </div>
         <% end %>
