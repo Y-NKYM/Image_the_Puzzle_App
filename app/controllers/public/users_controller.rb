@@ -7,8 +7,8 @@ class Public::UsersController < ApplicationController
 
   def mypage
     @user = User.find(current_user.id)
-    @posts_all = @user.posts.all
-    @posts_public = @user.posts.where(is_public: true)
+    @posts = @user.posts.limit(4)
+    @bookmarks = @user.bookmark_posts.limit(4)
   end
 
   def show

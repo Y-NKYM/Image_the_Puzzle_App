@@ -4,6 +4,7 @@ class Post < ApplicationRecord
   has_many :post_tags, dependent: :destroy
   has_many :tags, through: :post_tags
   has_many :bookmarks, dependent: :destroy
+  has_many :bookmark_posts, through: :bookmarks, source: :user
 
   validates :title, presence: true
   validates :post_image, presence: true
@@ -32,7 +33,7 @@ class Post < ApplicationRecord
     end
     post_image.variant(resize_to_limit: [width, height]).processed
   end
-  
+
   # 特定のpostのbookmarkをしているかどうか
   def bookmarked_by?(user)
     bookmarks.exists?(user_id: user.id)

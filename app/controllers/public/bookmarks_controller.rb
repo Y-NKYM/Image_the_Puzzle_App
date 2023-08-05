@@ -1,5 +1,7 @@
 class Public::BookmarksController < ApplicationController
   def index
+    @user = User.find(current_user.id)
+    @bookmarks = @user.bookmark_posts
   end
 
   def create
