@@ -32,7 +32,11 @@
         <%= link_to "一覧を見る", user_path(current_user.id), class: "btn btn-primary padding-x" %>
       </div>
     </div>
-    <%= render "public/posts/post_item", model: @posts, colsize: "3" %>
+    <% if @posts.exists? %>
+      <%= render "public/posts/post_item", model: @posts, colsize: "3" %>
+    <% else %>
+      <p>投稿がありません</p>
+    <% end %>
   </div>
 
   <div class="my-5">
@@ -42,7 +46,11 @@
         <%= link_to "一覧を見る", bookmarks_path, class: "btn btn-primary padding-x" %>
       </div>
     </div>
-    <%= render "public/posts/post_item", model: @bookmarks, colsize: "3" %>
+    <% if @bookmarks.exists? %>
+      <%= render "public/posts/post_item", model: @bookmarks, colsize: "3" %>
+    <% else %>
+      <p>ブックマークした投稿がありません</p>
+    <% end %>
   </div>
 </div>
 

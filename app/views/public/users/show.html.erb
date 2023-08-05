@@ -5,13 +5,15 @@
   </div>
 
   <div class="my-5">
-    <div class="">
-      <h2><%= @user.name %>の投稿画像</h2>
+    <h2><%= @user.name %>の投稿画像</h2>
+    <% if @posts_all.exists? %>
       <% if @user == current_user %>
-      <%= render "public/posts/post_item", model: @posts_all, colsize: "3" %>
+        <%= render "public/posts/post_item", model: @posts_all, colsize: "3" %>
       <% else %>
-      <%= render "public/posts/post_item", model: @posts_public, colsize: "3" %>
+        <%= render "public/posts/post_item", model: @posts_public, colsize: "3" %>
       <% end %>
-    </div>
+    <% else %>
+      <p>投稿がありません</p>
+    <% end %>
   </div>
 </div>

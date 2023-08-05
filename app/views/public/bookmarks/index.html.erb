@@ -3,7 +3,11 @@
     <main class="col-md-10 offset-md-1">
       <h2>ブックマーク一覧</h2>
       <div class="margin-y">
-      <%= render "public/posts/post_item", model: @bookmarks, colsize: "3" %>
+      <% if @bookmarks.exists? %>
+        <%= render "public/posts/post_item", model: @bookmarks, colsize: "3" %>
+      <% else %>
+        <p>ブックマークした投稿がありません</p>
+      <% end %>
       </div>
     </main>
   </div>
