@@ -1,2 +1,41 @@
-<h1>Admin::Users#edit</h1>
-<p>Find me in app/views/admin/users/edit.html.erb</p>
+<div class="container fit-content">
+    <h4 class="margin-y"><%= @user.name %>さんの会員編集画面</h4>
+    <%= form_with model: @user, url: admin_user_path do |f| %>
+    <%= render "layouts/form_errors", model: @user %>
+    <div class="field margin-y">
+      <div class="d-flex padding-sm-y">
+        <p class="label-width">会員ID</p>
+        <p><%= @user.id %></p>
+      </div>
+
+      <div class="d-flex padding-sm-y">
+        <%= f.label :name, "ユーザー名", class: "label-width"  %>
+        <%= f.text_field :name, placeholder: "#{@user.name}", class: "field-width" %>
+      </div>
+
+      <div class="d-flex padding-sm-y">
+        <%= f.label :email, "メールアドレス", class: "label-width"  %>
+        <%= f.text_field :email, placeholder: "#{@user.email}", class: "field-width" %>
+      </div>
+
+      <div class="d-flex padding-sm-y">
+        <p class="label-width">会員ステータス</p>
+        <div class="d-flex">
+          <div class="form-check">
+            <%= f.radio_button :is_deleted, false, class: "form-check-input" %>
+          　<%= f.label :is_deleted, "有効", {value: :false, class: "form-check-label"} %>
+          </div>
+          <div class="ml-5">
+          　<%= f.radio_button :is_deleted, true, class: "form-check-input" %>
+          　<%= f.label :is_deleted, "退会", {value: :true, class: "form-check-label"} %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center">
+      <%= f.submit '変更を保存する' ,class: "btn btn-success" %>
+    </div>
+    <% end %>
+    </div>
+  </div>
+</div>

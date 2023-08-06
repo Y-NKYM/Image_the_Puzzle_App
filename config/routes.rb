@@ -13,6 +13,11 @@ Rails.application.routes.draw do
   }
   root to: 'public/homes#top'
   scope module: :public do
+    # ゲスト用
+    devise_scope :user do
+      post "users/guest_sign_in", to: "users#guest_sign_in"
+    end
+
     get 'about' => 'homes#about'
     get 'users/mypage' => 'users#mypage'
     resources :users, only:  [:show]
@@ -26,24 +31,24 @@ Rails.application.routes.draw do
     resources :post_comments, only:  [:new, :create, :destroy]
     resources :searches, only:  [:index]
     resources :tags, only:  [:index]
-
-    # ゲスト用
-    devise_scope :user do
-      post "users/guest_sign_in", to: "users#guest_sign_in"
-    end
   end
 
   namespace :admin do
-    get 'post_comments/index'
-    get 'post_comments/show'
-    get 'post_comments/edit'
-    get 'users/index'
-    get 'users/show'
-    get 'users/edit'
-    get 'posts/index'
-    get 'posts/show'
-    get 'posts/edit'
-    get 'tags/index'
+    get '/' => 'homes#top'
+    resources :users, only:  [:index, :show, :edit, :update, :destroy]
+    resources :posts, only:  [:index, :show, :edit, :update, :destroy]
+    resources :post_comments, only:  [:index, :destroy]
+    resources :tags, only:  [:index, :destroy]
+    # get 'post_comments/index'
+    # get 'post_comments/show'
+    # get 'post_comments/edit'
+    # get 'users/index'
+    # get 'users/show'
+    # get 'users/edit'
+    # get 'posts/index'
+    # get 'posts/show'
+    # get 'posts/edit'
+    # get 'tags/index'
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
