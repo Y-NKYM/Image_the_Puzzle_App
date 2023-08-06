@@ -20,12 +20,20 @@
         </div>
       <% elsif params[:tag] %>
         <div class="d-flex align-items-center">
+        <!--params[:tag] == ""の場合tag.nameがエラーとなるため-->
+        <% unless params[:tag] == "" %>
           <h2>"<%= @tag.name %>"タグ検索一覧</h2>
-          <% if @posts == nil %>
-          <span class="mx-2">(ヒットする投稿がありません)</span>
-          <% else %>
-          <span class="mx-2">(<%= @posts.count %>件ヒットしました)</span>
-          <% end %>
+        <% else %>
+          <h2>投稿一覧</h2>
+        <% end %>
+
+        <% if @posts == nil %>
+        <span class="mx-2">(ヒットする投稿がありません)</span>
+        <% elsif params[:tag] == "" %>
+        <span></span>
+        <% else %>
+        <span class="mx-2">(<%= @posts.count %>件ヒットしました)</span>
+        <% end %>
         </div>
       <% else %>
         <h2>投稿一覧</h2>

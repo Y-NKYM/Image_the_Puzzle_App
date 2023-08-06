@@ -26,7 +26,10 @@ class Public::PostsController < ApplicationController
     elsif params[:search]
       @search = params[:search]
       @posts = Post.where("title LIKE ?", "%#{@search}%").order(created_at: "DESC")
-    else params[:tag]
+    elsif params[:tag] == ""
+      @posts = Post.where(is_public: true).order(created_at: "DESC")
+      flash[:notice] = "タグが存在しません。"
+    elsif params[:tag]
       @tag = Tag.find_by(name: params[:tag])
       @posts = @tag.posts.order(created_at: "DESC")
     end
