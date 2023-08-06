@@ -6,7 +6,7 @@ class Post < ApplicationRecord
   has_many :bookmarks, dependent: :destroy
   has_many :bookmark_posts, through: :bookmarks, source: :user
 
-  validates :title, presence: true
+  validates :title, presence: true, length: {maximum: 30}
   validates :post_image, presence: true
 
   # 投稿にあるタグを更新＋新規タグを保存
