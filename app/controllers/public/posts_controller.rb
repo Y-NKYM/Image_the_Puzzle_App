@@ -19,13 +19,16 @@ class Public::PostsController < ApplicationController
   end
 
   def index
-    if params[:search] == nil
+    if params[:search] == nil && params[:tag] == nil #検索なし＝投稿一覧画面
       @posts = Post.where(is_public: true).order(created_at: "DESC")
     elsif params[:search] == ""
       @posts = nil
-    else
+    elsif params[:search]
       @search = params[:search]
       @posts = Post.where("title LIKE ?", "%#{@search}%").order(created_at: "DESC")
+    else params[:tag]
+      @tag = Tag.find_by(name: params[:tag])
+      @posts = @tag.posts.order(created_at: "DESC")
     end
   end
 

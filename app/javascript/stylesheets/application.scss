@@ -63,3 +63,22 @@
 .hover-color:hover {
   opacity: 0.8;
 }
+
+//タグ検索
+.tag_fontsize_lg {
+  font-size: 1.2em;
+}
+
+.tag-bg {
+  background-color: #4F709C;
+  color: white;
+}
+
+.tag-bg:hover {
+  background-color: rgba(79, 112, 156, 90%);
+}
+
+.tag_bg:focus.tag-bg:active {
+  background-color: rgba(79, 112, 156, 75%);
+}
+

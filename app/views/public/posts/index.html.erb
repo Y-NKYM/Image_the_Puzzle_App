@@ -8,6 +8,7 @@
       </div>
       <% end %>
 
+      <!--投稿一覧・タイトル検索・タグ検索表示-->
       <% if params[:search] %>
         <div class="d-flex align-items-center">
           <h2>"<%= @search %>"での検索一覧</h2>
@@ -17,9 +18,19 @@
           <span class="mx-2">(<%= @posts.count %>件ヒットしました)</span>
           <% end %>
         </div>
+      <% elsif params[:tag] %>
+        <div class="d-flex align-items-center">
+          <h2>"<%= @tag.name %>"タグ検索一覧</h2>
+          <% if @posts == nil %>
+          <span class="mx-2">(ヒットする投稿がありません)</span>
+          <% else %>
+          <span class="mx-2">(<%= @posts.count %>件ヒットしました)</span>
+          <% end %>
+        </div>
       <% else %>
         <h2>投稿一覧</h2>
       <% end %>
+
       <div class="margin-y">
         <% unless @posts == nil %>
         <%= render "public/posts/post_item", model: @posts, colsize: "3" %>

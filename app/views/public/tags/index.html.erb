@@ -1,2 +1,60 @@
-<h1>Public::Tags#index</h1>
-<p>Find me in app/views/public/tags/index.html.erb</p>
+<div class="margin-y container">
+  <div class="row">
+    <main class="col-md-10 offset-md-1">
+      <%= form_with url: tags_path, method: :get do |f| %>
+      <div class="d-flex w-75 mx-auto margin-y">
+      	<%= f.text_field :tag_search, placeholder: "タグ検索", class: "form-control border-dark quicksearch" %>
+      </div>
+      <% end %>
+
+      <!--タグ要素の書き出し-->
+      <div class="grid">
+        <% @tags.each do |tag| %>
+        <div class="element-item <%= tag.name %>" data-category="<%= tag.name %>">
+          <%= link_to posts_path(tag: tag.name), class: "text-decoration-none" do %>
+          <div class="border border-dark rounded m-2 tag-bg">
+            <p class="m-2 tag_fontsize_lg px-1">#<%= tag.name %></p>
+          </div>
+          <% end %>
+        </div>
+      <% end %>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script>
+//Isotope検索フィルター機能
+// quick search regex
+var qsRegex;
+
+// init Isotope
+var $grid = $('.grid').isotope({
+  itemSelector: '.element-item',
+  layoutMode: 'fitRows',
+  filter: function() {
+    return qsRegex ? $(this).text().match( qsRegex ) : true;
+  }
+});
+
+// use value of search field to filter
+var $quicksearch = $('.quicksearch').keyup( debounce( function() {
+  qsRegex = new RegExp( $quicksearch.val(), 'gi' );
+  $grid.isotope();
+}, 200 ) );
+
+// debounce so filtering doesn't happen every millisecond
+function debounce( fn, threshold ) {
+  var timeout;
+  threshold = threshold || 100;
+  return function debounced() {
+    clearTimeout( timeout );
+    var args = arguments;
+    var _this = this;
+    function delayed() {
+      fn.apply( _this, args );
+    }
+    timeout = setTimeout( delayed, threshold );
+  };
+}
+</script>
