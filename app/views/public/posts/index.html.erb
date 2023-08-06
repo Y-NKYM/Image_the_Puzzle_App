@@ -1,14 +1,33 @@
 <div class="margin-y container">
   <div class="row">
     <main class="col-md-10 offset-md-1">
-      <h2>投稿一覧</h2>
+      <%= form_with url: posts_path, method: :get do |f| %>
+      <div class="d-flex w-75 mx-auto margin-y">
+      	<%= f.text_field :search, placeholder: "投稿タイトル", class: "form-control" %>
+        <%= f.submit "検索", class: "btn btn-primary ml-3" %>
+      </div>
+      <% end %>
+
+      <% if params[:search] %>
+        <div class="d-flex align-items-center">
+          <h2>"<%= @search %>"での検索一覧</h2>
+          <% if @posts == nil %>
+          <span class="mx-2">(ヒットする投稿がありません)</span>
+          <% else %>
+          <span class="mx-2">(<%= @posts.count %>件ヒットしました)</span>
+          <% end %>
+        </div>
+      <% else %>
+        <h2>投稿一覧</h2>
+      <% end %>
       <div class="margin-y">
-      <%= render "public/posts/post_item", model: @posts, colsize: "3" %>
+        <% unless @posts == nil %>
+        <%= render "public/posts/post_item", model: @posts, colsize: "3" %>
+        <% end %>
       </div>
     </main>
   </div>
 </div>
-
 
 <% if user_signed_in? %>
 <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>

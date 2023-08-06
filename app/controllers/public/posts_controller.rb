@@ -19,12 +19,19 @@ class Public::PostsController < ApplicationController
   end
 
   def index
-    @posts = Post.where(is_public: true)
+    if params[:search] == nil
+      @posts = Post.where(is_public: true).order(created_at: "DESC")
+    elsif params[:search] == ""
+      @posts = nil
+    else
+      @search = params[:search]
+      @posts = Post.where("title LIKE ?", "%#{@search}%").order(created_at: "DESC")
+    end
   end
 
   def show
     @post = Post.find(params[:id])
-    @user_posts = @post.user.posts.where.not(id: @post.id).limit(6)
+    @user_posts = @post.user.posts.where.not(id: @post.id).order(created_at: "DESC").limit(6)
   end
 
   def edit
