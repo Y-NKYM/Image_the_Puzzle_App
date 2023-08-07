@@ -1,4 +1,5 @@
 <div class="text-right">
+  <% if user_signed_in? %>
   <% if post.bookmarked_by?(current_user) %>
   	<h4>
   		<%= link_to post_bookmarks_path(post.id), method: :delete, remote: true do %>
@@ -11,5 +12,6 @@
   			☆
   		<% end %>
   	</h4>
+  <% end %>
   <% end %>
 </div>

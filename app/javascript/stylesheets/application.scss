@@ -33,6 +33,62 @@
   margin-bottom: 10px;
 }
 
+/*Navbar*/
+.nav-layout {
+  padding: 5px;
+  width: calc(100% - 150px);
+  min-width: 800px;
+}
+
+@media (max-width: 800px) {
+  .nav-layout {
+    width: 100%;
+    min-width: unset;
+  }
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.nav-item:hover {
+  background-color: #142237;
+}
+
+// Aboutページ
+.about-image {
+  width: 100%;
+  aspect-ratio: 16/9;
+  background-size: cover;
+  background-position: center;
+}
+
+.about-image-box {
+  position: relative;
+}
+
+.about-image-text {
+  color: white;
+  background-color: rgba( 0, 0, 0, 0.5);
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%)
+}
+
+@media (max-width: 800px) {
+  .about-image-text {
+    margin: 1rem 0;
+    color: black;
+    background-color: transparent;
+    position: static;
+    top: auto;
+    left: auto;
+    transform: none;
+  }
+}
+
 // フォームレイアウト用
 .label-width {
   width: 250px;

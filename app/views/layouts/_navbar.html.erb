@@ -1,0 +1,86 @@
+<header>
+  <nav class="p-0 navbar navbar-expand-md navbar-dark" style="background: #213555">
+    <div class="nav-layout container-fluid px-3">
+      <%= link_to about_path, class: "navbar-brand" do %>
+        <span>Image la Puzzle</span>
+      <% end %>
+      <% if user_signed_in? %>
+        <p class="m-0">ようこそ <%= current_user.name %> さん</p>
+      <% end %>
+      <button class="navbar-toggler" type="button" data-toggle="collapse"
+        data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup" >
+        <div class="navbar-nav">
+          <% if user_signed_in? %>
+          <!--ゲストログイン後ナビバー-->
+            <% if current_user.email == 'guest@example.com' %>
+            <li class="nav-item">
+              <%= link_to "About", posts_path, class: 'nav-link px-3' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "画像一覧", posts_path, class: 'nav-link px-3' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "パズル", root_path, class: 'nav-link px-3' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: 'nav-link px-3'  %>
+            </li>
+          <!--ユーザー側ログイン後ナビバー-->
+            <% else %>
+            <li class="nav-item">
+              <%= link_to "マイページ", users_mypage_path, class: 'nav-link px-3' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "画像一覧", posts_path, class: 'nav-link px-3' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "新規投稿", new_post_path, class: 'nav-link px-3' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "ブックマーク", bookmarks_path, class: 'nav-link px-3' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "パズル", root_path, class: 'nav-link px-3' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: 'nav-link'  %>
+            </li>
+            <% end %>
+          <!--管理者側ログイン後ナビバー-->
+          <% elsif admin_signed_in? %>
+            <li class="nav-item">
+              <%= link_to "会員一覧", admin_users_path, class: 'nav-link px-3'  %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "投稿一覧", admin_posts_path, class: 'nav-link px-3'  %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "タグ一覧", admin_tags_path, class: 'nav-link px-3'  %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: 'nav-link'  %>
+            </li>
+          <!--ログイン前ナビバー-->
+          <% else %>
+            <li class="nav-item">
+              <%= link_to "About", about_path, class: 'nav-link px-3'  %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "商品一覧", posts_path, class: 'nav-link px-3'  %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "新規登録", new_user_registration_path, class: 'nav-link px-3' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "ログイン", new_user_session_path, class: 'nav-link px-3' %>
+            </li>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>

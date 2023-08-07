@@ -1,7 +1,10 @@
 <div class="container">
   <div class="row">
     <div class="col-10 mx-auto">
-      <div class="row">
+      <div class="margin-y text-center">
+        <h1>ようこそ <strong>Image la Puzzle</strong> へ！</h1>
+      </div>
+      <div class="row w-75 mx-auto">
       <%= link_to "Log in", new_user_session_path, class: "btn btn-info btn-sm btn-block mb-2" %>
       <%= link_to "Sign up", new_user_registration_path, class: "btn btn-success btn-sm btn-block mb-2" %>
       <%= link_to "ゲストログイン（閲覧用）", users_guest_sign_in_path, class: "btn btn-secondary btn-sm btn-block sign_in", method: :post %>

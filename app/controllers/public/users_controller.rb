@@ -1,5 +1,5 @@
 class Public::UsersController < ApplicationController
-  before_action :ensure_guest_user, only: [:show, :edit, :registrations]
+  before_action :ensure_guest_user, except: [:show]
 
   def index
     @user = User.find(current_user.id)
@@ -49,7 +49,7 @@ class Public::UsersController < ApplicationController
   def ensure_guest_user
     @user = User.find(current_user.id)
     if @user.email == "guest@example.com"
-      redirect_to posts_path, notice: "ゲストユーザーはプロフィール画面へ遷移できません。"
+      redirect_to posts_path, notice: "ゲストユーザーは使用できないページです。ログインしてください。"
     end
   end
 

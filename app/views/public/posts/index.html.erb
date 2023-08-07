@@ -9,35 +9,48 @@
       <% end %>
 
       <!--投稿一覧・タイトル検索・タグ検索表示-->
-      <% if params[:search] %>
-        <div class="d-flex align-items-center">
-          <h2>"<%= @search %>"での検索一覧</h2>
-          <% if @posts == nil %>
-          <span class="mx-2">(ヒットする投稿がありません)</span>
+      <div class="d-flex justify-content-between">
+        <div>
+          <% if params[:search] %>
+            <div class="d-flex align-items-center">
+              <h2>"<%= @search %>"での検索一覧</h2>
+              <!--投稿がなかった場合-->
+              <% if @posts == nil %>
+                <span class="mx-2">(ヒットする投稿がありません)</span>
+              <% else %>
+                <span class="mx-2">(<%= @posts.count %>件ヒットしました)</span>
+              <% end %>
+            </div>
+          <% elsif params[:tag] %>
+            <div class="d-flex align-items-center">
+              <!--params[:tag] == ""の場合tag.nameがエラーとなるため-->
+              <% unless params[:tag] == "" %>
+                <h2>"<%= @tag.name %>"タグ検索一覧</h2>
+              <% else %>
+                <h2>投稿一覧</h2>
+              <% end %>
+              <!--投稿がなかった場合-->
+              <% if @posts == nil %>
+                <span class="mx-2">(ヒットする投稿がありません)</span>
+              <!--params[:tag] == ""の場合-->
+              <% elsif params[:tag] == "" %>
+                <span></span>
+              <% else %>
+                <span class="mx-2">(<%= @posts.count %>件ヒットしました)</span>
+              <% end %>
+            </div>
           <% else %>
-          <span class="mx-2">(<%= @posts.count %>件ヒットしました)</span>
+            <h2>画像一覧</h2>
           <% end %>
         </div>
-      <% elsif params[:tag] %>
-        <div class="d-flex align-items-center">
-        <!--params[:tag] == ""の場合tag.nameがエラーとなるため-->
-        <% unless params[:tag] == "" %>
-          <h2>"<%= @tag.name %>"タグ検索一覧</h2>
-        <% else %>
-          <h2>投稿一覧</h2>
+        <% if user_signed_in?%>
+          <% if current_user.email != "guest@example.com" %>
+            <div>
+              <%= link_to '画像を投稿する', new_post_path, class: "btn btn-primary px-3 rounded-pill" %>
+            </div>
+          <% end %>
         <% end %>
-
-        <% if @posts == nil %>
-        <span class="mx-2">(ヒットする投稿がありません)</span>
-        <% elsif params[:tag] == "" %>
-        <span></span>
-        <% else %>
-        <span class="mx-2">(<%= @posts.count %>件ヒットしました)</span>
-        <% end %>
-        </div>
-      <% else %>
-        <h2>投稿一覧</h2>
-      <% end %>
+      </div>
 
       <div class="margin-y">
         <% unless @posts == nil %>
@@ -47,7 +60,3 @@
     </main>
   </div>
 </div>
-
-<% if user_signed_in? %>
-<%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
-<% end %>
