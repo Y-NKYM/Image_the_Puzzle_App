@@ -1,0 +1,41 @@
+<table class='table table-hover margin-y'>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>タイトル</th>
+      <th>投稿者</th>
+      <th class="text-center">公開範囲</th>
+      <th class="text-center">ステータス</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% posts.each do |post| %>
+      <tr data-href="posts/<%= post.id %>" class="mouse-link">
+        <td><%= post.id %></td>
+        <td><%= post.title.truncate(20) %></td>
+        <td><%= post.user.name.truncate(20) %></td>
+        <td class="text-center">
+          <% if post.is_public %>
+            <span class="text-success">公開</span>
+          <% else %>
+            <span class="text-muted">非公開</span>
+          <% end %>
+        </td>
+        <td class="text-center">
+          <% if post.is_active %>
+            <span class="text-success"><strong>正常<strong></span>
+          <% else %>
+            <span class="text-danger">問題あり</span>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<script>
+  $(function(){
+    $('tr[data-href]').on('click', function(){
+      location.href = $(this).data('href');
+    });
+  });
+</script>

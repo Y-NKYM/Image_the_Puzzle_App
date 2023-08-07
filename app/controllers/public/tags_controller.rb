@@ -1,6 +1,5 @@
 class Public::TagsController < ApplicationController
   def index
-    @tags = Tag.order(name: "ASC")
-    @tag_search = params[:tag_search]
+    @tags = Tag.where(is_active: true).order(name: "ASC")
   end
 end

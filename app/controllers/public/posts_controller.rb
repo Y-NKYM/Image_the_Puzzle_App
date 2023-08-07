@@ -38,16 +38,23 @@ class Public::PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     @user_posts = @post.user.posts.where.not(id: @post.id).order(created_at: "DESC").limit(6)
+    @post_tags = @post.tags.where(is_active: true)
   end
 
   def edit
     @post = Post.find(params[:id])
+    @tag_list = @post.tags.where(is_active: true).pluck(:name).join(' ')
   end
 
   def update
     @post = Post.find(params[:id])
-    @post.update(post_params)
-    redirect_to post_path(@post.id)
+    tag_list = params[:post][:tag_name].gsub("　", " ").split(nil)
+    if @post.update(post_params)
+      @post.get_tag(tag_list)
+      redirect_to post_path(@post.id)
+    else
+      render :edit
+    end
   end
 
   def destroy

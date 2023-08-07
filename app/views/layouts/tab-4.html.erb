@@ -1,0 +1,20 @@
+<div class="container fit-content">
+    <h4 class="margin-y">管理者側：投稿編集</h4>
+    <%= form_with model: @post, url: admin_post_path do |f| %>
+    <%= render "layouts/form_errors", model: @post %>
+    <div class="margin-y mx-auto">
+        <div class="field">
+            <div class="d-flex padding-sm-y">
+              <%= f.label :post_image, "画像", class: "label-width" %>
+              <%= f.file_field :post_image, accept: "image/*" %>
+            </div>
+            <%= render "layouts/post_form", f: f %>
+        </div>
+    </div>
+    <div class="text-center">
+      <%= f.submit '変更を保存する' ,class: "btn btn-success" %>
+    </div>
+    <% end %>
+    </div>
+  </div>
+</div>

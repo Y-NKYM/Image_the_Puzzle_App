@@ -1,47 +1,10 @@
+<div class="container margin-y w-75">
+  <%= render 'admin/searches/admin_search_form' %>
+</div>
+
 <div class="container">
   <div class="margin-y">
     <h2>管理者側：投稿一覧</h2>
-    <table class='table table-hover margin-y'>
-      <thead class="table-light">
-        <tr>
-          <th>#</th>
-          <th>タイトル</th>
-          <th>投稿者</th>
-          <th class="text-center">公開範囲</th>
-          <th class="text-center">ステータス</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @posts.each do |post| %>
-          <tr data-href="posts/<%= post.id %>" class="mouse-link">
-            <td><%= post.id %></td>
-            <td><%= post.title.truncate(20) %></td>
-            <td><%= post.user.name.truncate(20) %></td>
-            <td class="text-center">
-              <% if post.is_public %>
-                <span>公開</span>
-              <% else %>
-                <span>非公開</span>
-              <% end %>
-            </td>
-            <td class="text-center">
-              <% if post.is_active %>
-                <span class="text-success"><strong>正常<strong></span>
-              <% else %>
-                <span class="text-danger">問題あり</span>
-              <% end %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+    <%= render 'admin/posts/admin_post_form', posts: @posts %>
   </div>
 </div>
-
-<script>
-  $(function(){
-    $('tr[data-href]').on('click', function(){
-      location.href = $(this).data('href');
-    });
-  });
-</script>

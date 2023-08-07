@@ -3,7 +3,11 @@
     <h2>新規投稿</h2>
     <%= form_with model: @post, url: posts_path do |f| %>
     <%= render "layouts/form_errors", model: @post %>
-    <%= render "public/posts/post_form", f: f %>
+    <div class="margin-y mx-auto">
+      <div class="field">
+        <%= render "layouts/post_form", f: f %>
+      </div>
+    </div>
     <div class="actions text-center padding-sm-y">
       <%= f.submit "投稿", class: "btn btn-success padding-x" %>
     </div>

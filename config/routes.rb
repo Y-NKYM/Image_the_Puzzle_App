@@ -38,17 +38,8 @@ Rails.application.routes.draw do
     resources :users, only:  [:index, :show, :edit, :update, :destroy]
     resources :posts, only:  [:index, :show, :edit, :update, :destroy]
     resources :post_comments, only:  [:index, :destroy]
-    resources :tags, only:  [:index, :destroy]
-    # get 'post_comments/index'
-    # get 'post_comments/show'
-    # get 'post_comments/edit'
-    # get 'users/index'
-    # get 'users/show'
-    # get 'users/edit'
-    # get 'posts/index'
-    # get 'posts/show'
-    # get 'posts/edit'
-    # get 'tags/index'
+    resources :tags, only:  [:index, :edit, :update, :destroy]
+    resources :searches, only: [:index]
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

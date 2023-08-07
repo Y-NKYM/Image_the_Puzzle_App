@@ -1,0 +1,31 @@
+<div class="container margin-y w-75">
+  <%= render 'admin/searches/admin_search_form' %>
+</div>
+
+<div class="container">
+  <div class="d-flex align-items-center">
+    <h2>管理者側：検索一覧</h2>
+    <% if @word && @range %>
+    <span class="mx-3">（検索ワード：<%= @word %>　範囲：<%= @range %>）</span>
+    <% end %>
+  </div>
+
+  <% case @range %>
+  <% when nil %>
+    <p class="text-center">検索したい内容を記入してください。</p>
+  <% when 'ユーザー名' %>
+  <div class="mx-auto margin-y">
+    <%= render 'admin/users/admin_user_form', users: @users %>
+  </div>
+  <% when '投稿タイトル' %>
+  <div class="mx-auto margin-y">
+    <%= render 'admin/posts/admin_post_form', posts: @posts %>
+  </div>
+  <% when 'タグ名' %>
+  <div class="mx-auto w-75 margin-y">
+    <%= render 'admin/tags/admin_tag_form', tags: @tags %>
+  </div>
+  <% end %>
+</div>
+
+

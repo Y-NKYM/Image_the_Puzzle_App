@@ -1,0 +1,13 @@
+<%= form_with url: admin_searches_path, method: :get do |f| %>
+<div class="row justify-content-center">
+  <div class="col-md-6 margin-sm-y">
+    <%= f.text_field :word, placeholder: "検索", class: "form-control" %>
+  </div>
+  <div class="col-md-4 margin-sm-y">
+    <%= f.select :range, options_for_select([['ユーザー名'], ['投稿タイトル'], ['タグ名']]), {}, class: "form-control px-3" %>
+  </div>
+  <div class="col-md-2 margin-sm-y">
+    <%= f.submit "検索", class: "btn btn-primary" %>
+  </div>
+</div>
+<% end %>

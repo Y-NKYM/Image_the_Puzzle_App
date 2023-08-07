@@ -3,7 +3,11 @@
     <h2>編集</h2>
     <%= form_with model: @post, url: post_path, method: :patch do |f| %>
     <%= render "layouts/form_errors", model: @post %>
-    <%= render "public/posts/post_form", f: f %>
+    <div class="margin-y mx-auto">
+      <div class="field">
+        <%= render "layouts/post_form", f: f %>
+      </div>
+    </div>
     <div class="actions text-center padding-sm-y">
       <%= f.submit "編集する", class: "btn btn-success padding-x" %>
     </div>

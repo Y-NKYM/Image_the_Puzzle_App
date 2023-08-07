@@ -1,29 +1,32 @@
 <div class="container fit-content">
   <h4 class="margin-y">管理者側：投稿編集</h4>
-  <%= form_with model: @post, url: admin_post_path do |f| %>
-  <%= render "layouts/form_errors", model: @post %>
+  <%= form_with model: @tag, url: admin_tag_path do |f| %>
+  <%= render "layouts/form_errors", model: @tag %>
   <div class="margin-y mx-auto">
     <div class="field">
       <div class="d-flex padding-sm-y">
         <span class="label-width">投稿ID</span>
-        <span><%= @post.id %></span>
+        <span><%= @tag.id %></span>
       </div>
-      <%= render "layouts/post_form", f: f %>
+      <div class="d-flex padding-sm-y">
+        <%= f.label :name, "タグ名", class: "label-width"  %>
+        <%= f.text_field :name, placeholder: "#{@tag.name}", class: "field-width"  %>
+      </div>
       <div class="d-flex padding-sm-y">
         <span class="label-width">ステータス</span>
         <span>
           <%= f.radio_button :is_active, true %>
-          <%= f.label :is_active_true, "正常" %>
+          <%= f.label :is_active_true, "公開" %>
         </span>
         <span class="margin-x">
           <%= f.radio_button :is_active, false %>
-          <%= f.label :is_active_false, "問題あり" %>
+          <%= f.label :is_active_false, "非公開" %>
         </span>
       </div>
     </div>
   </div>
   <div class="text-center">
-    <%= f.submit '変更を保存する' ,class: "btn btn-success" %>
+    <%= f.submit '変更を保存する', class: "btn btn-success" %>
   </div>
   <% end %>
 </div>

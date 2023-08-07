@@ -1,0 +1,17 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>タグ名</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% tags.each do |tag| %>
+    <tr>
+      <td class="align-middle"><%= tag.name %></td>
+      <td class="text-center"><%= link_to "編集", edit_admin_tag_path(tag.id), class: "btn btn-success" %></td>
+      <td class="text-center"><%= link_to "削除", admin_tag_path(tag.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？" %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
