@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
     sessions: "admin/sessions"
   }
+
   root to: 'public/homes#top'
   scope module: :public do
     # ゲスト用
@@ -34,7 +35,9 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    get '/' => 'homes#top'
+    devise_scope :admin do
+    get "/" => 'sessions#new'
+    end
     resources :users, only:  [:index, :show, :edit, :update, :destroy]
     resources :posts, only:  [:index, :show, :edit, :update, :destroy]
     resources :post_comments, only:  [:index, :destroy]

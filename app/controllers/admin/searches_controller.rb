@@ -1,4 +1,6 @@
 class Admin::SearchesController < ApplicationController
+  before_action :authenticate_admin!
+  
   def index
     @word = params[:word]
     @range = params[:range]
