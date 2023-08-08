@@ -14,8 +14,11 @@ class Public::UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @posts_all = @user.posts.all
-    @posts_public = @user.posts.where(is_public: true)
+    if @user == current_user
+    @posts = @user.posts.order(created_at: "DESC").page(params[:page])
+    else
+    @posts = @user.posts.where(is_public: true).order(created_at: "DESC").page(params[:page])
+    end
   end
 
   def edit

@@ -33,7 +33,31 @@
   margin-bottom: 10px;
 }
 
-/*Navbar*/
+// ページネーション位置デザイン
+.pagination {
+  justify-content: center;
+}
+
+// ページリンクのデザイン
+.page-link {
+  padding: 0.5rem 0.9rem;
+  border-radius: 50%;
+}
+
+// 全体のページ番号のデザイン
+.pagination>li>a {
+  border: none;     /*枠線をなくす*/
+  color: #696969;   /*文字の色を変える*/
+  margin: 0 5px;
+}
+
+// 表示しているページ番号のデザイン
+.page-item.active .page-link {
+  background-color: #213555;
+  border-color: #213555;
+}
+
+//Navbar
 .nav-layout {
   padding: 5px;
   width: calc(100% - 150px);

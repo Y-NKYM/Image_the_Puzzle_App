@@ -57,6 +57,7 @@
         <%= render "public/posts/post_item", model: @posts, colsize: "3" %>
         <% end %>
       </div>
+      <%= paginate @posts, window: 1, left: 1, right: 1 %>
     </main>
   </div>
 </div>

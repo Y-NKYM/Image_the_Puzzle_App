@@ -66,3 +66,6 @@ gem 'image_processing', '~>1.2'
 
 # jquery
 gem 'jquery-rails'
+
+# kaminari install
+gem 'kaminari','~> 1.2.1'

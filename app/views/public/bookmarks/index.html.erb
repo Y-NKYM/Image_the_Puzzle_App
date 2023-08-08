@@ -9,6 +9,7 @@
         <p>ブックマークした投稿がありません</p>
       <% end %>
       </div>
+      <%= paginate @bookmarks, window: 1, left: 1, right: 1 %>
     </main>
   </div>
 </div>
