@@ -1,8 +1,51 @@
 @use '~bootstrap/scss/bootstrap';
+* {
+  box-sizing: border-box;
+}
+
+//Navbar
+.nav-layout {
+  padding: 5px;
+  width: calc(100% - 150px);
+  min-width: 800px;
+}
+
+@media (max-width: 800px) {
+  .nav-layout {
+    width: 100%;
+    min-width: unset;
+  }
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.nav-item:hover {
+  background-color: #142237;
+}
+
+//Footerをブラウザ最下層に置く
+html, body {
+  height: 100%;
+}
+
+body {height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+footer {
+  margin-top: auto;
+  background: #D8C4B6;
+  text-align: center;
+}
+
 .mouse-link {
   cursor: pointer;
 }
 
+//汎用あるスペース
 .padding-y {
   padding-top: 2rem;
   padding-bottom: 2rem;
@@ -55,28 +98,6 @@
 .page-item.active .page-link {
   background-color: #213555;
   border-color: #213555;
-}
-
-//Navbar
-.nav-layout {
-  padding: 5px;
-  width: calc(100% - 150px);
-  min-width: 800px;
-}
-
-@media (max-width: 800px) {
-  .nav-layout {
-    width: 100%;
-    min-width: unset;
-  }
-}
-
-.navbar-dark .navbar-nav .nav-link {
-  color: rgba(255, 255, 255, 0.8);
-}
-
-.nav-item:hover {
-  background-color: #142237;
 }
 
 // Aboutページ
