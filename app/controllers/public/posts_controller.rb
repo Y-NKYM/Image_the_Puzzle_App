@@ -68,6 +68,10 @@ class Public::PostsController < ApplicationController
     redirect_to posts_path
   end
 
+  def puzzle
+    @post = Post.find(params[:post_id])
+  end
+
   private
 
   def post_params
