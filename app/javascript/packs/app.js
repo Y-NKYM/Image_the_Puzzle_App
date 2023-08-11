@@ -1,3 +1,4 @@
+$(function(){
 if ((navigator.userAgent.indexOf('iPhone') > 0 && navigator.userAgent.indexOf('iPad') == -1) || navigator.userAgent.indexOf('iPod') > 0 || navigator.userAgent.indexOf('Android') > 0) {
     var parentWidth  = 256;     // 外枠の幅  （px）
     var parentHeight = 256;   // 外枠の高さ（px）
@@ -29,9 +30,8 @@ if ((navigator.userAgent.indexOf('iPhone') > 0 && navigator.userAgent.indexOf('i
       parentBlock.style.width  = parentWidth+"px";
       parentBlock.style.height = parentHeight+"px";
       parentBlock.style.position = "relative";
-      parentBlock.style.border = "2px solid #000000";
-      parentBlock.style.border = "2px solid #000000";
-
+      // parentBlock.style.border = "2px solid #000000";
+      // parentBlock.style.border = "2px solid #000000";
   }
 
 
@@ -53,6 +53,10 @@ if ((navigator.userAgent.indexOf('iPhone') > 0 && navigator.userAgent.indexOf('i
       document.getElementById('output2').value=this.value;
   });
 
+  $("#puzzle_reset").on("click",function(){
+      setImage($('#sample-image').attr('src'));
+  });
+
 
 
   /**
@@ -69,7 +73,6 @@ if ((navigator.userAgent.indexOf('iPhone') > 0 && navigator.userAgent.indexOf('i
       }
       console.log(arr);
       return arr;
-
   }
 
 
@@ -77,6 +80,7 @@ if ((navigator.userAgent.indexOf('iPhone') > 0 && navigator.userAgent.indexOf('i
    * ブロックをクリックする
    * @param {object} ev    イベントハンドラ
    **/
+   let move_counter = 0;
    function clickEv(ev) {
       ev.stopPropagation();
       var moveId = ev.target.id.replace("block","");
@@ -87,7 +91,10 @@ if ((navigator.userAgent.indexOf('iPhone') > 0 && navigator.userAgent.indexOf('i
    * 4. ブロックを移動させる
    * @param {object} comp    コンポーネント
    **/
+
    function moveBlock(comp) {
+
+
       // (4-1)クリックしたブロックの隣に「空きスペース」があるかを判定する
       // 動かすブロック、空きスペースの情報を取得
       //** (4-1) start **/
@@ -109,16 +116,19 @@ if ((navigator.userAgent.indexOf('iPhone') > 0 && navigator.userAgent.indexOf('i
       }
       //** (4-1) end **/
       //** (4-2) start **/
+
       if (moveFlg) {  // (4-2)移動可能な場合、クリックしたブロックを空きスペースに移動させる
           // クリックしたスペースIDと空白スペースIDを入れ替える
           var _moveId = moveId;
           moveId = blankId;
           blankId = _moveId;
-
           // ブロックの位置を入れ替える
           comp.style.top = comp.height*blankId0+"px";
           comp.style.left  = comp.width*blankId1+"px";
           comp.id = "block"+blankId0+"_"+blankId1;
+          move_counter += 1;
+          let puzzle_move = document.getElementById("puzzle_move");
+          puzzle_move.innerHTML = `${move_counter}回`;
       }
       //** (4-2) end **/
   }
@@ -224,4 +234,6 @@ if ((navigator.userAgent.indexOf('iPhone') > 0 && navigator.userAgent.indexOf('i
           $("#parentBlock").css("width", (canvas.width)*W+"px");
           $("#parentBlock").css("height", (canvas.height)*H+"px");
       }
+
   }
+});

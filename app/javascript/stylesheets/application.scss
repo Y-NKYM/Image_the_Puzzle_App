@@ -186,3 +186,11 @@ footer {
   background-color: rgba(79, 112, 156, 75%);
 }
 
+// puzzle
+.fit-width {
+  width:-webkit-fill-available;
+}
+
+.fit-width:focus-visible {
+  outline: none;
+}

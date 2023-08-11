@@ -8,6 +8,25 @@
           <%= link_to "画像を変更", posts_path, class: 'btn btn-primary w-75 my-3' %>
         </div>
       </div>
+      <div class="w-75 mx-auto">
+        <table class="table table-bordered mb-0" style="border-width: 2px; border-color:black">
+          <tbody>
+            <tr>
+              <td class="border-dark text-center">難易度</td>
+            </tr>
+            <tr>
+              <td class="border-dark text-center p-0">
+                <select id="range" class="form-select form-select-lg p-2 rounded-0 fit-width">
+                  <% for range in 3..10 do %>
+                  <option value="<%= range %>"><%= range %></option>
+                  <% end %>
+                </select>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
       <div>
         <button id="puzzle_reset" class="btn btn-success w-75 margin-y">RESET</button>
       </div>
@@ -73,16 +92,17 @@
   // });
 
   //** スライダーバーを動かす **//
-  $("#range_w").on("change",function(){
-      W = this.value;
+  $("#range").on("change",function(){
+      W = parseInt(this.value);
+      H = parseInt(this.value);
       setImage(imgObj.src);
-      document.getElementById('output1').value=this.value;
+      // document.getElementById('output1').value=this.value;
   });
-  $("#range_h").on("change",function(){
-      H = this.value;
-      setImage(imgObj.src);
-      document.getElementById('output2').value=this.value;
-  });
+  // $("#range_h").on("change",function(){
+  //     H = this.value;
+  //     setImage(imgObj.src);
+  //     document.getElementById('output2').value=this.value;
+  // });
 
   $("#puzzle_reset").on("click",function(){
       setImage($('#sample-image').attr('src'));
@@ -102,19 +122,37 @@
           arr[cnt] = arr[rnd];
           arr[rnd] = tmp;
       }
-      console.log(arr);
+      // console.log(arr);
       return arr;
   }
 
+  var completed = false;
+  function is_complete() {
+    var tempComplete = true;
+    for (var cnt1=0; cnt1<H; cnt1++) {
+        for (var cnt2=0; cnt2<W; cnt2++) {
+            var canvas_element = document.getElementById("block"+cnt1+"_"+cnt2);
+            if (canvas_element == null){
+                continue;
+            }
+            if (canvas_element.id != ("block"+canvas_element.dataset.imageId)){
+                tempComplete = false;
+            }
+        }
+    }
+    completed = tempComplete;
+  }
 
   /**
    * ブロックをクリックする
    * @param {object} ev    イベントハンドラ
    **/
-   let move_counter = 0;
+   var move_counter = 0;
    function clickEv(ev) {
       ev.stopPropagation();
-      var moveId = ev.target.id.replace("block","");
+      if (completed){
+        return;
+      }
       moveBlock(ev.target)
   }
 
@@ -147,7 +185,7 @@
       }
       //** (4-1) end **/
       //** (4-2) start **/
-
+      moveFlg = true //cheat on
       if (moveFlg) {  // (4-2)移動可能な場合、クリックしたブロックを空きスペースに移動させる
           // クリックしたスペースIDと空白スペースIDを入れ替える
           var _moveId = moveId;
@@ -160,6 +198,8 @@
           move_counter += 1;
           let puzzle_move = document.getElementById("puzzle_move");
           puzzle_move.innerHTML = `${move_counter}回`;
+          is_complete()
+          //完成後したいこと
       }
       //** (4-2) end **/
   }
@@ -192,9 +232,9 @@
       var counter = 0;
       for (var cnt1=0; cnt1<H; cnt1++) {
           for (var cnt2=0; cnt2<W; cnt2++) {
-              if (counter == rnd) {       // ランダムに取得した値とcounterの値が一致したときに、空きスペースIDをセットする
-                  blankId = "2_2";    // 空きスペースID
-              }
+              // if (counter == rnd) {       // ランダムに取得した値とcounterの値が一致したときに、空きスペースIDをセットする
+              //     blankId = "2_2";    // 空きスペースID
+              // }
               blockIdArr[counter] = cnt1+"_"+cnt2;
               counter++;
           }
@@ -203,6 +243,16 @@
 
       blockIdArr = getRandamArray(blockIdArr);   // パズルをランダムに配置するために、ブロック番号を並び替える（2-3）
 
+      //パズル完成後、クリックしても動けないようにするため
+      var counter = 0
+      for (var cnt1=0; cnt1<H; cnt1++) {
+          for (var cnt2=0; cnt2<W; cnt2++) {
+            if (blockIdArr[counter] == `${H-1}_${W-1}`) {
+                blankId = cnt1+"_"+cnt2;
+            }
+            counter++;
+          }
+      }
       // 画像を読み込ませる(2-3)
       imgObj = new Image();
       imgObj.src = url;
@@ -215,6 +265,7 @@
                   if (blankId != cnt1+"_"+cnt2) {
                       //canvas（ブロック）を生成する（※本文中では説明省略）
                       var canvas = document.createElement("canvas");
+                      canvas.dataset.imageId = blockIdArr[counter];
                       canvas.id = "block"+cnt1+"_"+cnt2;
                       canvas.width  = parentWidth/W;
                       canvas.height = parentHeight/H;
