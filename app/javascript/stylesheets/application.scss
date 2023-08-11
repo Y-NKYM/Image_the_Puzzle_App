@@ -108,18 +108,21 @@ footer {
   background-position: center;
 }
 
-.about-image-box {
+.relative-box {
   position: relative;
+}
+
+.absolute-center-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%)
 }
 
 .about-image-text {
   color: white;
   background-color: rgba( 0, 0, 0, 0.5);
   width: 100%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%)
 }
 
 @media (max-width: 800px) {

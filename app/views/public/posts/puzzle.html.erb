@@ -31,7 +31,12 @@
         <button id="puzzle_reset" class="btn btn-success w-75 margin-y">RESET</button>
       </div>
     </section>
-    <div class="mx-5" id="puzzle" style="border:solid;"></div>
+    <div class="relative-box">
+      <div class="mx-5" id="puzzle" style="border:solid;"></div>
+      <div id="puzzle-complete" class="absolute-center-box" style="display: none">
+        <%= image_tag 'congrats_image.png'%>
+      </div>
+    </div>
     <div class="d-flex align-items-end col" style="width:200px">
       <table class="table table-bordered mb-0" style="border-width: 2px; border-color:black">
         <tbody>
@@ -46,8 +51,26 @@
     </div>
   </div>
 </div>
+<p class="text-center my-3">パズルについて：画像の最右下が空欄となります。</p>
 
 <script>
+  var completed = false;
+  function is_complete() {
+    var tempComplete = true;
+    for (var cnt1=0; cnt1<H; cnt1++) {
+        for (var cnt2=0; cnt2<W; cnt2++) {
+            var canvas_element = document.getElementById("block"+cnt1+"_"+cnt2);
+            if (canvas_element == null){
+                continue;
+            }
+            if (canvas_element.id != ("block"+canvas_element.dataset.imageId)){
+                tempComplete = false;
+            }
+        }
+    }
+    completed = tempComplete;
+  }
+
   if ((navigator.userAgent.indexOf('iPhone') > 0 && navigator.userAgent.indexOf('iPad') == -1) || navigator.userAgent.indexOf('iPod') > 0 || navigator.userAgent.indexOf('Android') > 0) {
     var parentWidth  = 256;     // 外枠の幅  （px）
     var parentHeight = 256;   // 外枠の高さ（px）
@@ -89,12 +112,17 @@
   // $("#urlBtn").on("click",function(){
       // setImage($('#url').val());
   setImage($('#sample-image').attr('src'));
+  // is_complete();
+  // while (completed){
+  //   setImage($('#sample-image').attr('src'));
+  // }
   // });
 
   //** スライダーバーを動かす **//
   $("#range").on("change",function(){
       W = parseInt(this.value);
       H = parseInt(this.value);
+      completed = false;
       setImage(imgObj.src);
       // document.getElementById('output1').value=this.value;
   });
@@ -105,6 +133,7 @@
   // });
 
   $("#puzzle_reset").on("click",function(){
+    completed = false;
       setImage($('#sample-image').attr('src'));
   });
 
@@ -126,22 +155,7 @@
       return arr;
   }
 
-  var completed = false;
-  function is_complete() {
-    var tempComplete = true;
-    for (var cnt1=0; cnt1<H; cnt1++) {
-        for (var cnt2=0; cnt2<W; cnt2++) {
-            var canvas_element = document.getElementById("block"+cnt1+"_"+cnt2);
-            if (canvas_element == null){
-                continue;
-            }
-            if (canvas_element.id != ("block"+canvas_element.dataset.imageId)){
-                tempComplete = false;
-            }
-        }
-    }
-    completed = tempComplete;
-  }
+
 
   /**
    * ブロックをクリックする
@@ -199,7 +213,9 @@
           let puzzle_move = document.getElementById("puzzle_move");
           puzzle_move.innerHTML = `${move_counter}回`;
           is_complete()
-          //完成後したいこと
+          if (completed) {
+            document.getElementById("puzzle-complete").style.display = "block";
+          }
       }
       //** (4-2) end **/
   }
@@ -210,6 +226,10 @@
    * @param {String} url   画像のURL
    **/
   function setImage(url) {
+      // completed = false;
+      if (!completed) {
+        document.getElementById("puzzle-complete").style.display = "none";
+      }
       if (url == "") {
           alert("URLを入力してください");
           return;
