@@ -65,7 +65,11 @@
             }
             if (canvas_element.id != ("block"+canvas_element.dataset.imageId)){
                 tempComplete = false;
+                break;
             }
+        }
+        if (tempComplete == false){
+          break;
         }
     }
     completed = tempComplete;
@@ -112,9 +116,11 @@
   // $("#urlBtn").on("click",function(){
       // setImage($('#url').val());
   setImage($('#sample-image').attr('src'));
-  // is_complete();
+
   // while (completed){
+  //   completed = false;
   //   setImage($('#sample-image').attr('src'));
+  //   is_complete();
   // }
   // });
 
@@ -260,8 +266,24 @@
           }
       }
       //** (2-1～2-2) end **/
-
-      blockIdArr = getRandamArray(blockIdArr);   // パズルをランダムに配置するために、ブロック番号を並び替える（2-3）
+      // 確率でランダムがそのまま完成だった場合、再度シャッフルする。
+      var blockIdArrRandom = blockIdArr.concat();
+      blockIdArrRandom = getRandamArray(blockIdArrRandom);   // パズルをランダムに配置するために、ブロック番号を並び替える（2-3）
+      function array_equal(blockIdArr, blockIdArrRandom) {
+        if (!Array.isArray(blockIdArr))    return false;
+        if (!Array.isArray(blockIdArrRandom))    return false;
+        if (blockIdArr.length != blockIdArr.length) return false;
+        for (var i = 0, n = blockIdArr.length; i < n; ++i) {
+          if (blockIdArr[i] !== blockIdArrRandom[i]) return false;
+        }
+        return true;
+      }
+      var checkArray = array_equal(blockIdArr, blockIdArrRandom)
+      while (checkArray) {
+        blockIdArrRandom = getRandamArray(blockIdArrRandom);
+        checkArray = array_equal(blockIdArr, blockIdArrRandom);
+      };
+      blockIdArr = blockIdArrRandom;
 
       //パズル完成後、クリックしても動けないようにするため
       var counter = 0
