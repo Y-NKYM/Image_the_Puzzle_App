@@ -11,6 +11,48 @@
     <div class="actions text-center padding-sm-y">
       <%= f.submit "投稿", class: "btn btn-success padding-x" %>
     </div>
+    <div class="row">
+    <div class='col-9 js-croppie' style='width: 300px; height: 300px; display: none'></div>
+
+    <div class='col-3 align-self-end'><button type="button" class='js-croppie-result btn btn-secondary'>GetResult</button></div>
+    </div>
     <% end %>
   </div>
 </div>
+
+<script>
+$(function() {
+  $('#post_post_image').change(function(e) {
+
+    const reader = new FileReader();
+    const file = e.target.files[0]
+    reader.onload = function() {
+      $('.js-croppie').show()
+      $('.js-croppie').croppie('destroy')
+      const elm = $('.js-croppie').croppie({
+        viewport: {
+          width: 200,
+          height: 200
+        }
+      })
+      elm.croppie('bind', {
+          url: reader.result,
+          points: [0, 0, 200, 200],
+      })
+    }
+    reader.readAsDataURL(file)
+  })
+
+  $('.js-croppie-result').click(function() {
+    $('.js-croppie').croppie('result', {type: 'blob'}).then(function(data) {
+      const file = new File([data], "img.png", {type: "image/png"})
+
+      const container = new DataTransfer()
+      container.items.add(file)
+
+      document.querySelector('#post_post_image').files = container.files
+      document.querySelector('#post_post_image').dispatchEvent(new Event('change', {'bubbles': true}))
+    })
+  })
+})
+</script>
