@@ -28,6 +28,7 @@ Rails.application.routes.draw do
     resources :bookmarks, only:  [:index]
     resources :posts, only:  [:new, :index, :create, :show, :edit, :update, :destroy] do
       resource :bookmarks, only:  [:create, :destroy]
+      get 'puzzle' => 'posts#puzzle'
     end
     resources :post_comments, only:  [:new, :create, :destroy]
     resources :searches, only:  [:index]
