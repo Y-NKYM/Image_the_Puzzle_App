@@ -298,15 +298,6 @@ if ((navigator.userAgent.indexOf('iPhone') > 0 && navigator.userAgent.indexOf('i
 // パズルの枠と入力部品エリアの幅を合わせる（見た目の調整）
 $("#settingBlock").css("width", parentWidth+"px");
 
-// キャッシュ（ブラウザバック）により、パズルの外枠が存在していた場合削除
-elem = document.getElementById('puzzle');
-while(elem.firstChild){
-elem.removeChild(elem.firstChild);
-}
-
-// パズルの外枠を設置する
-setOutLine();
-
 /** 初期値 **/
 var W = 3;  // 横の個数
 var H = 3;  // 縦の個数
@@ -316,6 +307,21 @@ var parentBlock;        // 外枠のdiv要素
 var imgObj;             // 画像オブジェクト
 var completed = false;  // パズル完成チェック
 var move_counter = 0;  //操作回数
+
+// キャッシュ（ブラウザバック）により、
+// パズルの外枠が存在していた場合削除
+var puzzleElem = document.getElementById('puzzle');
+while(puzzleElem.firstChild){
+puzzleElem.removeChild(puzzleElem.firstChild);
+}
+// 操作回数が０でない場合、０に戻す
+var moveCount = document.getElementById('puzzle_move');
+if(moveCount.innerHTML != "0回"){
+  moveCount.innerHTML = "0回";
+}
+
+// パズルの外枠を設置する
+setOutLine();
 
 setImage($('#sample-image').attr('src'));
 
