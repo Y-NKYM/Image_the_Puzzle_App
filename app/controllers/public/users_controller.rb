@@ -8,8 +8,8 @@ class Public::UsersController < ApplicationController
 
   def mypage
     @user = User.find(current_user.id)
-    @posts = @user.posts.limit(4)
-    @bookmarks = @user.bookmark_posts.limit(4)
+    @posts = @user.posts.order(created_at: "DESC").limit(4)
+    @bookmarks = @user.bookmark_posts.order(created_at: "DESC").limit(4)
   end
 
   def show

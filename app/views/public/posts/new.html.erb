@@ -1,7 +1,7 @@
 <div class="container fit-content">
   <div class="my-5">
     <h2>新規投稿</h2>
-    <%= form_with model: @post, url: posts_path, id: "post-form" do |f| %>
+    <%= form_with model: @post, url: posts_path, id: "post-form", html: {name: 'form'} do |f| %>
     <%= render "layouts/form_errors", model: @post %>
     <div class="margin-y mx-auto">
       <div class="field">
@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="actions text-center padding-sm-y">
-      <%= f.submit "投稿", class: "btn btn-success padding-x", id: "post-submit" %>
+      <%= button_tag "投稿", type: 'button', class: "btn btn-success padding-x", id: "post-submit", onclick: 'cropAndSubmit()' %>
     </div>
     <% end %>
   </div>
@@ -19,7 +19,7 @@
 var filename = ""
 function cropImage() {
   $('.js-croppie').croppie('result', {type: 'blob'}).then(function(data) {
-    const file = new File([data], filename, {type: "image/png"})
+    const file = new File([data], 'hoge', {type: "image/png"})
 
     const container = new DataTransfer()
     container.items.add(file)
@@ -27,6 +27,13 @@ function cropImage() {
     document.querySelector('#post_post_image').files = container.files
     document.querySelector('#post_post_image').dispatchEvent(new Event('change', {'bubbles': true}))
   })
+}
+
+function cropAndSubmit() {
+  cropImage(); // cropImage呼び出し
+  setInterval(function () { // cropImageの処理待ちで0.5秒
+    document.form.submit(); // フォームの送信
+  }, 500);
 }
 
 $(function() {
@@ -55,12 +62,28 @@ $(function() {
     cropImage();
   })
 
-  $('#post-form').submit(function(e) {
-    console.log(e)
-    // e.preventDefault();
-    cropImage();
-    // $('#post-form').submit();
-    // Rails.fire($("#post-form")[0], "submit");
-  })
+  // $('.js-croppie').on('update.croppie', function() {
+  //   // console.log('update')
+  //   cropImage();
+  // })
+
+  // $('#post-submit').click(function() {
+  //   cropImage();
+  // })
+
+  // $('#post-submit').on('click', function(e) {
+  //   e.preventDefault();
+  //   cropImage();
+  //   $('#post-form').submit();
+  //   // Rails.fire($('#post-form'), 'submit');
+  // })
+
+  // $('#post-form').submit(function(e) {
+  //   console.log(e)
+  //   // e.preventDefault();
+  //   cropImage();
+  //   // $('#post-form').submit();
+  //   // Rails.fire($("#post-form")[0], "submit");
+  // })
 })
 </script>
