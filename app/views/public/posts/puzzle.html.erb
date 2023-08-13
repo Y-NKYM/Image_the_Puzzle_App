@@ -55,282 +55,285 @@
 
 <script>
 
+// 操作回数をカウント
 function clickCount() {
   let puzzle_move = document.getElementById("puzzle_move");
   puzzle_move.innerHTML = `${move_counter}回`;
 }
 
 // パズル完成チェック（戻り値無し、completed変更可能性あり）
-  function is_complete() {
-    var tempComplete = true;
-    for (var cnt1=0; cnt1<H; cnt1++) {
-        for (var cnt2=0; cnt2<W; cnt2++) {
-            var canvas_element = document.getElementById("block"+cnt1+"_"+cnt2);
-            if (canvas_element == null){
-                continue;
-            }
-            if (canvas_element.id != ("block"+canvas_element.dataset.imageId)){
-                tempComplete = false;
-                break;
-            }
-        }
-        if (tempComplete == false){
-          break;
-        }
-    }
-    completed = tempComplete;
-  }
-
-    // パズルの外枠を設置（戻り値無し）
-    function setOutLine() {
-        parentBlock = document.createElement("div");
-        document.querySelector("#puzzle").appendChild(parentBlock);
-        parentBlock.id = "parentBlock";
-        parentBlock.style.width  = parentWidth+"px";
-        parentBlock.style.height = parentHeight+"px";
-        parentBlock.style.position = "relative";
+function is_complete() {
+  var tempComplete = true;
+  for (var cnt1=0; cnt1<H; cnt1++) {
+    for (var cnt2=0; cnt2<W; cnt2++) {
+      var canvas_element = document.getElementById("block"+cnt1+"_"+cnt2);
+      if (canvas_element == null){
+        continue;
       }
-
-  /*
-  配列をランダムに並び替えて取得する
-  * パラメーター：配列（並び替え前）
-  * 戻り値：配列（並び替え後）
-  */
-  function getRandamArray(arr) {
-    for (var cnt=arr.length-1; cnt>=0; cnt--) {
-        var rnd = Math.floor(Math.random()*(cnt+1));
-        var tmp = arr[cnt];
-        arr[cnt] = arr[rnd];
-        arr[rnd] = tmp;
-    }
-    return arr;
-  }
-
-  /*
-  ブロックをクリックする
-  * パラメーター：オブジェクト イベントハンドラ
-  */
-  function clickEv(ev) {
-    ev.stopPropagation();
-    if (completed){
-      return;
-    }
-    moveBlock(ev.target)
-  }
-
-  /*
-  ブロックを移動させる
-  * パラメーター：オブジェクト コンポーネント
-  */
-  function moveBlock(comp) {
-
-
-    // (4-1)クリックしたブロックの隣に「空きスペース」があるかを判定する
-    // 動かすブロック、空きスペースの情報を取得
-    // (4-1)
-    var moveId = comp.id.replace("block","")    // 動かすブロックID
-    var moveId0 = moveId.split("_")[0];     // 動かすブロックの行ID
-    var moveId1 = moveId.split("_")[1];     // 動かすブロックの列ID
-    var blankId0 = blankId.split("_")[0];   // 空きスペースの行ID
-    var blankId1 = blankId.split("_")[1];   // 空きスペースの列ID
-
-    var moveFlg = false;    // 判定フラグ
-    if (moveId0 == blankId0) {
-        if (Math.abs(moveId1-blankId1) == 1) {  // 動かすブロックと空きスペースが隣り合ってる
-            moveFlg = true;
-        }
-    } else if (moveId1 == blankId1) {
-        if (Math.abs(moveId0-blankId0) == 1) {  // 動かすブロックと空きスペースが隣り合ってる
-            moveFlg = true;
-        }
-    }
-
-    // (4-2)移動可能な場合、クリックしたブロックを空きスペースに移動させる
-    // (4-2)
-    //moveFlg = true //パズル完成時のチェック用チート。
-    if (moveFlg) {
-        // クリックしたスペースIDと空白スペースIDを入れ替える
-        var _moveId = moveId;
-        moveId = blankId;
-        blankId = _moveId;
-        // ブロックの位置を入れ替える
-        comp.style.top = comp.height*blankId0+"px";
-        comp.style.left  = comp.width*blankId1+"px";
-        comp.id = "block"+blankId0+"_"+blankId1;
-        move_counter += 1;
-        clickCount();
-        is_complete()
-        if (completed) {
-          document.getElementById("puzzle-complete").style.display = "block";
-        }
-    }
-  }
-
-  /*
-  ブロックを移動させる
-  * パラメーター：文字列 画像URL
-  */
-  function setImage(url) {
-    if (!completed) {
-      document.getElementById("puzzle-complete").style.display = "none";
-    }
-    if (url == "") {
-        alert("URLを入力してください");
-        return;
-    }
-
-    $("#range_box").css("display","block");     // スライダーバーを表示させる
-    $(parentBlock).empty();         // ブロック要素をすべて消す
-    $("#url").val("");
-
-    // ブロックIDの格納用配列の初期化
-    var blockIdArr = new Array();
-    blockIdArr.length = 0;
-
-    /** 2. ブロックの配置方法を決める
-    （2-1）パズルのスペースとIDを決め、
-    （2-2）空きスペースをランダムに決める
-    **/
-    //** (2-1～2-2) start **/
-    var rnd = Math.floor(Math.random()*((W*H)-1));  //　[空きスペースの位置をランダムに取得] 0～(マス目の数-1)までの整数から、ランダムに数値を取得する
-    var counter = 0;
-    for (var cnt1=0; cnt1<H; cnt1++) {
-        for (var cnt2=0; cnt2<W; cnt2++) {
-            blockIdArr[counter] = cnt1+"_"+cnt2;
-            counter++;
-        }
-    }
-    //** (2-1～2-2) end **/
-    // 確率でランダムがそのまま完成だった場合、再度シャッフルする。
-    var blockIdArrRandom = blockIdArr.concat();
-    blockIdArrRandom = getRandamArray(blockIdArrRandom);   // パズルをランダムに配置するために、ブロック番号を並び替える（2-3）
-    function array_equal(blockIdArr, blockIdArrRandom) {
-      if (!Array.isArray(blockIdArr))    return false;
-      if (!Array.isArray(blockIdArrRandom))    return false;
-      if (blockIdArr.length != blockIdArr.length) return false;
-      for (var i = 0, n = blockIdArr.length; i < n; ++i) {
-        if (blockIdArr[i] !== blockIdArrRandom[i]) return false;
+      if (canvas_element.id != ("block"+canvas_element.dataset.imageId)){
+        tempComplete = false;
+        break;
       }
-      return true;
     }
-    var checkArray = array_equal(blockIdArr, blockIdArrRandom)
-    while (checkArray) {
-      blockIdArrRandom = getRandamArray(blockIdArrRandom);
-      checkArray = array_equal(blockIdArr, blockIdArrRandom);
-    };
-    blockIdArr = blockIdArrRandom;
-
-    //パズル完成後、クリックしても動けないようにするため
-    var counter = 0
-    for (var cnt1=0; cnt1<H; cnt1++) {
-        for (var cnt2=0; cnt2<W; cnt2++) {
-          if (blockIdArr[counter] == `${H-1}_${W-1}`) {
-              blankId = cnt1+"_"+cnt2;
-          }
-          counter++;
-        }
+    if (tempComplete == false){
+      break;
     }
-    // 画像を読み込ませる(2-3)
-    imgObj = new Image();
-    imgObj.src = url;
-    imgObj.onload = function() {
-        var counter = 0;
-
-        // ブロックごとに順番に画像を配置する
-        for (var cnt1=0; cnt1<H; cnt1++) {
-            for (var cnt2=0; cnt2<W; cnt2++) {
-                if (blankId != cnt1+"_"+cnt2) {
-                    //canvas（ブロック）を生成する（※本文中では説明省略）
-                    var canvas = document.createElement("canvas");
-                    canvas.dataset.imageId = blockIdArr[counter];
-                    canvas.id = "block"+cnt1+"_"+cnt2;
-                    canvas.width  = parentWidth/W;
-                    canvas.height = parentHeight/H;
-                    parentBlock.appendChild(canvas);
-
-                    // canvas（ブロック）を配置する（※本文中では説明省略）
-                    canvas.style.position = "absolute";
-                    canvas.style.width  = parentWidth/W+"px";
-                    canvas.style.height = parentHeight/H+"px";
-                    canvas.style.top  = canvas.height*cnt1+"px";
-                    canvas.style.left = canvas.width*cnt2+"px";
-
-                    /* 3. ブロックをランダムに並び替えて配置する */
-                    // IDをもとに、そのブロックに表示される画像の位置・大きさ情報を設定
-                    //** (3) start **/
-                    var imgDim = imgObj.width/W; //画像をつぶれないように使用幅を短い方に合わせる
-                    if (imgDim > imgObj.height/H) {
-                      imgDim = imgObj.height/H;
-                    }
-                    var rand1 = blockIdArr[counter].split("_")[1];
-                    var rand2 =  blockIdArr[counter].split("_")[0];
-                    var sx = imgDim*rand1;
-                    var sy = imgDim*rand2;
-                    var sw = imgDim;
-                    var sh = imgDim;
-                    var dx = 0;
-                    var dy = 0;
-                    var dw = canvas.width;
-                    var dh = canvas.height;
-
-                    var context = canvas.getContext("2d");
-                    context.lineWidth = 1;      // 枠線の太さ
-                    // 画像を配置
-                    context.drawImage(imgObj,sx,sy,sw,sh,dx,dy,dw,dh);
-                    context.beginPath();
-                    context.strokeRect(0, 0, dw, dh);
-                    canvas.addEventListener("click", clickEv, true);
-                    //** (3) end **/
-                }
-                counter++;
-            }
-        }
-        // 小数の影響による外枠の大きさの微調整
-        $("#parentBlock").css("width", (canvas.width)*W+"px");
-        $("#parentBlock").css("height", (canvas.height)*H+"px");
-    }
+  }
+  completed = tempComplete;
 }
 
-  //外枠の幅・高さ(px)をスマホとブラウザで分ける
-  if ((navigator.userAgent.indexOf('iPhone') > 0 && navigator.userAgent.indexOf('iPad') == -1) || navigator.userAgent.indexOf('iPod') > 0 || navigator.userAgent.indexOf('Android') > 0) {
-    var parentWidth  = 256;
-    var parentHeight = 256;
-  } else {
-    var parentWidth  = 600;
-    var parentHeight = 600;
+// パズルの外枠を設置（戻り値無し）
+function setOutLine() {
+  parentBlock = document.createElement("div");
+  document.querySelector("#puzzle").appendChild(parentBlock);
+  parentBlock.id = "parentBlock";
+  parentBlock.style.width  = parentWidth+"px";
+  parentBlock.style.height = parentHeight+"px";
+  parentBlock.style.position = "relative";
+}
+
+/*
+配列をランダムに並び替えて取得する
+* パラメーター：配列（並び替え前）
+* 戻り値：配列（並び替え後）
+*/
+function getRandamArray(arr) {
+  for (var cnt=arr.length-1; cnt>=0; cnt--) {
+    var rnd = Math.floor(Math.random()*(cnt+1));
+    var tmp = arr[cnt];
+    arr[cnt] = arr[rnd];
+    arr[rnd] = tmp;
   }
-  // パズルの枠と入力部品エリアの幅を合わせる（見た目の調整）
-  $("#settingBlock").css("width", parentWidth+"px");
-  // パズルの外枠を設置する
-  setOutLine();
+  return arr;
+}
 
-  /** 初期値 **/
-  var W = 3;  // 横の個数
-  var H = 3;  // 縦の個数
+/*
+ブロックをクリックする
+* パラメーター：オブジェクト イベントハンドラ
+*/
+function clickEv(ev) {
+  ev.stopPropagation();
+  if (completed){
+    return;
+  }
+  moveBlock(ev.target)
+}
 
-  var blankId;            // 空きスペースID
-  var parentBlock;        // 外枠のdiv要素
-  var imgObj;             // 画像オブジェクト
-  var completed = false;  // パズル完成チェック
-  var move_counter = 0;  //操作回数
+/*
+ブロックを移動させる
+* パラメーター：オブジェクト コンポーネント
+*/
+function moveBlock(comp) {
+  // クリックしたブロックの隣に「空きスペース」があるかを判定する
+  // 動かすブロック、空きスペースの情報を取得
+  var moveId = comp.id.replace("block","")    // 動かすブロックID
+  var moveId0 = moveId.split("_")[0];         // 動かすブロックの行ID
+  var moveId1 = moveId.split("_")[1];         // 動かすブロックの列ID
+  var blankId0 = blankId.split("_")[0];       // 空きスペースの行ID
+  var blankId1 = blankId.split("_")[1];       // 空きスペースの列ID
 
-  setImage($('#sample-image').attr('src'));
+  var moveFlg = false;    // 判定フラグ
+  if (moveId0 == blankId0) {
+    if (Math.abs(moveId1-blankId1) == 1) {  // 動かすブロックと空きスペースが隣り合ってる
+      moveFlg = true;
+    }
+  } else if (moveId1 == blankId1) {
+    if (Math.abs(moveId0-blankId0) == 1) {  // 動かすブロックと空きスペースが隣り合ってる
+      moveFlg = true;
+    }
+  }
 
-  // セレクトフォームから初期値の変更をした場合
-  $("#range").on("change",function(){
-      W = parseInt(this.value);
-      H = parseInt(this.value);
-      completed = false;
-      move_counter = 0;
-      clickCount();
-      setImage(imgObj.src);
-  });
-
-  // RESETボタンが押された場合
-  $("#puzzle_reset").on("click",function(){
-    completed = false;
-    move_counter = 0;
+  // 移動可能な場合、クリックしたブロックを空きスペースに移動させる
+  // moveFlg = true //この記述を入れると、隣り合わせでなくても移動できる。パズル完成時のチェック用チート。
+  if (moveFlg) {
+    // クリックしたスペースIDと空白スペースIDを入れ替える
+    var _moveId = moveId;
+    moveId = blankId;
+    blankId = _moveId;
+    // ブロックの位置を入れ替える
+    comp.style.top = comp.height*blankId0+"px";
+    comp.style.left  = comp.width*blankId1+"px";
+    comp.id = "block"+blankId0+"_"+blankId1;
+    move_counter += 1;
     clickCount();
-    setImage($('#sample-image').attr('src'));
-  });
+    is_complete()
+    if (completed) {
+      document.getElementById("puzzle-complete").style.display = "block";
+    }
+  }
+}
+
+/*
+ブロックを移動させる
+* パラメーター：文字列 画像URL
+*/
+function setImage(url) {
+  if (!completed) {
+    document.getElementById("puzzle-complete").style.display = "none";
+  }
+
+  $("#range_box").css("display","block");     // スライダーバーを表示させる
+  $(parentBlock).empty();                     // ブロック要素をすべて消す
+  $("#url").val("");
+
+  // ブロックIDの格納用配列の初期化
+  var blockIdArr = new Array();
+  blockIdArr.length = 0;
+
+  // パズルの空の位置をランダムで決める
+  var rnd = Math.floor(Math.random()*((W*H)-1));
+  var counter = 0;
+  for (var cnt1=0; cnt1<H; cnt1++) {
+      for (var cnt2=0; cnt2<W; cnt2++) {
+          blockIdArr[counter] = cnt1+"_"+cnt2;
+          counter++;
+      }
+  }
+
+  // 確率でランダムがそのまま完成だった場合、再度シャッフルする。
+  var blockIdArrRandom = blockIdArr.concat();
+  blockIdArrRandom = getRandamArray(blockIdArrRandom);
+  function array_equal(blockIdArr, blockIdArrRandom) {
+    if (!Array.isArray(blockIdArr))    return false;
+    if (!Array.isArray(blockIdArrRandom))    return false;
+    if (blockIdArr.length != blockIdArr.length) return false;
+    for (var i = 0, n = blockIdArr.length; i < n; ++i) {
+      if (blockIdArr[i] !== blockIdArrRandom[i]) return false;
+    }
+    return true;
+  }
+  var checkArray = array_equal(blockIdArr, blockIdArrRandom)
+  while (checkArray) {
+    blockIdArrRandom = getRandamArray(blockIdArrRandom);
+    checkArray = array_equal(blockIdArr, blockIdArrRandom);
+  };
+  blockIdArr = blockIdArrRandom;
+
+  //パズル完成後、クリックしても動けないようにするため
+  var counter = 0
+  for (var cnt1=0; cnt1<H; cnt1++) {
+    for (var cnt2=0; cnt2<W; cnt2++) {
+      if (blockIdArr[counter] == `${H-1}_${W-1}`) {
+        blankId = cnt1+"_"+cnt2;
+      }
+      counter++;
+    }
+  }
+
+  // 画像を読み込ませる
+  imgObj = new Image();
+  imgObj.src = url;
+  imgObj.onload = function() {
+    var counter = 0;
+
+    // ブロックごとに順番に画像を配置する
+    for (var cnt1=0; cnt1<H; cnt1++) {
+      for (var cnt2=0; cnt2<W; cnt2++) {
+        if (blankId != cnt1+"_"+cnt2) {
+
+          // canvas：パズルピースを生成する
+          var canvas = document.createElement("canvas");
+          canvas.dataset.imageId = blockIdArr[counter];
+          canvas.id = "block"+cnt1+"_"+cnt2;
+          canvas.width  = parentWidth/W;
+          canvas.height = parentHeight/H;
+          parentBlock.appendChild(canvas);
+
+          // canvas：パズルピースを配置する
+          canvas.style.position = "absolute";
+          canvas.style.width  = parentWidth/W+"px";
+          canvas.style.height = parentHeight/H+"px";
+          canvas.style.top  = canvas.height*cnt1+"px";
+          canvas.style.left = canvas.width*cnt2+"px";
+
+          //ブロックをランダムに並び替えて配置する
+          //画像をつぶれないように使用幅を短い方に合わせる（縦横比が別の場合）
+          var imgDim = imgObj.width/W;
+          if (imgDim > imgObj.height/H) {
+            imgDim = imgObj.height/H;
+          }
+          // ランダム配列のblockIdArrを基にパズル位置を決める
+          // IDの0～2を基に画像サイズ・位置を決める
+          var rand1 = blockIdArr[counter].split("_")[1];
+          var rand2 =  blockIdArr[counter].split("_")[0];
+
+          // canvas要素内にあるdrawImageメソッドの値の取得
+          var sx = imgDim*rand1;
+          var sy = imgDim*rand2;
+          var sw = imgDim;
+          var sh = imgDim;
+          var dx = 0;
+          var dy = 0;
+          var dw = canvas.width;
+          var dh = canvas.height;
+
+          // canvas要素を2D用にする（使用メソッドが変化する）
+          // 枠線の太さ
+          var context = canvas.getContext("2d");
+          context.lineWidth = 1;
+
+          // 画像を配置
+          context.drawImage(imgObj,sx,sy,sw,sh,dx,dy,dw,dh);
+          context.beginPath();
+          context.strokeRect(0, 0, dw, dh);
+          canvas.addEventListener("click", clickEv, true);
+        }
+        counter++;
+      }
+    }
+    // 小数の影響による外枠の大きさの微調整
+    $("#parentBlock").css("width", (canvas.width)*W+"px");
+    $("#parentBlock").css("height", (canvas.height)*H+"px");
+  }
+}
+
+//外枠の幅・高さ(px)をスマホとブラウザで分ける
+if ((navigator.userAgent.indexOf('iPhone') > 0 && navigator.userAgent.indexOf('iPad') == -1) || navigator.userAgent.indexOf('iPod') > 0 || navigator.userAgent.indexOf('Android') > 0) {
+  var parentWidth  = 256;
+  var parentHeight = 256;
+} else {
+  var parentWidth  = 600;
+  var parentHeight = 600;
+}
+// パズルの枠と入力部品エリアの幅を合わせる（見た目の調整）
+$("#settingBlock").css("width", parentWidth+"px");
+
+// キャッシュ（ブラウザバック）により、パズルの外枠が存在していた場合削除
+elem = document.getElementById('puzzle');
+while(elem.firstChild){
+elem.removeChild(elem.firstChild);
+}
+
+// パズルの外枠を設置する
+setOutLine();
+
+/** 初期値 **/
+var W = 3;  // 横の個数
+var H = 3;  // 縦の個数
+
+var blankId;            // 空きスペースID
+var parentBlock;        // 外枠のdiv要素
+var imgObj;             // 画像オブジェクト
+var completed = false;  // パズル完成チェック
+var move_counter = 0;  //操作回数
+
+setImage($('#sample-image').attr('src'));
+
+// セレクトフォームから初期値の変更をした場合
+$("#range").on("change",function(){
+  W = parseInt(this.value);
+  H = parseInt(this.value);
+  completed = false;
+  move_counter = 0;
+  clickCount();
+  setImage(imgObj.src);
+});
+
+// RESETボタンが押された場合
+$("#puzzle_reset").on("click",function(){
+  completed = false;
+  move_counter = 0;
+  clickCount();
+  setImage($('#sample-image').attr('src'));
+});
 </script>
