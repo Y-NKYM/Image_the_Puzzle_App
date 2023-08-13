@@ -3,13 +3,11 @@
       <%= f.label :post_image, "画像", class: "label-width" %>
       <div>
         <%= f.file_field :post_image, accept: "image/*" %>
-        <div id="crop-box" style="display: none;">
-          <div class="d-flex flex-column" style="padding-top: 10px">
-            <div class='js-croppie' style='width: 300px; height: 300px;'></div>
-            <div class='mt-5'><button type="button" class='btn btn-secondary' id="js-croppie-result">GetResult</button></div>
-          </div>
-        </div>
-
+            <div class='js-croppie crop-preview' style='display: none;'></div>
+            <!--
+            クロッピング用のボタンを反映させたい場合
+            <button type="button" class='btn btn-secondary' id="js-croppie-result">GetResult</button>
+            -->
       </div>
   </div>
 

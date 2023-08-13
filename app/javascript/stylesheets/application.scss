@@ -148,6 +148,11 @@ footer {
   width: fit-content;
 }
 
+// Cropレイアウト
+.crop-preview{
+  width: 300px; height: 300px; margin-top:10px; margin-bottom:45px;
+}
+
 //三点省略一行文
 .three_dot_omit {
   overflow: hidden;

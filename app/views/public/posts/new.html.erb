@@ -1,7 +1,7 @@
 <div class="container fit-content">
   <div class="my-5">
     <h2>新規投稿</h2>
-    <%= form_with model: @post, url: posts_path, id: "post-form", html: {name: 'form'} do |f| %>
+    <%= form_with model: @post, url: posts_path, html: {name: 'form'} do |f| %>
     <%= render "layouts/form_errors", model: @post %>
     <div class="margin-y mx-auto">
       <div class="field">
@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="actions text-center padding-sm-y">
-      <%= button_tag "投稿", type: 'button', class: "btn btn-success padding-x", id: "post-submit", onclick: 'cropAndSubmit()' %>
+      <%= button_tag "投稿", type: 'button', class: "btn btn-success padding-x", onclick: 'cropAndSubmit()' %>
     </div>
     <% end %>
   </div>
@@ -17,9 +17,11 @@
 
 <script>
 var filename = ""
+
+//画像をクロッピングして「ファイル選択」フォームに置き換える
 function cropImage() {
   $('.js-croppie').croppie('result', {type: 'blob'}).then(function(data) {
-    const file = new File([data], 'hoge', {type: "image/png"})
+    const file = new File([data], filename, {type: "image/png"})
 
     const container = new DataTransfer()
     container.items.add(file)
@@ -29,20 +31,22 @@ function cropImage() {
   })
 }
 
+//クロッピングして送信
 function cropAndSubmit() {
-  cropImage(); // cropImage呼び出し
+  cropImage();              // cropImage呼び出し
   setInterval(function () { // cropImageの処理待ちで0.5秒
     document.form.submit(); // フォームの送信
   }, 500);
 }
 
+//「ファイル選択」内に画像が入った場合、プレビューをする
 $(function() {
   $('#post_post_image').change(function(e) {
     const reader = new FileReader();
     const file = e.target.files[0];
     filename = file.name;
     reader.onload = function() {
-      $('#crop-box').show()
+      $('.js-croppie').show()
       $('.js-croppie').croppie('destroy')
       const elm = $('.js-croppie').croppie({
         viewport: {
@@ -58,32 +62,11 @@ $(function() {
     reader.readAsDataURL(file)
   })
 
+  /*
+  // クロッピング用のボタンを反省させた場合の処理内容
   $('#js-croppie-result').click(function() {
     cropImage();
   })
-
-  // $('.js-croppie').on('update.croppie', function() {
-  //   // console.log('update')
-  //   cropImage();
-  // })
-
-  // $('#post-submit').click(function() {
-  //   cropImage();
-  // })
-
-  // $('#post-submit').on('click', function(e) {
-  //   e.preventDefault();
-  //   cropImage();
-  //   $('#post-form').submit();
-  //   // Rails.fire($('#post-form'), 'submit');
-  // })
-
-  // $('#post-form').submit(function(e) {
-  //   console.log(e)
-  //   // e.preventDefault();
-  //   cropImage();
-  //   // $('#post-form').submit();
-  //   // Rails.fire($("#post-form")[0], "submit");
-  // })
+  */
 })
 </script>
