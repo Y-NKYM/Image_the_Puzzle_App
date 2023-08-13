@@ -14,10 +14,12 @@
               <% end %>
             <% end %>
           </div>
+          <% unless current_user.email == 'guest@example.com'%>
           <% unless @post.user == current_user %>
           <div id="bookmark_star_<%= @post.id %>">
             <%= render "public/bookmarks/bookmark_star", post: @post %>
           </div>
+          <% end %>
           <% end %>
         </div>
         <p><%= @post.content %></p>
