@@ -1,16 +1,3 @@
-
-  <div class="d-flex padding-sm-y">
-      <%= f.label :post_image, "画像", class: "label-width" %>
-      <div>
-        <%= f.file_field :post_image, accept: "image/*" %>
-            <div class='js-croppie crop-preview' style='display: none;'></div>
-            <!--
-            クロッピング用のボタンを反映させたい場合
-            <button type="button" class='btn btn-secondary' id="js-croppie-result">GetResult</button>
-            -->
-      </div>
-  </div>
-
   <div class="d-flex padding-sm-y">
       <%= f.label :title, "タイトル", class: "label-width"  %>
       <%= f.text_field :title, placeholder: "", class: "field-width"  %>
