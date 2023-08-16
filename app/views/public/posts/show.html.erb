@@ -49,29 +49,15 @@
   <!--コメントする-->
   <div class="mx-md-5">
     <div>
-    	<%= form_with model: [@post, @post_comment] do |f| %>
+    	<%= form_with model: [@post, @post_comment], local: false do |f| %>
     	<div class="d-flex">
-    	  <%= f.text_field :comment, placeholder: "コメントをする", class: "form-control mr-3" %>
+    	  <%= f.text_field :comment, placeholder: "コメントをする", class: "form-control mr-3", id: "post_comment_form" %>
     		<%= f.submit "送信する", class: "btn btn-primary rounded-pill" %>
     	</div>
     	<% end %>
     </div>
-
-    <div class="row flex-lg-column">
-      <div class="card my-3 border-0 col-lg-6">
-      <% @post.post_comments.each do |comment| %>
-        <div class="p-2">
-          <h5 class="m-0"><%= current_user.name %></h5>
-          <p class="card-text m-0"><%= comment.comment %></p>
-          <div class="mt-1 d-flex justify-content-between">
-            <span class="my-auto text-muted"><%= comment.created_at.strftime('%Y年%m月%d日') %></span>
-            <% if comment.user == current_user %>
-              <%= link_to "削除", post_post_comment_path(comment.post, comment), class: "btn btn-danger btn-sm", method: :delete %>
-            <% end %>
-          </div>
-        </div>
-      <% end %>
-      </div>
+    <div id="post_comments">
+      <%= render "public/post_comments/comments", comments: @comments %>
     </div>
   </div>
 

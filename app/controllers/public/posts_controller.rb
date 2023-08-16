@@ -45,6 +45,7 @@ class Public::PostsController < ApplicationController
     @user_posts = @post.user.posts.where.not(id: @post.id).order(created_at: "DESC").limit(6)
     @post_tags = @post.tags.where(is_active: true)
     @post_comment = PostComment.new
+    @comments = @post.post_comments
   end
 
   def edit

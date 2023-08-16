@@ -38,16 +38,16 @@ function cropImage() {
     container.items.add(file)
 
     document.querySelector('#post_post_image').files = container.files
-    document.querySelector('#post_post_image').dispatchEvent(new Event('change', {'bubbles': true}))
+    // document.querySelector('#post_post_image').dispatchEvent(new Event('change', {'bubbles': true}))
   })
 }
 
 //クロッピングして送信
-function cropAndSubmit() {
+function cropAndSubmit(e) {
   cropImage();              // cropImage呼び出し
-  setInterval(function () { // cropImageの処理待ちで0.5秒
+  setTimeout(function () {  // cropImageの処理待ちで0.5秒
     document.form.submit(); // フォームの送信
-  }, 500);
+  }, 250);
 }
 
 //「ファイル選択」内に画像が入った場合、プレビューをする
