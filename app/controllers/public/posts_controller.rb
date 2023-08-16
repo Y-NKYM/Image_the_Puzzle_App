@@ -44,6 +44,7 @@ class Public::PostsController < ApplicationController
     @post = Post.find(params[:id])
     @user_posts = @post.user.posts.where.not(id: @post.id).order(created_at: "DESC").limit(6)
     @post_tags = @post.tags.where(is_active: true)
+    @post_comment = PostComment.new
   end
 
   def edit

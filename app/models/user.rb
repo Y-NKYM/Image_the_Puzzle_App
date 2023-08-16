@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
   has_many :bookmark_posts, -> { order(created_at: :desc) }, through: :bookmarks, source: :post
+  has_many :post_comments, dependent: :destroy
 
   GUEST_USER_EMAIL = "guest@example.com"
 
