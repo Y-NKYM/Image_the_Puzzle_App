@@ -1,2 +1,46 @@
-<h1>Admin::PostComments#edit</h1>
-<p>Find me in app/views/admin/post_comments/edit.html.erb</p>
+<div class="container fit-content">
+  <h4 class="margin-y">管理者側：投稿編集</h4>
+  <%= form_with model: @post_comment, url: admin_post_comment_path do |f| %>
+  <%= render "layouts/form_errors", model: @post_comment %>
+  <div class="margin-y mx-auto">
+    <div class="field">
+
+      <div class="d-flex padding-sm-y">
+        <span class="label-width">コメントID</span>
+        <span><%= @post_comment.id %></span>
+      </div>
+
+      <div class="d-flex padding-sm-y">
+        <span class="label-width">投稿ID</span>
+        <span><%= @post_comment.post_id %></span>
+      </div>
+
+      <div class="d-flex padding-sm-y">
+        <span class="label-width">投稿者</span>
+        <span><%= @post_comment.user.name %></span>
+      </div>
+
+      <div class="d-flex padding-sm-y">
+        <%= f.label :comment, "コメント", class: "label-width"  %>
+        <%= f.text_area :comment, rows: "5", placeholder: "#{@post_comment.comment}", class: "comment-field-width" %>
+      </div>
+
+      <div class="d-flex padding-sm-y">
+        <span class="label-width">ステータス</span>
+        <span>
+          <%= f.radio_button :is_active, true %>
+          <%= f.label :is_active_true, "正常" %>
+        </span>
+        <span class="margin-x">
+          <%= f.radio_button :is_active, false %>
+          <%= f.label :is_active_false, "問題あり" %>
+        </span>
+      </div>
+
+    </div>
+  </div>
+  <div class="text-center">
+    <%= f.submit '変更を保存する' ,class: "btn btn-success" %>
+  </div>
+  <% end %>
+</div>

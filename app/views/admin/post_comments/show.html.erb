@@ -1,2 +1,54 @@
-<h1>Admin::PostComments#show</h1>
-<p>Find me in app/views/admin/post_comments/show.html.erb</p>
+<div class="container">
+  <div class="margin-y">
+    <h2>管理者側：投稿詳細</h2>
+    <div class='margin-y'>
+        <table class="table table-bordered mb-0">
+          <tbody>
+            <tr>
+              <th class="w-25">コメントID</th>
+              <td><%= @post_comment.id %></td>
+            </tr>
+            <tr>
+              <th>投稿ID</th>
+              <td data-href="../posts/<%= @post_comment.post_id %>" class="mouse-link" style="color: #0693e3"><%= @post_comment.post_id %></td>
+            </tr>
+            <tr>
+              <th>コメント</th>
+              <td><%= @post_comment.comment %></td>
+            </tr>
+            <tr>
+              <th>投稿者</th>
+              <td data-href="../users/<%= @post_comment.user.id %>/edit" class="mouse-link" style="color: #0693e3"><%= @post_comment.user.name %></td>
+            </tr>
+            <tr>
+              <th>投稿日</th>
+              <td><%= @post_comment.created_at.strftime("%Y年%m月%d日 %H:%M:%S") %></td>
+            </tr>
+            <tr>
+              <th>ステータス</th>
+              <td>
+                <% if @post_comment.is_active %>
+                  <span class="text-success"><strong>正常<strong></span>
+                <% else %>
+                  <span class="text-danger">問題あり</span>
+                <% end %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="d-flex justify-content-around my-3">
+        <%= link_to "編集", edit_admin_post_comment_path(@post_comment.id), class: "btn btn-success padding-x" %>
+        <%= link_to "削除", admin_post_comment_path(@post_comment.id), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-danger padding-x" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(function(){
+    $('td[data-href]').on('click', function(){
+      location.href = $(this).data('href');
+    });
+  });
+</script>

@@ -40,9 +40,9 @@ Rails.application.routes.draw do
     devise_scope :admin do
     get "/" => 'sessions#new'
     end
-    resources :users, only:  [:index, :show, :edit, :update, :destroy]
+    resources :users, only:  [:index, :edit, :update, :destroy]
     resources :posts, only:  [:index, :show, :edit, :update, :destroy]
-    resources :post_comments, only:  [:index, :destroy]
+    resources :post_comments, only:  [:index, :show, :edit, :update, :destroy]
     resources :tags, only:  [:index, :edit, :update, :destroy]
     resources :searches, only: [:index]
   end
