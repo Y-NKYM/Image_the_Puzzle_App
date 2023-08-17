@@ -25,6 +25,10 @@
   <div class="mx-auto margin-y">
     <%= render 'admin/tags/admin_tag_form', tags: @tags %>
   </div>
+  <% when 'コメント' %>
+  <div class="mx-auto margin-y">
+    <%= render 'admin/post_comments/admin_post_comment_form', post_comments: @post_comments %>
+  </div>
   <% end %>
 </div>
 

@@ -33,7 +33,11 @@
             <% end %>
           <% end %>
         </p>
-        <p><%= @post.created_at.strftime("%Y年%m月%d日 %H:%M:%S") %></p>
+        <p class="text-muted">
+          <span><i class="fa-solid fa-puzzle-piece"></i><%= @post.post_accesses.count %></span>
+          <span class="mx-2"><i class="fa-solid fa-star"></i><%= @post.bookmarks.count %></span>
+        </p>
+        <p class="text-muted"><%= @post.created_at.strftime("%Y年%m月%d日 %H:%M:%S") %></p>
         <div class="d-flex justify-content-between">
           <% if @post.user == current_user %>
           <div>
@@ -50,6 +54,9 @@
   <div class="mx-md-5">
     <div>
     	<%= form_with model: [@post, @post_comment], local: false do |f| %>
+    	<div id="comments-error">
+    	  <%= render "layouts/form_errors", model: @post_comment %>
+    	</div>
     	<div class="d-flex">
     	  <%= f.text_field :comment, placeholder: "コメントをする", class: "form-control mr-3", id: "post_comment_form" %>
     		<%= f.submit "送信する", class: "btn btn-primary rounded-pill" %>

@@ -8,6 +8,14 @@ ja:
         next: "&rsaquo;"
         truncate: "..."
   activerecord:
+    attributes:
+        user:
+          name: ユーザー名
+        post:
+          title: タイトル
+          post_image: 画像
+        post_comment:
+          comment: コメント
     errors:
       messages:
         record_invalid: 'バリデーションに失敗しました: %{errors}'
