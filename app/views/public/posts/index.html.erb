@@ -51,17 +51,49 @@
           <% end %>
         <% end %>
       </div>
-
-      <%= link_to '新しい', posts_path(tag: params[:tag], search: params[:search], order: 'new')%>
-      <%= link_to '古い', posts_path(tag: params[:tag], search: params[:search], order: 'old')%>
-      <%= link_to 'ブックマーク', posts_path(tag: params[:tag], search: params[:search], order: 'bookmarks')%>
-
-      <div class="margin-y">
+      <div class="">
+        <div class="mx-2 my-3">
+          <%= link_to '新着順', posts_path(tag: params[:tag], search: params[:search], order: 'new'), id: "new", class: "order btn btn-sm btn-light rounded-pill px-3 mr-2 order_button_active" %>
+          <%= link_to '投稿順', posts_path(tag: params[:tag], search: params[:search], order: 'old'), id: "old", class: "order btn btn-sm btn-light rounded-pill px-3 mr-2" %>
+          <%= link_to 'ブックマーク数', posts_path(tag: params[:tag], search: params[:search], order: 'bookmarks'), id: "bookmarks", class: "order btn btn-sm btn-light rounded-pill px-3 mr-2" %>
+          <%= link_to 'プレイ数', posts_path(tag: params[:tag], search: params[:search], order: 'access'), id: "access", class: "order btn btn-sm btn-light rounded-pill px-3 mr-2" %>
+        </div>
         <% unless @posts == nil %>
         <%= render "public/posts/post_item", model: @posts, colsize: "3" %>
         <% end %>
       </div>
-      <%= paginate @posts, window: 1, left: 1, right: 1 %>
+      <div class="margin-y">
+        <%= paginate @posts, window: 1, left: 1, right: 1 %>
+      </div>
     </main>
   </div>
 </div>
+
+<script>
+  $(document).ready(function() {
+    if (window.location.href.indexOf("order=new") > -1) {
+      $('.order_button_active').remove('order_button_active');
+      $('#new').add('order_button_active');
+    } else if (window.location.href.indexOf("order=old") > -1) {
+      $('.order_button_active').remove('order_button_active');
+      $('#old').add('order_button_active');
+    } else if (window.location.href.indexOf("order=bookmarks") > -1) {
+      $('.order_button_active').removeClass('order_button_active');
+      $('#bookmarks').add('order_button_active');
+    } else if (window.location.href.indexOf("order=access") > -1) {
+      $('.order_button_active').removeClass('order_button_active');
+      $('#access').add('order_button_active');
+    }
+  });
+
+
+
+  // var order_button = $('a.order');
+  // var order_button_active = $('.order_button_active')
+  // for (i = 0; i < order_button.length; i++) {
+  // order_button[i].addEventListener("click", function(e) {
+  //   order_button_active.classList.toggle('order_button_active');
+  //   e.classList.toggle('order_button_active');
+  // });
+  // }
+</script>

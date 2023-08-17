@@ -113,7 +113,10 @@ class Public::PostsController < ApplicationController
     when 'old'
       @posts = posts.order(created_at: "ASC").page(params[:page])
     when "bookmarks"
-      @posts = posts.includes(:bookmarked_users).sort_by {|x| x.bookmarked_users.size}.reverse
+      @posts = posts.includes(:bookmarks).sort_by {|x| x.bookmarks.size}.reverse
+      @posts = Kaminari.paginate_array(@posts).page(params[:page])
+    when "access"
+      @posts = posts.includes(:post_accesses).sort_by {|x| x.post_accesses.size}.reverse
       @posts = Kaminari.paginate_array(@posts).page(params[:page])
     else
       @posts = posts.page(params[:page])
