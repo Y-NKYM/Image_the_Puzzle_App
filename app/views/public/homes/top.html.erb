@@ -1,14 +1,64 @@
-<div class="container">
-  <div class="row">
-    <div class="col-10 mx-auto">
-      <div class="margin-y text-center">
-        <h1>ようこそ <strong>Image la Puzzle</strong> へ！</h1>
-      </div>
-      <div class="row w-75 mx-auto">
-      <%= link_to "Log in", new_user_session_path, class: "btn btn-info btn-sm btn-block mb-2" %>
-      <%= link_to "Sign up", new_user_registration_path, class: "btn btn-success btn-sm btn-block mb-2" %>
-      <%= link_to "ゲストログイン（閲覧用）", users_guest_sign_in_path, class: "btn btn-secondary btn-sm btn-block sign_in", method: :post %>
+
+<div class="padding-y ">
+  <div class="container">
+    <div class="row justify-content-center">
+      <main class="col-md-10">
+        <div class="relative-box">
+          <div class="about-image" style="background-image: url(<%= asset_path 'no_image.jpg' %>);"></div>
+          <div class="text-center about-image-text absolute-center-box py-3">
+            <h1>ようこそ <strong>Image la Puzzle</strong> へ！</h1>
+            <p class="margin-y margin-x">
+              このサイトは、投稿した画像からパズルが遊べるコミュニティサイトになります。<br>
+              好きな画像でパズルをプレイしてみませんか？<br>
+              ゲストログインでもパズルはプレイできますので、お気軽にご利用ください。<br>
+            </p>
+            <% unless user_signed_in? %>
+            <div class="fit-content mx-auto">
+              <%= link_to "ゲストでログイン（閲覧用）", users_guest_sign_in_path, class: "btn btn-primary btn-sm btn-block sign_in padding-x", method: :post %>
+            </div>
+            <% end %>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</div>
+
+<div class="text-white" style="background: #4F709C">
+  <div class="margin-y container">
+    <div class="col-10 mx-auto text-center">
+      <div class="my-4">
+        <h2 class="my-4">このサイトについて</h2>
+        <p><strong>ゲストログイン</strong>では他人の画像を使用してのパズルゲームは行えますが、<br>
+          自身の画像を使用して遊ぶ、または画像をブックマークするには会員登録が必要になります。<br>
+          <br>
+          ※自身が著作権を保有している画像のみを投稿することを了承の上、ご使用ください。
+        </p>
       </div>
     </div>
   </div>
 </div>
+
+<div>
+  <div class="margin-y container">
+    <div class="col-10 mx-auto text-center">
+      <div class="my-4">
+        <h2 class="my-4">パズルについて</h2>
+        <p>当サイトのパズルはスライドパズルになります。<br>
+          ３ｘ３から１０ｘ１０まで難易度を自由に決めてプレイすることができます。
+        </p>
+      </div>
+      <div>
+        <i class="fa-solid fa-puzzle-piece h1" style="color: #213555;"></i>
+      </div>
+      <div class="my-4">
+        <h4 class="my-4">どこからパズルをプレイできる？</h4>
+        <p>お好きな画像を選ぶと、「この画像でパズル作成」というボタンがありますので、<br>
+          クリックしていただくことで、パズルをプレイすることが可能です。
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+

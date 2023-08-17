@@ -34,8 +34,8 @@
           <% end %>
         </p>
         <p class="text-muted">
-          <span><i class="fa-solid fa-puzzle-piece"></i><%= @post.post_accesses.count %></span>
-          <span class="mx-2"><i class="fa-solid fa-star"></i><%= @post.bookmarks.count %></span>
+          <span><i class="fa-solid fa-puzzle-piece"></i> <%= @post.post_accesses.count %></span>
+          <span class="mx-2"><i class="fa-solid fa-star"></i> <%= @post.bookmarks.count %></span>
         </p>
         <p class="text-muted"><%= @post.created_at.strftime("%Y年%m月%d日 %H:%M:%S") %></p>
         <div class="d-flex justify-content-between">

@@ -1,11 +1,11 @@
 <header>
   <nav class="p-0 navbar navbar-expand-lg navbar-dark" style="background: #213555">
     <div class="nav-layout container-fluid px-3">
-      <%= link_to about_path, class: "navbar-brand" do %>
+      <%= link_to root_path, class: "navbar-brand" do %>
         <span>Image la Puzzle</span>
       <% end %>
       <% if user_signed_in? %>
-        <p class="m-0">ようこそ <%= current_user.name %> さん</p>
+        <p class="m-0 text-white">ようこそ <%= current_user.name %> さん</p>
       <% end %>
       <button class="navbar-toggler" type="button" data-toggle="collapse"
         data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
@@ -18,7 +18,7 @@
           <!--ゲストログイン後ナビバー-->
             <% if current_user.email == 'guest@example.com' %>
             <li class="nav-item">
-              <%= link_to "About", about_path, class: 'nav-link px-3' %>
+              <%= link_to "Home", root_path, class: 'nav-link px-3' %>
             </li>
             <li class="nav-item">
               <%= link_to "画像一覧", posts_path, class: 'nav-link px-3' %>
