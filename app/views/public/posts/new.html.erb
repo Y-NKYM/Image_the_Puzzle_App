@@ -44,7 +44,9 @@ function cropImage() {
 
 //クロッピングして送信
 function cropAndSubmit(e) {
-  cropImage();              // cropImage呼び出し
+  if ($("#post_post_image").val().length > 0){
+    cropImage();              // cropImage呼び出し
+  }
   setTimeout(function () {  // cropImageの処理待ちで0.5秒
     document.form.submit(); // フォームの送信
   }, 250);

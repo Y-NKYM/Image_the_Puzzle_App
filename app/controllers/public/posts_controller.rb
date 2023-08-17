@@ -1,5 +1,6 @@
 class Public::PostsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :ensure_guest_user, only: [:new, :create, :edit, :update, :destroy]
+  before_action :authenticate_user!
   before_action :is_matching_login_user, only: [:edit, :update]
 
   def new
@@ -72,6 +73,9 @@ class Public::PostsController < ApplicationController
 
   def puzzle
     @post = Post.find(params[:post_id])
+    unless PostAccess.where(created_at: Time.zone.now.all_day).find_by(post_id: @post.id, user_id: current_user.id)
+    current_user.post_accesses.create(post_id: @post.id)
+    end
   end
 
   private
@@ -85,6 +89,13 @@ class Public::PostsController < ApplicationController
     user = User.find(@post.user_id)
     unless user.id == current_user.id
       redirect_to posts_path
+    end
+  end
+
+  def ensure_guest_user
+    @user = User.find(current_user.id)
+    if @user.email == "guest@example.com"
+      redirect_to posts_path, notice: "ゲストユーザーは使用できないページです。ログインしてください。"
     end
   end
 end

@@ -1,4 +1,7 @@
 class Public::BookmarksController < ApplicationController
+  before_action :authenticate_user!
+  before_action :ensure_guest_user
+
   def index
     @user = User.find(current_user.id)
     @bookmarks = @user.bookmark_posts.page(params[:page])
@@ -25,6 +28,15 @@ class Public::BookmarksController < ApplicationController
     else
       render :destroy
     end
-
   end
+
+  private
+
+  def ensure_guest_user
+    @user = User.find(current_user.id)
+    if @user.email == "guest@example.com"
+      redirect_to posts_path, notice: "ゲストユーザーは使用できないページです。ログインしてください。"
+    end
+  end
+
 end

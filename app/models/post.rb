@@ -6,6 +6,7 @@ class Post < ApplicationRecord
   has_many :bookmarks, dependent: :destroy
   has_many :bookmark_posts, through: :bookmarks, source: :user
   has_many :post_comments, dependent: :destroy
+  has_many :post_accesses, dependent: :destroy
 
   validates :title, presence: true #, length: {maximum: 30}
   validates :post_image, presence: true
