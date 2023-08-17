@@ -4,7 +4,7 @@ class Post < ApplicationRecord
   has_many :post_tags, dependent: :destroy
   has_many :tags, through: :post_tags
   has_many :bookmarks, dependent: :destroy
-  has_many :bookmark_posts, through: :bookmarks, source: :user
+  has_many :bookmarked_users, through: :bookmarks, source: :user
   has_many :post_comments, dependent: :destroy
   has_many :post_accesses, dependent: :destroy
 

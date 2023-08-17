@@ -52,6 +52,10 @@
         <% end %>
       </div>
 
+      <%= link_to '新しい', posts_path(tag: params[:tag], search: params[:search], order: 'new')%>
+      <%= link_to '古い', posts_path(tag: params[:tag], search: params[:search], order: 'old')%>
+      <%= link_to 'ブックマーク', posts_path(tag: params[:tag], search: params[:search], order: 'bookmarks')%>
+
       <div class="margin-y">
         <% unless @posts == nil %>
         <%= render "public/posts/post_item", model: @posts, colsize: "3" %>

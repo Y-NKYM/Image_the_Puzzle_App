@@ -20,24 +20,29 @@ class Public::PostsController < ApplicationController
   end
 
   def index
+    order = params[:order]
     # 検索なし＝投稿一覧画面
     if params[:search] == nil && params[:tag] == nil
-      @posts = Post.where(is_public: true).order(created_at: "DESC").page(params[:page])
+      @posts = Post.where(is_public: true)
+      @posts = order_posts(@posts, order)
     # 検索記述無し＝投稿タイトル検索画面
     elsif params[:search] == ""
       @posts = nil
     # 投稿タイトル検索画面
     elsif params[:search]
       @search = params[:search]
-      @posts = Post.where("title LIKE ?", "%#{@search}%").order(created_at: "DESC").page(params[:page])
+      @posts = Post.where("title LIKE ?", "%#{@search}%")
+      @posts = order_posts(@posts, order)
     # 検索記述無し＝タグ検索画面
     elsif params[:tag] == ""
-      @posts = Post.where(is_public: true).order(created_at: "DESC").page(params[:page])
+      @posts = Post.where(is_public: true)
+      @posts = order_posts(@posts, order)
       flash[:notice] = "タグが存在しません。"
     # タグ検索画面
     elsif params[:tag]
       @tag = Tag.find_by(name: params[:tag])
-      @posts = @tag.posts.order(created_at: "DESC").page(params[:page])
+      @posts = @tag.posts
+      @posts = order_posts(@posts, order)
     end
   end
 
@@ -96,6 +101,22 @@ class Public::PostsController < ApplicationController
     @user = User.find(current_user.id)
     if @user.email == "guest@example.com"
       redirect_to posts_path, notice: "ゲストユーザーは使用できないページです。ログインしてください。"
+    end
+  end
+
+  def order_posts(posts, order)
+    case order
+    when nil then
+      @posts = posts.order(created_at: "DESC").page(params[:page])
+    when 'new'
+      @posts = posts.order(created_at: "DESC").page(params[:page])
+    when 'old'
+      @posts = posts.order(created_at: "ASC").page(params[:page])
+    when "bookmarks"
+      @posts = posts.includes(:bookmarked_users).sort_by {|x| x.bookmarked_users.size}.reverse
+      @posts = Kaminari.paginate_array(@posts).page(params[:page])
+    else
+      @posts = posts.page(params[:page])
     end
   end
 end
