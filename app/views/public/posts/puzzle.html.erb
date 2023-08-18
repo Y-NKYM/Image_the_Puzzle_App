@@ -1,7 +1,7 @@
 <div class="container">
     <h1 class="margin-y text-center">パズルゲーム</h1>
-  <div class="row justify-content-center">
-    <section class="d-flex flex-column justify-content-between text-center col">
+  <div class="d-lg-flex justify-content-center">
+    <section class="d-flex flex-column justify-content-between text-center">
       <div>
         <%= image_tag @post.post_image, id: "sample-image" ,class: "card-img-top rounded-0 fit-image aspect-square", style: "width: 200px; height:200px; border:solid"%>
         <div>
@@ -26,18 +26,18 @@
           </tbody>
         </table>
       </div>
-
       <div>
         <button id="puzzle_reset" class="btn btn-success w-75 margin-y">RESET</button>
       </div>
     </section>
+
     <div class="relative-box">
       <div class="mx-5" id="puzzle" style="border:solid;"></div>
       <div id="puzzle-complete" class="absolute-center-box" style="display: none">
         <%= image_tag 'congrats_image.png'%>
       </div>
     </div>
-    <div class="d-flex align-items-end col" style="width:200px">
+    <div class="d-flex align-items-end mx-auto mx-lg-0 mt-4" style="width:200px">
       <table class="table table-bordered mb-0" style="border-width: 2px; border-color:black">
         <tbody>
           <tr>
@@ -144,7 +144,7 @@ function moveBlock(comp) {
   }
 
   // 移動可能な場合、クリックしたブロックを空きスペースに移動させる
-  //moveFlg = true //この記述を入れると、隣り合わせでなくても移動できる。パズル完成時のチェック用チート。
+  moveFlg = true //この記述を入れると、隣り合わせでなくても移動できる。パズル完成時のチェック用チート。
   if (moveFlg) {
     // クリックしたスペースIDと空白スペースIDを入れ替える
     var _moveId = moveId;

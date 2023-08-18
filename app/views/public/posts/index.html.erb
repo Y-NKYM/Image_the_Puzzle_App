@@ -1,10 +1,10 @@
-<div class="margin-y container">
+<div class="container">
   <div class="row">
     <main class="col-md-10 offset-md-1">
       <%= form_with url: posts_path, method: :get do |f| %>
       <div class="d-flex w-75 mx-auto margin-y">
       	<%= f.text_field :search, placeholder: "投稿タイトル", class: "form-control" %>
-        <%= f.submit "検索", class: "btn btn-primary ml-3" %>
+        <%= f.submit "検索", class: "btn btn-primary ms-3" %>
       </div>
       <% end %>
 
@@ -53,10 +53,10 @@
       </div>
       <div class="">
         <div class="mx-2 my-3">
-          <%= link_to '新着順', posts_path(tag: params[:tag], search: params[:search], order: 'new'), id: "new", class: "order btn btn-sm btn-light rounded-pill px-3 mr-2 order_button_active" %>
-          <%= link_to '投稿順', posts_path(tag: params[:tag], search: params[:search], order: 'old'), id: "old", class: "order btn btn-sm btn-light rounded-pill px-3 mr-2" %>
-          <%= link_to 'ブックマーク数', posts_path(tag: params[:tag], search: params[:search], order: 'bookmarks'), id: "bookmarks", class: "order btn btn-sm btn-light rounded-pill px-3 mr-2" %>
-          <%= link_to 'プレイ数', posts_path(tag: params[:tag], search: params[:search], order: 'access'), id: "access", class: "order btn btn-sm btn-light rounded-pill px-3 mr-2" %>
+          <%= link_to '新着順', posts_path(tag: params[:tag], search: params[:search], order: 'new'), id: "new", class: "order btn btn-sm btn-light rounded-pill px-3 me-2 order_button_active" %>
+          <%= link_to '投稿順', posts_path(tag: params[:tag], search: params[:search], order: 'old'), id: "old", class: "order btn btn-sm btn-light rounded-pill px-3 me-2" %>
+          <%= link_to 'ブックマーク数', posts_path(tag: params[:tag], search: params[:search], order: 'bookmarks'), id: "bookmarks", class: "order btn btn-sm btn-light rounded-pill px-3 me-2" %>
+          <%= link_to 'プレイ数', posts_path(tag: params[:tag], search: params[:search], order: 'access'), id: "access", class: "order btn btn-sm btn-light rounded-pill px-3 me-2" %>
         </div>
         <% unless @posts == nil %>
         <%= render "public/posts/post_item", model: @posts, colsize: "3" %>

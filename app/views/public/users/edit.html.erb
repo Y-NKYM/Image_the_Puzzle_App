@@ -1,18 +1,18 @@
 <div class="container fit-content">
 
-  <div class="my-5">
+  <div class="margin-y">
     <h2>編集</h2>
     <%= form_with model: @user, url: users_introduction_path ,method: :patch do |f| %>
       <%= render "layouts/form_errors", model: @user %>
     <div class="margin-y mx-auto">
     <div class="field">
-      <div class="d-flex padding-sm-y mx-auto fit-content">
-          <%= f.label :name, "ユーザー名", class: "label-width"   %>
+      <div class="d-sm-flex padding-sm-y mx-auto fit-content">
+          <%= f.label :name, "ユーザー名", class: "label-width mb-2 mb-sm-0"   %>
           <%= f.text_field :name, placeholder: "", class: "field-width"  %>
       </div>
 
-      <div class="d-flex padding-sm-y mx-auto fit-content">
-        <%= f.label :introduction, "紹介文", class: "label-width"   %>
+      <div class="d-sm-flex padding-sm-y mx-auto fit-content">
+        <%= f.label :introduction, "紹介文", class: "label-width mb-2 mb-sm-0 "   %>
         <%= f.text_field :introduction, class: "field-width"  %>
       </div>
     </div>

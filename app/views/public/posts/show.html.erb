@@ -5,8 +5,8 @@
     <div class='col-md-3' >
       <%= image_tag @post.post_image, class: "fit-image aspect-square w-100" %>
     </div>
-      <div class='col-md-9'>
-        <div class="d-flex align-items-center justify-content-between py-2">
+      <div class='col-md-9 mt-3 mt-lg-0'>
+        <div class="d-flex align-items-center justify-content-between">
           <div class="d-flex align-items-center">
             <h4><%= @post.title %></h4>
             <% if @post.user == current_user %>
@@ -42,7 +42,7 @@
           <% if @post.user == current_user %>
           <div>
             <%= link_to "編集", edit_post_path(@post.id), class: "btn btn-success padding-x" %>
-            <%= link_to "削除", post_path(@post.id), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-danger padding-x margin-x" %>
+            <%= link_to "削除", post_path(@post.id), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-danger padding-x mx-md-3" %>
           </div>
           <% end %>
           <%= link_to "この画像でパズル作成", post_puzzle_path(@post.id), class: "btn btn-primary padding-x" %>
@@ -58,7 +58,7 @@
     	  <%= render "layouts/form_errors", model: @post_comment %>
     	</div>
     	<div class="d-flex">
-    	  <%= f.text_field :comment, placeholder: "コメントをする", class: "form-control mr-3", id: "post_comment_form" %>
+    	  <%= f.text_field :comment, placeholder: "コメントをする", class: "form-control me-3", id: "post_comment_form" %>
     		<%= f.submit "送信する", class: "btn btn-primary rounded-pill" %>
     	</div>
     	<% end %>
@@ -71,8 +71,14 @@
   <!--他の投稿-->
   <div class="d-flex justify-content-between" style="margin-left: 8px; margin-right: 8px;">
     <h4><%= @post.user.name%>の他の投稿</h4>
-    <%= link_to "投稿一覧を見る", user_path(@post.user.id) %>
+    <% if @user_posts.length != 0 %>
+    <%= link_to "投稿一覧を見る＞", user_path(@post.user.id) %>
+    <% end %>
   </div>
+  <% if @user_posts.length != 0 %>
   <%= render "public/posts/post_item", model: @user_posts, colsize: 2 %>
+  <% else %>
+  <p class="text-center margin-sm-y">他の投稿はありません</p>
+  <% end %>
 
 </div>

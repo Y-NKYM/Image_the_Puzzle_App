@@ -2,16 +2,13 @@
   <nav class="p-0 navbar navbar-expand-lg navbar-dark" style="background: #213555">
     <div class="nav-layout container-fluid px-3">
       <%= link_to root_path, class: "navbar-brand" do %>
-        <%= image_tag 'logo_long_white.png', style: "width: 250px"%>
+        <%= image_tag 'logo_long_white.png', style: "width: 230px"%>
       <% end %>
-      <% if user_signed_in? %>
-        <p class="m-0 text-white">ようこそ <%= current_user.name %> さん</p>
-      <% end %>
-      <button class="navbar-toggler" type="button" data-toggle="collapse"
-        data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
-        aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+      data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
       <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup" >
         <div class="navbar-nav">
           <% if admin_signed_in? %>

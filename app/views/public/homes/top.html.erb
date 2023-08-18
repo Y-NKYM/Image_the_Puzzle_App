@@ -62,15 +62,15 @@
 
 <script>
   var windowWidth = $(window).width();
-  const windowSm = 991;
-  if (windowWidth <= windowSm) {
+  var windowResponsive = 991;
+  if (windowWidth <= windowResponsive) {
     document.getElementById('home-logo').src='/assets/logo_black.png';
   } else {
     document.getElementById('home-logo').src='/assets/logo_white.png';
   }
   window.addEventListener('resize', function(){
     windowWidth = $(window).width();
-    if (windowWidth <= windowSm) {
+    if (windowWidth <= windowResponsive) {
       document.getElementById('home-logo').src='/assets/logo_black.png';
     } else {
       document.getElementById('home-logo').src='/assets/logo_white.png';
