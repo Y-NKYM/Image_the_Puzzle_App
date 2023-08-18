@@ -4,13 +4,13 @@
     <h2>ログイン</h2>
       <%= form_with model: @user, url: user_session_path do |f| %>
       <div class="margin-y">
-        <div class="field">
-          <%= f.label :email, "メールアドレス", class: "label-width"  %>
+        <div class="field padding-sm-y">
+          <%= f.label :email, "メールアドレス", class: "label-width mb-2 mb-sm-0"  %>
           <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "example@example.com", class: "field-width"  %>
         </div>
 
-        <div class="field">
-          <%= f.label :password, "パスワード", class: "label-width"  %>
+        <div class="field padding-sm-y">
+          <%= f.label :password, "パスワード", class: "label-width mb-2 mb-sm-0"  %>
           <%= f.password_field :password, autocomplete: "current-password", class: "field-width"  %>
         </div>
       </div>

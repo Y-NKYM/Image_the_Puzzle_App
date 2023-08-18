@@ -6,23 +6,23 @@
       <%= render "public/shared/error_messages", resource: resource %>
     <div class="margin-y mx-auto">
     <div class="field">
-      <div class="d-flex padding-sm-y mx-auto fit-content">
-          <%= f.label :name, "ユーザー名", class: "label-width"   %>
+      <div class="d-sm-flex padding-sm-y mx-auto fit-content">
+          <%= f.label :name, "ユーザー名", class: "label-width mb-2 mb-sm-0"   %>
           <%= f.text_field :name, placeholder: "", class: "field-width"  %>
       </div>
 
-      <div class="d-flex padding-sm-y mx-auto fit-content">
-        <%= f.label :email, "メールアドレス", class: "label-width" %>
+      <div class="d-sm-flex padding-sm-y mx-auto fit-content">
+        <%= f.label :email, "メールアドレス", class: "label-width mb-2 mb-sm-0" %>
         <%= f.email_field :email, autocomplete: "email", placeholder: "example@example.com", class: "field-width" %>
       </div>
 
-      <div class="d-flex padding-sm-y mx-auto fit-content">
-        <%= f.label :password, "パスワード（６文字以上）", class: "label-width"  %>
+      <div class="d-sm-flex padding-sm-y mx-auto fit-content">
+        <%= f.label :password, "パスワード（６文字以上）", class: "label-width mb-2 mb-sm-0"  %>
         <%= f.password_field :password, autocomplete: "new-password", class: "field-width" %>
       </div>
 
-      <div class="d-flex padding-sm-y mx-auto fit-content">
-        <%= f.label :password_confirmation, "パスワード（確認用）", class: "label-width"  %>
+      <div class="d-sm-flex padding-sm-y mx-auto fit-content">
+        <%= f.label :password_confirmation, "パスワード（確認用）", class: "label-width mb-2 mb-sm-0"  %>
         <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "field-width" %>
       </div>
     </div>
