@@ -121,20 +121,27 @@ footer {
 }
 
 .about-image-text {
-  color: white;
-  background-color: rgba( 0, 0, 0, 0.5);
-  width: 100%;
+  margin: 1rem 0;
+  color: black;
+  font-weight: bold;
+  background-color: transparent;
+  position: static;
+  top: auto;
+  left: auto;
+  transform: none;
 }
 
-@media (max-width: 800px) {
+@media (min-width: 992px) {
   .about-image-text {
-    margin: 1rem 0;
-    color: black;
-    background-color: transparent;
-    position: static;
-    top: auto;
-    left: auto;
-    transform: none;
+    margin: 0;
+    color: white;
+    font-weight: none;
+    background-color: rgba( 0, 0, 0, 0.5);
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%)
   }
 }
 
@@ -211,4 +218,73 @@ footer {
 // 並び替えactiveボタン用
 .btn-light.order_button_active {
   background-color: #dae0e5
+}
+
+// Bootstrap CSS override
+// btn-primary
+.btn-primary {
+  background-color: #213555;
+  border-color: #213555;
+}
+
+.btn-primary:hover {
+  background-color: #141f32;
+  border-color: #141f32;
+}
+
+.btn-primary:active {
+  background-color: #0a0f18 !important;
+  border-color: #0a0f18 !important;
+}
+
+.btn-primary:focus {
+  background-color: #213555;
+  border-color: #213555;
+}
+
+.btn-primary:visit {
+  background-color: #213555;
+  border-color: #213555;
+}
+
+// btn-success
+.btn-success {
+  background-color: #3A98B9;
+  border-color: #3A98B9;
+}
+
+.btn-success:hover {
+  background-color: #2d738c;
+  border-color: #2d738c;
+}
+
+.btn-success:active {
+  background-color: #225567 !important;
+  border-color: #225567 !important;
+}
+
+.btn-success:focus {
+  background-color: #2d738c;
+  border-color: #2d738c;
+}
+
+// btn-danger
+.btn-danger {
+  background-color: #d92a3a;
+  border-color: #d92a3a;
+}
+
+.btn-danger:hover {
+  background-color: #bc1928;
+  border-color: #bc1928;
+}
+
+.btn-danger:active {
+  background-color: #941a22 !important;
+  border-color: #941a22 !important;
+}
+
+.btn-danger:focus {
+  background-color: #bc1928;
+  border-color: #bc1928;
 }

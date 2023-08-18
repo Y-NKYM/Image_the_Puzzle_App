@@ -1,18 +1,18 @@
 <div class="padding-y about-image" style="background-image: url(<%= asset_path 'top_image.jpg' %>);">
-  <div class="container">
+  <div class="container d-flex flex-column justify-content-center">
     <div class="row justify-content-center">
       <main class="col-md-10">
         <div class="relative-box">
-          <div class="about-image" style="background-image: url(<%= asset_path 'top_image.jpg' %>);"></div>
+          <div class="about-image d-none d-lg-block" style="background-image: url(<%= asset_path 'top_image.jpg' %>);"></div>
           <div class="text-center about-image-text absolute-center-box py-3">
-            <h1>ようこそ <strong>Image la Puzzle</strong> へ！</h1>
-            <p class="margin-y margin-x">
+            <%= image_tag 'logo_white.png', style: "width: 300px", class: "margin-sm-y", id: "home-logo" %>
+            <p class="margin-sm-y margin-x">
               このサイトは、投稿した画像からパズルが遊べるコミュニティサイトになります。<br>
               好きな画像でパズルをプレイしてみませんか？<br>
               ゲストログインでもパズルはプレイできますので、お気軽にご利用ください。<br>
             </p>
             <% unless user_signed_in? %>
-            <div class="fit-content mx-auto">
+            <div class="fit-content mx-auto my-3">
               <%= link_to "ゲストでログイン（閲覧用）", users_guest_sign_in_path, class: "btn btn-primary btn-sm btn-block sign_in padding-x", method: :post %>
             </div>
             <% end %>
@@ -27,7 +27,7 @@
   <div class="margin-y container">
     <div class="col-10 mx-auto text-center">
       <div class="my-4">
-        <h2 class="my-4">このサイトについて</h2>
+        <h2 class="my-4"><strong><em>Image la Puzzle</em></strong> へようこそ</h2>
         <p><strong>ゲストログイン</strong>では他人の画像を使用してのパズルゲームは行えますが、<br>
           自身の画像を使用して遊ぶ、または画像をブックマークするには会員登録が必要になります。<br>
           <br>
@@ -59,3 +59,21 @@
     </div>
   </div>
 </div>
+
+<script>
+  var windowWidth = $(window).width();
+  const windowSm = 991;
+  if (windowWidth <= windowSm) {
+    document.getElementById('home-logo').src='/assets/logo_black.png';
+  } else {
+    document.getElementById('home-logo').src='/assets/logo_white.png';
+  }
+  window.addEventListener('resize', function(){
+    windowWidth = $(window).width();
+    if (windowWidth <= windowSm) {
+      document.getElementById('home-logo').src='/assets/logo_black.png';
+    } else {
+      document.getElementById('home-logo').src='/assets/logo_white.png';
+    }
+  });
+</script>

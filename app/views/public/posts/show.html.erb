@@ -6,7 +6,7 @@
       <%= image_tag @post.post_image, class: "fit-image aspect-square w-100" %>
     </div>
       <div class='col-md-9'>
-        <div class="d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center justify-content-between py-2">
           <div class="d-flex align-items-center">
             <h4><%= @post.title %></h4>
             <% if @post.user == current_user %>
