@@ -4,13 +4,13 @@
   <%= render "layouts/form_errors", model: @post %>
   <div class="margin-y mx-auto">
     <div class="field">
-      <div class="d-flex padding-sm-y">
-        <span class="label-width">投稿ID</span>
-        <span><%= @post.id %></span>
+      <div class="d-sm-flex padding-sm-y">
+        <span class="label-width mb-2 mb-sm-0">投稿ID</span>
+        <span class="mx-5 mx-sm-0"><%= @post.id %></span>
       </div>
       <%= render "layouts/post_form", f: f %>
-      <div class="d-flex padding-sm-y">
-        <span class="label-width">ステータス</span>
+      <div class="d-sm-flex padding-sm-y">
+        <p class="label-width mb-2 mb-sm-0">ステータス</p>
         <span>
           <%= f.radio_button :is_active, true %>
           <%= f.label :is_active_true, "正常" %>

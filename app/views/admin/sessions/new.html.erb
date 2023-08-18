@@ -3,17 +3,17 @@
     <h2>管理者ログイン</h2>
       <%= form_with model: @admin, url: admin_session_path do |f| %>
         <div class="margin-y">
-          <div class="field">
-            <%= f.label :email, "メールアドレス", class: "field-width" %>
-            <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "example@example.com" %>
+          <div class="field padding-sm-y">
+            <%= f.label :email, "メールアドレス", class: "label-width mb-2 mb-sm-0" %>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "example@example.com", class: "field-width" %>
           </div>
-          <div class="field">
-            <%= f.label :password ,"パスワード", class: "field-width" %>
-            <%= f.password_field :password, autocomplete: "current-password" %>
+          <div class="field padding-sm-y">
+            <%= f.label :password ,"パスワード", class: "label-width mb-2 mb-sm-0" %>
+            <%= f.password_field :password, autocomplete: "current-password", class: "field-width" %>
           </div>
         </div>
         <div class="actions text-center">
-          <%= f.submit "ログイン", class: "btn btn-info btn-primary mb-2 sign_in padding-x" %>
+          <%= f.submit "ログイン", class: "btn btn-primary mb-2 sign_in padding-x" %>
         </div>
       <% end %>
       <%= render "admin/shared/links" %>

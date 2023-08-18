@@ -7,4 +7,7 @@
     <h2>管理者側：ユーザー一覧</h2>
     <%= render 'admin/users/admin_user_form', users: @users %>
   </div>
+  <div class="margin-y">
+    <%= paginate @users, window: 1, left: 1, right: 1 %>
+  </div>
 </div>

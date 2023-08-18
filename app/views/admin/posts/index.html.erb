@@ -7,4 +7,7 @@
     <h2>管理者側：投稿一覧</h2>
     <%= render 'admin/posts/admin_post_form', posts: @posts %>
   </div>
+  <div class="margin-y">
+    <%= paginate @posts, window: 1, left: 1, right: 1 %>
+  </div>
 </div>
