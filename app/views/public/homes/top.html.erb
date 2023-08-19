@@ -13,7 +13,7 @@
             </p>
             <% unless user_signed_in? %>
             <div class="fit-content mx-auto my-3">
-              <%= link_to "ゲストでログイン（閲覧用）", users_guest_sign_in_path, class: "btn btn-primary btn-sm btn-block sign_in padding-x", method: :post %>
+              <%= link_to "ゲストでログイン（閲覧用）", users_guest_sign_in_path, class: "btn btn-primary btn-block sign_in padding-x", method: :post %>
             </div>
             <% end %>
           </div>
