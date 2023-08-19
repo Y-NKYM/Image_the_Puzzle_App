@@ -31,12 +31,13 @@
       </div>
     </section>
 
-    <div class="relative-box">
-      <div class="mx-5" id="puzzle" style="border:solid;"></div>
+    <div class="mx-lg-5">
+      <div class="relative-box" id="puzzle"></div>
       <div id="puzzle-complete" class="absolute-center-box" style="display: none">
         <%= image_tag 'congrats_image.png'%>
       </div>
     </div>
+
     <div class="d-flex align-items-end mx-auto mx-lg-0 mt-4" style="width:200px">
       <table class="table table-bordered mb-0" style="border-width: 2px; border-color:black">
         <tbody>
@@ -54,6 +55,27 @@
 <p class="text-center my-3">パズルについて：画像の最右下が空欄となります。</p>
 
 <script>
+// レスポンシブ対応
+function resizePuzzle(){
+  BrowserSize = document.body.clientWidth;
+  if (BrowserSize <= 815){
+    for (var cnt1=0; cnt1<H; cnt1++) {
+      for (var cnt2=0; cnt2<W; cnt2++) {
+        if (blankId != cnt1+"_"+cnt2) {
+          var puzzleBlock = document.getElementById("parentBlock");
+          var puzzlePiece = document.getElementById("block"+cnt1+"_"+cnt2);
+          parentSize = BrowserSize*0.75
+          puzzleBlock.style.width = parentSize+4+"px"
+          puzzleBlock.style.height = parentSize+4+"px"
+          puzzlePiece.style.width = parentSize/3+"px"
+          puzzlePiece.style.height = parentSize/3+"px"
+          puzzlePiece.style.top = parentSize/3*cnt1+"px"
+          puzzlePiece.style.left = parentSize/3*cnt2+"px"
+        }
+      }
+    }
+  }
+}
 
 // 操作回数をカウント
 function clickCount() {
@@ -90,6 +112,8 @@ function setOutLine() {
   parentBlock.style.width  = parentWidth+"px";
   parentBlock.style.height = parentHeight+"px";
   parentBlock.style.position = "relative";
+  parentBlock.style.border = "solid "+borderWidth+"px";
+  parentBlock.style.margin = "auto";
 }
 
 /*
@@ -151,8 +175,8 @@ function moveBlock(comp) {
     moveId = blankId;
     blankId = _moveId;
     // ブロックの位置を入れ替える
-    comp.style.top = comp.height*blankId0+"px";
-    comp.style.left  = comp.width*blankId1+"px";
+    comp.style.top = parseFloat(comp.style.height)*blankId0+"px";
+    comp.style.left  = parseFloat(comp.style.width)*blankId1+"px";
     comp.id = "block"+blankId0+"_"+blankId1;
     move_counter += 1;
     clickCount();
@@ -167,7 +191,7 @@ function moveBlock(comp) {
 ブロックを移動させる
 * パラメーター：文字列 画像URL
 */
-function setImage(url) {
+function setImage(url, callback) {
   if (!completed) {
     document.getElementById("puzzle-complete").style.display = "none";
   }
@@ -266,6 +290,7 @@ function setImage(url) {
           var dy = 0;
           var dw = canvas.width;
           var dh = canvas.height;
+          console.log(canvas.width, canvas.height)
 
           // canvas要素を2D用にする（使用メソッドが変化する）
           // 枠線の太さ
@@ -282,19 +307,18 @@ function setImage(url) {
       }
     }
     // 小数の影響による外枠の大きさの微調整
-    $("#parentBlock").css("width", (canvas.width)*W+"px");
-    $("#parentBlock").css("height", (canvas.height)*H+"px");
+    $("#parentBlock").css("width", (canvas.width)*W+(borderWidth*2)+"px");
+    $("#parentBlock").css("height", (canvas.height)*H+(borderWidth*2)+"px");
+    if(callback != null){
+      callback();
+    }
   }
 }
 
-//外枠の幅・高さ(px)をスマホとブラウザで分ける
-if ((navigator.userAgent.indexOf('iPhone') > 0 && navigator.userAgent.indexOf('iPad') == -1) || navigator.userAgent.indexOf('iPod') > 0 || navigator.userAgent.indexOf('Android') > 0) {
-  var parentWidth  = 256;
-  var parentHeight = 256;
-} else {
-  var parentWidth  = 600;
-  var parentHeight = 600;
-}
+//外枠の幅・高さ(px)
+var parentWidth  = 600;
+var parentHeight = 600;
+
 // パズルの枠と入力部品エリアの幅を合わせる（見た目の調整）
 $("#settingBlock").css("width", parentWidth+"px");
 
@@ -307,6 +331,7 @@ var parentBlock;        // 外枠のdiv要素
 var imgObj;             // 画像オブジェクト
 var completed = false;  // パズル完成チェック
 var move_counter = 0;  //操作回数
+var borderWidth = 2;   //borderのpx値
 
 // キャッシュ（ブラウザバック）により、
 // パズルの外枠が存在していた場合削除
@@ -323,7 +348,7 @@ if(moveCount.innerHTML != "0回"){
 // パズルの外枠を設置する
 setOutLine();
 
-setImage($('#sample-image').attr('src'));
+setImage($('#sample-image').attr('src'), resizePuzzle);
 
 // セレクトフォームから初期値の変更をした場合
 $("#range").on("change",function(){
@@ -342,4 +367,6 @@ $("#puzzle_reset").on("click",function(){
   clickCount();
   setImage($('#sample-image').attr('src'));
 });
+
+window.onresize = resizePuzzle;
 </script>

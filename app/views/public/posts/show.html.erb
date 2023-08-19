@@ -76,7 +76,9 @@
     <% end %>
   </div>
   <% if @user_posts.length != 0 %>
-  <%= render "public/posts/post_item", model: @user_posts, colsize: 2 %>
+  <div class="mb-5">
+    <%= render "public/posts/post_item", model: @user_posts, colsize: 2 %>
+  </div>
   <% else %>
   <p class="text-center margin-sm-y">他の投稿はありません</p>
   <% end %>
