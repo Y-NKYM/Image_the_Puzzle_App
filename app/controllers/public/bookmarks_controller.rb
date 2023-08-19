@@ -4,7 +4,7 @@ class Public::BookmarksController < ApplicationController
 
   def index
     @user = User.find(current_user.id)
-    @bookmarks = @user.bookmark_posts.page(params[:page])
+    @bookmarks = @user.bookmark_posts.where(is_active: true).where(is_public: true).order(created_at: "DESC").page(params[:page])
   end
 
   def create

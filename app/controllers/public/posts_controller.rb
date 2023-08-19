@@ -23,7 +23,7 @@ class Public::PostsController < ApplicationController
     order = params[:order]
     # 検索なし＝投稿一覧画面
     if params[:search] == nil && params[:tag] == nil
-      @posts = Post.where(is_public: true)
+      @posts = Post.where(is_active: true).where(is_public: true)
       @posts = order_posts(@posts, order)
     # 検索記述無し＝投稿タイトル検索画面
     elsif params[:search] == ""
@@ -31,27 +31,35 @@ class Public::PostsController < ApplicationController
     # 投稿タイトル検索画面
     elsif params[:search]
       @search = params[:search]
-      @posts = Post.where("title LIKE ?", "%#{@search}%")
+      @posts = Post.where(is_active: true).where(is_public: true).where("title LIKE ?", "%#{@search}%")
       @posts = order_posts(@posts, order)
     # 検索記述無し＝タグ検索画面
     elsif params[:tag] == ""
-      @posts = Post.where(is_public: true)
+      @posts = Post.where(is_active: true).where(is_public: true)
       @posts = order_posts(@posts, order)
       flash[:notice] = "タグが存在しません。"
     # タグ検索画面
     elsif params[:tag]
       @tag = Tag.find_by(name: params[:tag])
-      @posts = @tag.posts
-      @posts = order_posts(@posts, order)
+      unless @tag == nil
+        @posts = @tag.posts
+        @posts = order_posts(@posts, order)
+      else
+        @posts = nil
+      end
     end
   end
 
   def show
     @post = Post.find(params[:id])
-    @user_posts = @post.user.posts.where.not(id: @post.id).order(created_at: "DESC").limit(6)
+    if current_user == @post.user
+      @user_posts = @post.user.posts.where.not(id: @post.id).where(is_active: true).order(created_at: "DESC").limit(6)
+    else
+      @user_posts = @post.user.posts.where.not(id: @post.id).where(is_active: true).where(is_public: true).order(created_at: "DESC").limit(6)
+    end
     @post_tags = @post.tags.where(is_active: true)
     @post_comment = PostComment.new
-    @comments = @post.post_comments
+    @comments = @post.post_comments.where(is_active: true)
   end
 
   def edit

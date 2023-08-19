@@ -2,7 +2,7 @@ class Public::PostCommentsController < ApplicationController
   before_action :authenticate_user!
   def create
     @post = Post.find(params[:post_id])
-    @comments = @post.post_comments
+    @comments = @post.post_comments.where(is_active: true).order(created_at: "DESC").limit(20)
   	@post_comment = PostComment.new(post_comment_params)
   	@post_comment.user_id = current_user.id
   	@post_comment.post_id = @post.id

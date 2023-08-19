@@ -8,16 +8,16 @@ class Public::UsersController < ApplicationController
 
   def mypage
     @user = User.find(current_user.id)
-    @posts = @user.posts.order(created_at: "DESC").limit(4)
-    @bookmarks = @user.bookmark_posts.order(created_at: "DESC").limit(4)
+    @posts = @user.posts.where(is_active: true).order(created_at: "DESC").limit(4)
+    @bookmarks = @user.bookmark_posts.where(is_active: true).where(is_public: true).order(created_at: "DESC").limit(4)
   end
 
   def show
     @user = User.find(params[:id])
     if @user == current_user
-    @posts = @user.posts.order(created_at: "DESC").page(params[:page])
+    @posts = @user.posts.where(is_active: true).order(created_at: "DESC").page(params[:page])
     else
-    @posts = @user.posts.where(is_public: true).order(created_at: "DESC").page(params[:page])
+    @posts = @user.posts.where(is_active: true).where(is_public: true).order(created_at: "DESC").page(params[:page])
     end
   end
 
