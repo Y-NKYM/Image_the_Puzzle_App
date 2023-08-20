@@ -64,16 +64,16 @@
   var windowWidth = $(window).width();
   var windowResponsive = 991;
   if (windowWidth <= windowResponsive) {
-    document.getElementById('home-logo').src='/assets/logo_black.png';
+    document.getElementById('home-logo').src="<%= asset_path 'logo_black.png' %>";
   } else {
-    document.getElementById('home-logo').src='/assets/logo_white.png';
+    document.getElementById('home-logo').src="<%= asset_path 'logo_white.png' %>";
   }
   window.addEventListener('resize', function(){
     windowWidth = $(window).width();
     if (windowWidth <= windowResponsive) {
-      document.getElementById('home-logo').src='/assets/logo_black.png';
+      document.getElementById('home-logo').src="<%= asset_path 'logo_black.png' %>";
     } else {
-      document.getElementById('home-logo').src='/assets/logo_white.png';
+      document.getElementById('home-logo').src="<%= asset_path 'logo_white.png' %>";
     }
   });
 </script>
