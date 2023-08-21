@@ -365,7 +365,7 @@ $("#puzzle_reset").on("click",function(){
   completed = false;
   move_counter = 0;
   clickCount();
-  setImage($('#sample-image').attr('src'));
+  setImage($('#sample-image').attr('src'), resizePuzzle);
 });
 
 window.onresize = resizePuzzle;
