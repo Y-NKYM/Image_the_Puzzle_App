@@ -31,14 +31,14 @@
       </div>
     </section>
 
-    <div class="mx-lg-5">
-      <div class="relative-box" id="puzzle"></div>
-      <div id="puzzle-complete" class="absolute-center-box" style="display: none">
-        <%= image_tag 'congrats_image.png'%>
+    <div class="mx-lg-5 relative-box">
+      <div id="puzzle"></div>
+      <div id="puzzle-complete" class="absolute-center-box my-4 w-100" style="display: block">
+        <%= image_tag 'congrats_image.png', class: "w-100"%>
       </div>
     </div>
 
-    <div class="d-flex align-items-end mx-auto mx-lg-0 mt-4" style="width:200px">
+    <div class="d-flex align-items-end mx-auto mx-lg-0 mt-4 mt-lg-0" style="width:200px">
       <table class="table table-bordered mb-0" style="border-width: 2px; border-color:black">
         <tbody>
           <tr>
@@ -369,4 +369,20 @@ $("#puzzle_reset").on("click",function(){
 });
 
 window.onresize = resizePuzzle;
+
+var windowWidth = $(window).width();
+  var windowResponsive = 991;
+  if (windowWidth <= windowResponsive) {
+    $('#puzzle-complete').removeClass("absolute-center-box");
+  } else {
+    $('#puzzle-complete').addClass("absolute-center-box");
+  }
+  window.addEventListener('resize', function(){
+    windowWidth = $(window).width();
+    if (windowWidth <= windowResponsive) {
+    $('#puzzle-complete').removeClass("absolute-center-box");
+  } else {
+    $('#puzzle-complete').addClass("absolute-center-box");
+  }
+  });
 </script>
