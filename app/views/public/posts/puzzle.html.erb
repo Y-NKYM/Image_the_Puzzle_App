@@ -58,6 +58,7 @@
 // レスポンシブ対応
 function resizePuzzle(){
   BrowserSize = document.body.clientWidth;
+  const range = parseInt($("#range").val());
   if (BrowserSize <= 815){
     for (var cnt1=0; cnt1<H; cnt1++) {
       for (var cnt2=0; cnt2<W; cnt2++) {
@@ -67,10 +68,10 @@ function resizePuzzle(){
           parentSize = BrowserSize*0.75
           puzzleBlock.style.width = parentSize+4+"px"
           puzzleBlock.style.height = parentSize+4+"px"
-          puzzlePiece.style.width = parentSize/3+"px"
-          puzzlePiece.style.height = parentSize/3+"px"
-          puzzlePiece.style.top = parentSize/3*cnt1+"px"
-          puzzlePiece.style.left = parentSize/3*cnt2+"px"
+          puzzlePiece.style.width = parentSize/range+"px"
+          puzzlePiece.style.height = parentSize/range+"px"
+          puzzlePiece.style.top = parentSize/range*cnt1+"px"
+          puzzlePiece.style.left = parentSize/range*cnt2+"px"
         }
       }
     }
@@ -290,7 +291,6 @@ function setImage(url, callback) {
           var dy = 0;
           var dw = canvas.width;
           var dh = canvas.height;
-          console.log(canvas.width, canvas.height)
 
           // canvas要素を2D用にする（使用メソッドが変化する）
           // 枠線の太さ
@@ -357,7 +357,7 @@ $("#range").on("change",function(){
   completed = false;
   move_counter = 0;
   clickCount();
-  setImage(imgObj.src);
+  setImage(imgObj.src, resizePuzzle);
 });
 
 // RESETボタンが押された場合
