@@ -2,9 +2,12 @@
   <%= render 'admin/searches/admin_search_form' %>
 </div>
 
-<div class='container'>
+<div class="container">
   <h2>管理者側：タグ一覧</h2>
   <div class="mx-auto margin-y">
     <%= render 'admin/tags/admin_tag_form', tags: @tags %>
+  </div>
+  <div class="margin-y">
+    <%= paginate @posts, window: 1, left: 1, right: 1 %>
   </div>
 </div>

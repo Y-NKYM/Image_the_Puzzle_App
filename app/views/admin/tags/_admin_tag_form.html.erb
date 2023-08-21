@@ -3,6 +3,7 @@
     <tr>
       <th>#</th>
       <th>タグ名</th>
+      <th class="text-center">ステータス</th>
       <th colspan="2"></th>
     </tr>
   </thead>
@@ -11,6 +12,13 @@
     <tr>
       <td class="align-middle"><%= tag.id %></td>
       <td class="align-middle"><%= tag.name %></td>
+      <td class="text-center">
+        <% if tag.is_active %>
+          <span class="text-success"><strong>正常<strong></span>
+        <% else %>
+          <span class="text-danger">問題あり</span>
+        <% end %>
+      </td>
       <td class="text-center"><%= link_to "編集", edit_admin_tag_path(tag.id), class: "btn btn-success" %></td>
       <td class="text-center"><%= link_to "削除", admin_tag_path(tag.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？" %></td>
     </tr>
