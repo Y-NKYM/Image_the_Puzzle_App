@@ -16,11 +16,11 @@
         <p class="label-width mb-2 mb-sm-0">ステータス</p>
         <span>
           <%= f.radio_button :is_active, true %>
-          <%= f.label :is_active_true, "公開" %>
+          <%= f.label :is_active_true, "正常" %>
         </span>
         <span class="margin-x">
           <%= f.radio_button :is_active, false %>
-          <%= f.label :is_active_false, "非公開" %>
+          <%= f.label :is_active_false, "問題あり" %>
         </span>
       </div>
     </div>
