@@ -15,7 +15,7 @@
             <div class="d-flex align-items-center">
               <h2>"<%= @search %>"での検索一覧</h2>
               <!--投稿がなかった場合-->
-              <% if !@posts.exists? %>
+              <% if @posts == nil %>
                 <span class="mx-2">(ヒットする投稿がありません)</span>
               <% else %>
                 <span class="mx-2">(<%= @posts.count %>件ヒットしました)</span>
