@@ -31,7 +31,7 @@ var filename = ""
 
 //画像をクロッピングして「ファイル選択」フォームに置き換える
 function cropImage() {
-  $('.js-croppie').croppie('result', {type: 'blob'}).then(function(data) {
+  $('.js-croppie').croppie('result', {type: 'blob', size:'original'}).then(function(data) {
     const file = new File([data], filename, {type: "image/png"})
 
     const container = new DataTransfer()
