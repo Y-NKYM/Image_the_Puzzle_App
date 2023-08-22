@@ -63,11 +63,11 @@ function resizePuzzle(){
     for (var cnt1=0; cnt1<H; cnt1++) {
       for (var cnt2=0; cnt2<W; cnt2++) {
         if (blankId != cnt1+"_"+cnt2) {
-          var puzzleBlock = document.getElementById("parentBlock");
+          var parentBlock = document.getElementById("parentBlock");
           var puzzlePiece = document.getElementById("block"+cnt1+"_"+cnt2);
           parentSize = BrowserSize*0.75
-          puzzleBlock.style.width = parentSize+4+"px"
-          puzzleBlock.style.height = parentSize+4+"px"
+          parentBlock.style.width = parentSize+4+"px"
+          parentBlock.style.height = parentSize+4+"px"
           puzzlePiece.style.width = parentSize/range+"px"
           puzzlePiece.style.height = parentSize/range+"px"
           puzzlePiece.style.top = parentSize/range*cnt1+"px"
@@ -89,11 +89,11 @@ function is_complete() {
   var tempComplete = true;
   for (var cnt1=0; cnt1<H; cnt1++) {
     for (var cnt2=0; cnt2<W; cnt2++) {
-      var canvas_element = document.getElementById("block"+cnt1+"_"+cnt2);
-      if (canvas_element == null){
+      var puzzlePiece = document.getElementById("block"+cnt1+"_"+cnt2);
+      if (puzzlePiece == null){
         continue;
       }
-      if (canvas_element.id != ("block"+canvas_element.dataset.imageId)){
+      if (puzzlePiece.id != ("block"+puzzlePiece.dataset.imageId)){
         tempComplete = false;
         break;
       }
@@ -371,18 +371,19 @@ $("#puzzle_reset").on("click",function(){
 window.onresize = resizePuzzle;
 
 var windowWidth = $(window).width();
-  var windowResponsive = 991;
+var windowResponsive = 991;
+if (windowWidth <= windowResponsive) {
+  $('#puzzle-complete').removeClass("absolute-center-box");
+} else {
+  $('#puzzle-complete').addClass("absolute-center-box");
+}
+
+window.addEventListener('resize', function(){
+  windowWidth = $(window).width();
   if (windowWidth <= windowResponsive) {
     $('#puzzle-complete').removeClass("absolute-center-box");
   } else {
     $('#puzzle-complete').addClass("absolute-center-box");
   }
-  window.addEventListener('resize', function(){
-    windowWidth = $(window).width();
-    if (windowWidth <= windowResponsive) {
-    $('#puzzle-complete').removeClass("absolute-center-box");
-  } else {
-    $('#puzzle-complete').addClass("absolute-center-box");
-  }
-  });
+});
 </script>
