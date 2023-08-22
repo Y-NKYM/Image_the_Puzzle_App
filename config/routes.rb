@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-    # 顧客用
+  # 顧客用
   # URL /customers/sign_in ...
   devise_for :users,skip: [:passwords], controllers: {
     registrations: "public/registrations",
@@ -31,9 +31,9 @@ Rails.application.routes.draw do
       get 'puzzle' => 'posts#puzzle'
       resources :post_comments, only:  [:create, :destroy]
     end
-
     resources :searches, only:  [:index]
     resources :tags, only:  [:index]
+    resources :opinion_boxes, only:  [:new, :create]
   end
 
   namespace :admin do
@@ -45,6 +45,7 @@ Rails.application.routes.draw do
     resources :post_comments, only:  [:index, :show, :edit, :update, :destroy]
     resources :tags, only:  [:index, :edit, :update, :destroy]
     resources :searches, only: [:index]
+    resources :opinion_boxes, only: [:index, :edit, :update, :destroy]
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

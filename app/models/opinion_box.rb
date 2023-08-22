@@ -1,0 +1,2 @@
+class OpinionBox < ApplicationRecord
+end
