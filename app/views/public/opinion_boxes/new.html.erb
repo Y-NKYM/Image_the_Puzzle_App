@@ -1,2 +1,27 @@
-<h1>Public::OpinionBoxes#new</h1>
-<p>Find me in app/views/public/opinion_boxes/new.html.erb</p>
+<div class="container fit-content">
+  <div class="my-5">
+    <h2 class="text-center">ご意見箱</h2>
+    <p class="text-center margin-y">
+      こちらご意見投稿フォームとなっております。<br>
+      皆さんの建設的な意見・バグ等を運営に知らせることが可能です。
+    </p>
+    <%= form_with model: @opinion_box, url: opinion_boxes_path do |f| %>
+    <%= render "layouts/form_errors", model: @opinion_box %>
+    <div class="margin-y mx-auto ">
+      <div class="field">
+        <div class="padding-sm-y mx-auto">
+          <h4><%= f.label :title, "タイトル", class: "mb-2 mb-sm-0" %></h4>
+          <%= f.text_field :title, class: "form-control border-secondary"  %>
+        </div>
+        <div class="padding-sm-y">
+          <h4><%= f.label :content, "内容", class: "mb-2 mb-sm-0" %></h4>
+          <%= f.text_area :content, rows: "10", class: "form-control border-secondary"  %>
+        </div>
+      </div>
+    </div>
+    <div class="actions text-center padding-sm-y">
+      <%= f.submit "運営に意見を送る", class: "btn btn-success padding-x", "data-confirm" => "内容を運営に送ります。本当によろしいですか？" %>
+    </div>
+    <% end %>
+  </div>
+</div>

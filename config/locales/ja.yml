@@ -16,6 +16,9 @@ ja:
           post_image: 画像
         post_comment:
           comment: コメント
+        opinion_box:
+          title: タイトル
+          content: 内容
     errors:
       messages:
         record_invalid: 'バリデーションに失敗しました: %{errors}'
