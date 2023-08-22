@@ -10,10 +10,10 @@
       </div>
       <div>
         <%= link_to "詳細", admin_opinion_box_path(opinion.id), class: "btn btn-primary btn-sm px-3 me-3"%>
-        <% if params[:range] == "unread" %>
-          <%= link_to "既読", admin_opinion_box_read_path(opinion.id), class: "btn btn-success btn-sm padding-x", method: :patch, remote: true %>
-        <% elsif params[:range] == "read" %>
+        <% if opinion.is_read == true %>
           <%= link_to "未読に戻す", admin_opinion_box_unread_path(opinion.id), class: "btn btn-success btn-sm padding-x", method: :patch, remote: true %>
+        <% else %>
+          <%= link_to "既読", admin_opinion_box_read_path(opinion.id), class: "btn btn-success btn-sm padding-x", method: :patch, remote: true %>
         <% end %>
       </div>
     </div>

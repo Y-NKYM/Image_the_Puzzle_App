@@ -23,7 +23,7 @@
               <tr data-href="opinion_boxes/<%= opinion.id %>" class="mouse-link">
                 <td><%= opinion.id %></td>
                 <td><%= opinion.user.name.truncate(30) %></td>
-                <td><%= opinion.title.truncate(50) %></td>
+                <td><%= opinion.title.truncate(30) %></td>
                 <td class="text-center">
                   <% if opinion.is_read %>
                     <span>既読済</span>
