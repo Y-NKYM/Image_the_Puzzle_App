@@ -22,19 +22,21 @@
 
       <div class="d-sm-flex padding-sm-y">
         <%= f.label :comment, "コメント", class: "label-width mb-2 mb-sm-0"  %>
-        <%= f.text_area :comment, rows: "5", placeholder: "#{@post_comment.comment}", class: "comment-field-width" %>
+        <%= f.text_area :comment, rows: "5", placeholder: "#{@post_comment.comment}", class: "comment-field-width form-control border-dark rounded-1" %>
       </div>
 
       <div class="d-sm-flex padding-sm-y">
         <p class="label-width mb-2 mb-sm-0">ステータス</p>
-        <span>
-          <%= f.radio_button :is_active, true %>
-          <%= f.label :is_active_true, "正常" %>
-        </span>
-        <span class="margin-x">
-          <%= f.radio_button :is_active, false %>
-          <%= f.label :is_active_false, "問題あり" %>
-        </span>
+        <div>
+          <span>
+            <%= f.radio_button :is_active, true, class: "form-check-input" %>
+            <%= f.label :is_active_true, "正常" %>
+          </span>
+          <span class="margin-x">
+            <%= f.radio_button :is_active, false, class: "form-check-input" %>
+            <%= f.label :is_active_false, "問題あり" %>
+          </span>
+        </div>
       </div>
 
     </div>
