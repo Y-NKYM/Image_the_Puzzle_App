@@ -1,18 +1,22 @@
-<div class="m-3">
-  <h4><%= opinion.title %></h4>
-  <p class="card-text"><%= opinion.content %></p>
-  <div class="mt-1 d-flex justify-content-between align-items-center">
-    <div>
-    <span class="me-3">ユーザー名：<strong><%= opinion.user.name.truncate(30) %></strong></span>
-    <span class="text-muted"><%= opinion.created_at.strftime('%Y年%m月%d日') %></span>
-    </div>
-    <div>
-      <%= link_to "詳細", admin_opinion_box_path(opinion.id), class: "btn btn-primary btn-sm px-3 me-3"%>
-      <% if params[:range] == "unread" %>
-        <%= link_to "既読", admin_opinion_box_read_path(opinion.id), class: "btn btn-success btn-sm padding-x", method: :patch %>
-      <% elsif params[:range] == "read" %>
-        <%= link_to "未読に戻す", admin_opinion_box_unread_path(opinion.id), class: "btn btn-success btn-sm padding-x", method: :patch %>
-      <% end %>
+<% opinion_boxes.each do |opinion| %>
+<div class="card my-3 col">
+  <div class="m-3">
+    <h4><%= opinion.title %></h4>
+    <p class="card-text"><%= opinion.content %></p>
+    <div class="mt-1 d-flex justify-content-between align-items-center">
+      <div>
+      <span class="me-3">ユーザー名：<strong><%= opinion.user.name.truncate(30) %></strong></span>
+      <span class="text-muted"><%= opinion.created_at.strftime('%Y年%m月%d日') %></span>
+      </div>
+      <div>
+        <%= link_to "詳細", admin_opinion_box_path(opinion.id), class: "btn btn-primary btn-sm px-3 me-3"%>
+        <% if params[:range] == "unread" %>
+          <%= link_to "既読", admin_opinion_box_read_path(opinion.id), class: "btn btn-success btn-sm padding-x", method: :patch, remote: true %>
+        <% elsif params[:range] == "read" %>
+          <%= link_to "未読に戻す", admin_opinion_box_unread_path(opinion.id), class: "btn btn-success btn-sm padding-x", method: :patch, remote: true %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
+<% end %>

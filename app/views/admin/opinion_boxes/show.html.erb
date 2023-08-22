@@ -38,9 +38,9 @@
 
     <div class="my-3 text-end">
       <% if @opinion_box.is_read %>
-        <%= link_to "未読に戻す", admin_opinion_box_unread_path(@opinion_box.id), class: "btn btn-success padding-x me-3", method: :patch %>
+        <%= link_to "未読に戻す", admin_opinion_box_path(@opinion_box.id), class: "btn btn-success padding-x me-3", method: :patch %>
       <% else %>
-        <%= link_to "既読", admin_opinion_box_read_path(@opinion_box.id), class: "btn btn-success padding-x me-3", method: :patch %>
+        <%= link_to "既読済", admin_opinion_box_path(@opinion_box.id), class: "btn btn-success padding-x me-3", method: :patch %>
       <% end %>
       <%= link_to "削除", admin_opinion_box_path(@opinion_box.id), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-danger padding-x" %>
     </div>

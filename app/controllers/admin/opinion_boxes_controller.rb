@@ -17,16 +17,28 @@ class Admin::OpinionBoxesController < ApplicationController
     @opinion_box = OpinionBox.find(params[:id])
   end
 
-  def read
-    opinion_box = OpinionBox.find(params[:opinion_box_id])
-    opinion_box.update(is_read: true)
+  def update
+    opinion = OpinionBox.find(params[:id])
+    if opinion.is_read == true
+      opinion.update(is_read: false)
+    else
+      opinion.update(is_read: true)
+    end
     redirect_back(fallback_location: root_path)
   end
 
+  def read
+    @opinion_boxes = OpinionBox.where(is_read: false).page(params[:page])
+    opinion = OpinionBox.find(params[:opinion_box_id])
+    opinion.update(is_read: true)
+    render :read
+  end
+
   def unread
-    opinion_box = OpinionBox.find(params[:opinion_box_id])
-    opinion_box.update(is_read: false)
-    redirect_back(fallback_location: root_path)
+    @opinion_boxes = OpinionBox.where(is_read: true).page(params[:page])
+    opinion = OpinionBox.find(params[:opinion_box_id])
+    opinion.update(is_read: false)
+    render :unread
   end
 
   def destroy

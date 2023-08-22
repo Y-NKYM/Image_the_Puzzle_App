@@ -36,12 +36,8 @@
           </tbody>
         </table>
       <% else %>
-        <div class="row flex-lg-column">
-          <div class="card my-3 col">
-          <% @opinion_boxes.each do |opinion| %>
-            <%= render 'admin/opinion_boxes/admin_opinion_box', opinion: opinion %>
-          <% end %>
-          </div>
+        <div id="opinion_status_button">
+          <%= render 'admin/opinion_boxes/admin_opinion_box', opinion_boxes: @opinion_boxes %>
         </div>
       <% end %>
     <% end %>
