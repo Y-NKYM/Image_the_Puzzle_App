@@ -27,6 +27,9 @@
               <%= link_to "コメント一覧", admin_post_comments_path, class: 'nav-link px-3'  %>
             </li>
             <li class="nav-item">
+              <%= link_to "ご意見箱", admin_opinion_boxes_path(range: "unread"), class: 'nav-link px-3' %>
+            </li>
+            <li class="nav-item">
               <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: 'nav-link px-3'  %>
             </li>
             <% else %>

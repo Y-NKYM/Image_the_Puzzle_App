@@ -45,7 +45,10 @@ Rails.application.routes.draw do
     resources :post_comments, only:  [:index, :show, :edit, :update, :destroy]
     resources :tags, only:  [:index, :edit, :update, :destroy]
     resources :searches, only: [:index]
-    resources :opinion_boxes, only: [:index, :show, :edit, :update, :destroy]
+    resources :opinion_boxes, only: [:index, :show, :destroy] do
+      patch 'read' => 'opinion_boxes#read'
+      patch 'unread' => 'opinion_boxes#unread'
+    end
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

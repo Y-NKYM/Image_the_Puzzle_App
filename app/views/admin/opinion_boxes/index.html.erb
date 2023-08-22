@@ -1,2 +1,76 @@
-<h1>Admin::OpinionBoxes#index</h1>
-<p>Find me in app/views/admin/opinion_boxes/index.html.erb</p>
+<div class="container">
+  <h2 class="margin-y">管理者側：ご意見箱</h2>
+  <div class="mx-auto mx-2">
+    <%= link_to "未読", admin_opinion_boxes_path(range: "unread"), id: "unread", class: "order btn btn-light rounded-pill px-3 me-2 order_button_active"%>
+    <%= link_to "既読済", admin_opinion_boxes_path(range: "read"), id: "read", class: "order btn btn-light rounded-pill px-3 me-2"%>
+    <%= link_to "全て", admin_opinion_boxes_path(range: "all"), id: "all", class: "order btn btn-light rounded-pill px-3 me-2"%>
+  </div>
+
+  <div>
+    <% if @opinion_boxes.exists? %>
+      <% if params[:range] == "all" %>
+        <table class='table table-hover margin-y'>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>投稿者</th>
+              <th>タイトル</th>
+              <th class="text-center">ステータス</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @opinion_boxes.each do |opinion| %>
+              <tr data-href="opinion_boxes/<%= opinion.id %>" class="mouse-link">
+                <td><%= opinion.id %></td>
+                <td><%= opinion.user.name.truncate(30) %></td>
+                <td><%= opinion.title.truncate(50) %></td>
+                <td class="text-center">
+                  <% if opinion.is_read %>
+                    <span>既読済</span>
+                  <% else %>
+                    <span>未読</span>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% else %>
+        <div class="row flex-lg-column">
+          <div class="card my-3 col">
+          <% @opinion_boxes.each do |opinion| %>
+            <%= render 'admin/opinion_boxes/admin_opinion_box', opinion: opinion %>
+          <% end %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <% if @opinion_boxes %>
+  <div class="margin-y">
+    <%= paginate @opinion_boxes, window: 1, left: 1, right: 1 %>
+  </div>
+  <% end %>
+</div>
+
+<script>
+  $(function(){
+    $('tr[data-href]').on('click', function(){
+      location.href = $(this).data('href');
+    });
+    if (window.location.href.indexOf("range=all") > -1) {
+      console.log("all")
+      $('.order_button_active').removeClass('order_button_active');
+      $('#all').addClass('order_button_active');
+    } else if (window.location.href.indexOf("range=unread") > -1) {
+      console.log("unread")
+      $('.order_button_active').removeClass('order_button_active');
+      $('#unread').addClass('order_button_active');
+    } else if (window.location.href.indexOf("range=read") > -1) {
+      console.log("read")
+      $('.order_button_active').removeClass('order_button_active');
+      $('#read').addClass('order_button_active');
+    }
+  });
+</script>

@@ -51,8 +51,9 @@
   </div>
 
   <!--コメントする-->
-  <% unless current_user.email == 'guest@example.com'%>
+
   <div class="mx-md-5">
+    <% unless current_user.email == 'guest@example.com'%>
     <div>
     	<%= form_with model: [@post, @post_comment], local: false do |f| %>
     	<div id="comments-error">
@@ -64,11 +65,12 @@
     	</div>
     	<% end %>
     </div>
+    <% end %>
     <div id="post_comments">
       <%= render "public/post_comments/comments", comments: @comments %>
     </div>
   </div>
-  <% end %>
+
 
   <!--他の投稿-->
   <div class="d-flex justify-content-between" style="margin-left: 8px; margin-right: 8px;">

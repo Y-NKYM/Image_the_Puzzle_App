@@ -13,6 +13,10 @@
               <td><%= @post.id %></td>
             </tr>
             <tr>
+              <th class="w-25">投稿者</th>
+              <td data-href="../users/<%= @post.user.id %>/edit" class="mouse-link" style="color: #0693e3"><%= @post.user.name %></td>
+            </tr>
+            <tr>
               <th>タイトル</th>
               <td><%= @post.title %></td>
             </tr>
@@ -62,3 +66,11 @@
     </div>
   </div>
 </div>
+
+<script>
+  $(function(){
+    $('td[data-href]').on('click', function(){
+      location.href = $(this).data('href');
+    });
+  });
+</script>

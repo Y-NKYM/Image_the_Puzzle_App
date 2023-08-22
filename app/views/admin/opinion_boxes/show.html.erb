@@ -1,0 +1,56 @@
+<div class="container">
+  <div>
+    <h2 class="margin-y">管理者側：意見詳細</h2>
+    <table class="table table-bordered mb-0">
+      <tbody>
+        <tr>
+          <th class="w-25">意見ID</th>
+          <td><%= @opinion_box.id %></td>
+        </tr>
+        <tr>
+          <th>投稿者</th>
+          <td data-href="../users/<%= @opinion_box.user.id %>/edit" class="mouse-link" style="color: #0693e3"><%= @opinion_box.user.name %></td>
+        </tr>
+        <tr>
+          <th>タイトル</th>
+          <td><%= @opinion_box.title %></td>
+        </tr>
+        <tr>
+          <th>内容</th>
+          <td><%= @opinion_box.content %></td>
+        </tr>
+        <tr>
+          <th>投稿日</th>
+          <td><%= @opinion_box.created_at.strftime("%Y年%m月%d日 %H:%M:%S") %></td>
+        </tr>
+        <tr>
+          <th>ステータス</th>
+          <td>
+            <% if @opinion_box.is_read %>
+              <span>既読済</span>
+            <% else %>
+              <span>未読</span>
+            <% end %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="my-3 text-end">
+      <% if @opinion_box.is_read %>
+        <%= link_to "未読に戻す", admin_opinion_box_unread_path(@opinion_box.id), class: "btn btn-success padding-x me-3", method: :patch %>
+      <% else %>
+        <%= link_to "既読", admin_opinion_box_read_path(@opinion_box.id), class: "btn btn-success padding-x me-3", method: :patch %>
+      <% end %>
+      <%= link_to "削除", admin_opinion_box_path(@opinion_box.id), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-danger padding-x" %>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(function(){
+    $('td[data-href]').on('click', function(){
+      location.href = $(this).data('href');
+    });
+  });
+</script>
