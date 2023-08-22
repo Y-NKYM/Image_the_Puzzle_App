@@ -1,19 +1,19 @@
   <div class="d-sm-flex padding-sm-y align-items-center">
       <%= f.label :title, "タイトル", class: "label-width mb-2 mb-sm-0"  %>
-      <%= f.text_field :title, placeholder: "", class: " form-control border-dark rounded-1", style: "width: 320px" %>
+      <%= f.text_field :title, placeholder: "", class: " form-control border-secondary rounded-1", style: "width: 320px" %>
   </div>
 
   <div class="d-sm-flex padding-sm-y justify-content-between align-items-baseline">
       <%= f.label :content, "キャプション", class: "label-width mb-2 mb-sm-0"  %>
-      <%= f.text_area :content, placeholder: "", rows: "5", class: "form-control border-dark rounded-1", style: "width: 320px" %>
+      <%= f.text_area :content, placeholder: "", rows: "5", class: "form-control border-secondary rounded-1", style: "width: 320px" %>
   </div>
 
   <div class="d-sm-flex padding-sm-y align-items-center">
       <%= f.label :tag_name, "タグ", class: "label-width mb-2 mb-sm-0"  %>
       <% if current_page?(new_post_path) %>
-      <%= f.text_field :tag_name, placeholder: "例：写真　花", class: "form-control border-dark rounded-1", style: "width: 320px" %>
+      <%= f.text_field :tag_name, placeholder: "例：写真　花", class: "form-control border-secondary rounded-1", style: "width: 320px" %>
       <% else %>
-      <%= f.text_field :tag_name, placeholder: "#{@tag_list}", value: @tag_list, class: " form-control border-dark rounded-1", style: "width: 320px" %>
+      <%= f.text_field :tag_name, placeholder: "#{@tag_list}", value: @tag_list, class: " form-control border-secondary rounded-1", style: "width: 320px" %>
       <% end %>
   </div>
 

@@ -3,7 +3,7 @@
     <main class="col-md-10 offset-md-1">
       <%= form_with url: tags_path, method: :get do |f| %>
       <div class="d-flex w-75 mx-auto margin-y">
-      	<%= f.text_field :tag_search, placeholder: "タグ内に含まれる単語を入力してください", class: "form-control border-dark quicksearch" %>
+      	<%= f.text_field :tag_search, placeholder: "タグ内に含まれる単語を入力してください", class: "form-control border-secondary quicksearch" %>
       </div>
       <% end %>
 
@@ -12,7 +12,7 @@
         <% @tags.each do |tag| %>
         <div class="element-item <%= tag.name %>" data-category="<%= tag.name %>">
           <%= link_to posts_path(tag: tag.name), class: "text-decoration-none" do %>
-          <div class="border border-dark rounded m-2 tag-bg">
+          <div class="border border-secondary rounded m-2 tag-bg">
             <p class="m-2 tag_fontsize_lg px-1">#<%= tag.name %></p>
           </div>
           <% end %>

@@ -8,22 +8,22 @@
     <div class="field">
       <div class="d-sm-flex padding-sm-y mx-auto align-items-center">
           <%= f.label :name, "ユーザー名", class: "label-width mb-2 mb-sm-0"   %>
-          <%= f.text_field :name, autofocus: true, placeholder: "username", class: "field-width form-control border-dark rounded-1"  %>
+          <%= f.text_field :name, autofocus: true, placeholder: "username", class: "field-width form-control border-secondary rounded-1"  %>
       </div>
 
       <div class="d-sm-flex padding-sm-y mx-auto align-items-center">
         <%= f.label :email, "メールアドレス", class: "label-width mb-2 mb-sm-0" %>
-        <%= f.email_field :email, autocomplete: "email", placeholder: "example@example.com", class: "field-width form-control border-dark rounded-1" %>
+        <%= f.email_field :email, autocomplete: "email", placeholder: "example@example.com", class: "field-width form-control border-secondary rounded-1" %>
       </div>
 
       <div class="d-sm-flex padding-sm-y mx-auto align-items-center">
         <%= f.label :password, "パスワード（６文字以上）", class: "label-width mb-2 mb-sm-0"  %>
-        <%= f.password_field :password, autocomplete: "new-password", class: "field-width form-control border-dark rounded-1" %>
+        <%= f.password_field :password, autocomplete: "new-password", class: "field-width form-control border-secondary rounded-1" %>
       </div>
 
       <div class="d-sm-flex padding-sm-y mx-auto align-items-center">
         <%= f.label :password_confirmation, "パスワード（確認用）", class: "label-width mb-2 mb-sm-0"  %>
-        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "field-width form-control border-dark rounded-1" %>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "field-width form-control border-secondary rounded-1" %>
       </div>
     </div>
     </div>
