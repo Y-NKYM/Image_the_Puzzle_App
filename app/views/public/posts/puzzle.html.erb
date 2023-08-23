@@ -178,7 +178,6 @@ function moveBlock(comp) {
     // ブロックの位置を入れ替える
     comp.style.top = parseFloat(comp.style.height)*blankId0+"px";
     comp.style.left  = parseFloat(comp.style.width)*blankId1+"px";
-    console.log(comp.style.height, comp.style.width, comp.style.top, comp.style.left)
     comp.id = "block"+blankId0+"_"+blankId1;
     move_counter += 1;
     clickCount();

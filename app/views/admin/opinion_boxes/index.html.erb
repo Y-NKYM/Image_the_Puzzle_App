@@ -56,15 +56,12 @@
       location.href = $(this).data('href');
     });
     if (window.location.href.indexOf("range=all") > -1) {
-      console.log("all")
       $('.order_button_active').removeClass('order_button_active');
       $('#all').addClass('order_button_active');
     } else if (window.location.href.indexOf("range=unread") > -1) {
-      console.log("unread")
       $('.order_button_active').removeClass('order_button_active');
       $('#unread').addClass('order_button_active');
     } else if (window.location.href.indexOf("range=read") > -1) {
-      console.log("read")
       $('.order_button_active').removeClass('order_button_active');
       $('#read').addClass('order_button_active');
     }

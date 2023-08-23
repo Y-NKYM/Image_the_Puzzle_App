@@ -74,19 +74,15 @@
 <script>
   $(document).ready(function() {
     if (window.location.href.indexOf("order=new") > -1) {
-      console.log("new")
       $('.order_button_active').removeClass('order_button_active');
       $('#new').addClass('order_button_active');
     } else if (window.location.href.indexOf("order=old") > -1) {
-      console.log("old")
       $('.order_button_active').removeClass('order_button_active');
       $('#old').addClass('order_button_active');
     } else if (window.location.href.indexOf("order=bookmarks") > -1) {
-      console.log("book")
       $('.order_button_active').removeClass('order_button_active');
       $('#bookmarks').addClass('order_button_active');
     } else if (window.location.href.indexOf("order=access") > -1) {
-      console.log("access")
       $('.order_button_active').removeClass('order_button_active');
       $('#access').addClass('order_button_active');
     }
