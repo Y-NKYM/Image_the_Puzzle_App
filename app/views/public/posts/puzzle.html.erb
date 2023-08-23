@@ -60,18 +60,18 @@ function resizePuzzle(){
   BrowserSize = document.body.clientWidth;
   const range = parseInt($("#range").val());
   if (BrowserSize <= 815){
+    var parentSize = BrowserSize*0.75;
+    var parentBlock = document.getElementById("parentBlock");
+    parentBlock.style.width = Math.floor(parentSize/range)*range+4+"px"
+    parentBlock.style.height = Math.floor(parentSize/range)*range+4+"px"
     for (var cnt1=0; cnt1<H; cnt1++) {
       for (var cnt2=0; cnt2<W; cnt2++) {
         if (blankId != cnt1+"_"+cnt2) {
-          var parentBlock = document.getElementById("parentBlock");
           var puzzlePiece = document.getElementById("block"+cnt1+"_"+cnt2);
-          parentSize = BrowserSize*0.75
-          parentBlock.style.width = parentSize+4+"px"
-          parentBlock.style.height = parentSize+4+"px"
-          puzzlePiece.style.width = parentSize/range+"px"
-          puzzlePiece.style.height = parentSize/range+"px"
-          puzzlePiece.style.top = parentSize/range*cnt1+"px"
-          puzzlePiece.style.left = parentSize/range*cnt2+"px"
+          puzzlePiece.style.width = Math.floor(parentSize/range)+"px"
+          puzzlePiece.style.height = Math.floor(parentSize/range)+"px"
+          puzzlePiece.style.top = Math.floor(parentSize/range)*cnt1+"px"
+          puzzlePiece.style.left = Math.floor(parentSize/range)*cnt2+"px"
         }
       }
     }
@@ -178,6 +178,7 @@ function moveBlock(comp) {
     // ブロックの位置を入れ替える
     comp.style.top = parseFloat(comp.style.height)*blankId0+"px";
     comp.style.left  = parseFloat(comp.style.width)*blankId1+"px";
+    console.log(comp.style.height, comp.style.width, comp.style.top, comp.style.left)
     comp.id = "block"+blankId0+"_"+blankId1;
     move_counter += 1;
     clickCount();
@@ -266,8 +267,8 @@ function setImage(url, callback) {
 
           // canvas：パズルピースを配置する
           canvas.style.position = "absolute";
-          canvas.style.width  = parentWidth/W+"px";
-          canvas.style.height = parentHeight/H+"px";
+          canvas.style.width  = Math.floor(parentWidth/W)+"px";
+          canvas.style.height = Math.floor(parentHeight/H)+"px";
           canvas.style.top  = canvas.height*cnt1+"px";
           canvas.style.left = canvas.width*cnt2+"px";
 
@@ -344,6 +345,10 @@ var moveCount = document.getElementById('puzzle_move');
 if(moveCount.innerHTML != "0回"){
   moveCount.innerHTML = "0回";
 }
+// 難易度表示を３に戻す
+$(window).on('pageshow', function() {
+  $('#range').val(3);
+});
 
 // パズルの外枠を設置する
 setOutLine();
