@@ -52,10 +52,10 @@
 - https://docs.google.com/spreadsheets/d/1yHi_vixlL8sFp0e_z6jbtlovmg0bVDkI2lXfZtNQgCw/edit#gid=885378170
 
 ### ER図
-<img width="635" alt="ER図" src="https://github.com/Y-NKYM/Image_the_Puzzle_App/assets/121099971/b4607a84-175d-4da4-9bba-59c6aef80712">
+![ER図](https://github.com/Y-NKYM/Image_the_Puzzle_App/assets/121099971/73ce5085-11fe-4203-828f-1a9253948b35)
 
 ### 遷移図
-<img width="461" alt="遷移図" src="https://github.com/Y-NKYM/Image_the_Puzzle_App/assets/121099971/568d47e9-4c39-4877-bdd7-7c7012388ead">
+![遷移図](https://github.com/Y-NKYM/Image_the_Puzzle_App/assets/121099971/df0c288f-5621-45a7-9aae-d327f1f0fd67)
 
 ### テーブル設計書
 - https://docs.google.com/spreadsheets/d/1XGnnqMx0Qmb8rJS70I8eKUINe_4R6TKCNJWIWriNBkk/edit#gid=1022042049
