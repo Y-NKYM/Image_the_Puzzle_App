@@ -333,22 +333,6 @@ var completed = false;  // パズル完成チェック
 var move_counter = 0;  //操作回数
 var borderWidth = 2;   //borderのpx値
 
-// キャッシュ（ブラウザバック）により、
-// パズルの外枠が存在していた場合削除
-var puzzleElem = document.getElementById('puzzle');
-while(puzzleElem.firstChild){
-puzzleElem.removeChild(puzzleElem.firstChild);
-}
-// 操作回数が０でない場合、０に戻す
-var moveCount = document.getElementById('puzzle_move');
-if(moveCount.innerHTML != "0回"){
-  moveCount.innerHTML = "0回";
-}
-// 難易度表示を３に戻す
-$(window).on('pageshow', function() {
-  $('#range').val(3);
-});
-
 // パズルの外枠を設置する
 setOutLine();
 
