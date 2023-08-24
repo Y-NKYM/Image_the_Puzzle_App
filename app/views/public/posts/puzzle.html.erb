@@ -62,8 +62,8 @@ function resizePuzzle(){
   if (BrowserSize <= 815){
     var parentSize = BrowserSize*0.75;
     var parentBlock = document.getElementById("parentBlock");
-    parentBlock.style.width = Math.floor(parentSize/range)*range+4+"px"
-    parentBlock.style.height = Math.floor(parentSize/range)*range+4+"px"
+    parentBlock.style.width = Math.floor(parentSize/range)*range+borderWidth*2+"px"
+    parentBlock.style.height = Math.floor(parentSize/range)*range+borderWidth*2+"px"
     for (var cnt1=0; cnt1<H; cnt1++) {
       for (var cnt2=0; cnt2<W; cnt2++) {
         if (blankId != cnt1+"_"+cnt2) {
@@ -176,8 +176,8 @@ function moveBlock(comp) {
     moveId = blankId;
     blankId = _moveId;
     // ブロックの位置を入れ替える
-    comp.style.top = parseFloat(comp.style.height)*blankId0+"px";
-    comp.style.left  = parseFloat(comp.style.width)*blankId1+"px";
+    comp.style.top = parseInt(comp.style.height)*blankId0+"px";
+    comp.style.left  = parseInt(comp.style.width)*blankId1+"px";
     comp.id = "block"+blankId0+"_"+blankId1;
     move_counter += 1;
     clickCount();
@@ -307,8 +307,8 @@ function setImage(url, callback) {
       }
     }
     // 小数の影響による外枠の大きさの微調整
-    $("#parentBlock").css("width", (canvas.width)*W+(borderWidth*2)+"px");
-    $("#parentBlock").css("height", (canvas.height)*H+(borderWidth*2)+"px");
+    $("#parentBlock").css("width", Math.floor((canvas.width)*W)+borderWidth*2+"px");
+    $("#parentBlock").css("height", Math.floor((canvas.height)*H)+borderWidth*2+"px");
     if(callback != null){
       callback();
     }
