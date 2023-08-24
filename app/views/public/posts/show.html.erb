@@ -35,7 +35,9 @@
         </p>
         <p class="text-muted">
           <span><i class="fa-solid fa-puzzle-piece"></i> <%= @post.post_accesses.count %></span>
-          <span class="mx-2"><i class="fa-solid fa-star"></i> <%= @post.bookmarks.count %></span>
+          <span id="post_item_bookmark_star_<%= @post.id %>">
+            <%= render 'public/posts/post_star_count', post: @post %>
+          </span>
         </p>
         <p class="text-muted"><%= @post.created_at.strftime("%Y年%m月%d日 %H:%M:%S") %></p>
         <div class="d-flex justify-content-between">

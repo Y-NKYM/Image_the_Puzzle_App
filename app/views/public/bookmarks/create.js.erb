@@ -1,1 +1,2 @@
 $('#bookmark_star_<%= @post.id %>').html("<%= j(render "public/bookmarks/bookmark_star", post: @post) %>");
+$('#post_item_bookmark_star_<%= @post.id %>').html("<%= j(render "public/posts/post_star_count", post: @post) %>");
