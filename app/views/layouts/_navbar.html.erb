@@ -11,9 +11,9 @@
     </button>
       <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup" >
         <div class="navbar-nav">
-          <% if admin_signed_in? %>
+          <% if request.fullpath.include? "/admin" %>
           <!--管理者側ログイン後ナビバー-->
-            <% if request.fullpath.include? "/admin" %>
+            <% if admin_signed_in? %>
             <li class="nav-item">
               <%= link_to "会員一覧", admin_users_path, class: 'nav-link px-3'  %>
             </li>
@@ -37,10 +37,7 @@
               <%= link_to "Home", root_path, class: 'nav-link px-3'  %>
             </li>
             <li class="nav-item">
-              <%= link_to "新規登録", new_user_registration_path, class: 'nav-link px-3' %>
-            </li>
-            <li class="nav-item">
-              <%= link_to "ログイン", new_user_session_path, class: 'nav-link px-3' %>
+              <%= link_to "ログイン", new_admin_session_path, class: 'nav-link px-3' %>
             </li>
             <% end %>
           <% elsif user_signed_in? %>
