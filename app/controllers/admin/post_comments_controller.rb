@@ -15,8 +15,11 @@ class Admin::PostCommentsController < ApplicationController
 
   def update
     @post_comment = PostComment.find(params[:id])
-    @post_comment.update(comment_params)
+    if @post_comment.update(comment_params)
     redirect_to admin_post_comment_path(@post_comment.id)
+    else
+      render :edit
+    end
   end
 
   def destroy

@@ -16,6 +16,8 @@ ja:
           post_image: 画像
         post_comment:
           comment: コメント
+        tag:
+          name: タグ名
         opinion_box:
           title: タイトル
           content: 内容

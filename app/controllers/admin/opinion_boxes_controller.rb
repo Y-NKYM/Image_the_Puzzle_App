@@ -1,4 +1,6 @@
 class Admin::OpinionBoxesController < ApplicationController
+  before_action :authenticate_admin!
+  
   def index
     range = params[:range]
     case range

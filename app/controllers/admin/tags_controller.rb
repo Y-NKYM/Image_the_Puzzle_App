@@ -11,8 +11,11 @@ class Admin::TagsController < ApplicationController
 
   def update
     @tag = Tag.find(params[:id])
-    @tag.update(tag_params)
-    redirect_to admin_tags_path
+    if@tag.update(tag_params)
+      redirect_to admin_tags_path
+    else
+      render :edit
+    end
   end
 
   def destroy
