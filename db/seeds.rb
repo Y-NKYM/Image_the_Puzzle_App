@@ -7,6 +7,6 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 Admin.create!(
-   email: 'admin@admin',
-   password: 'testtest'
+   email: ENV['DB_SEED_ID'],
+   password: ENV['DB_SEED_PASSWORD']
 )
